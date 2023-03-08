@@ -1,7 +1,27 @@
+import { Routes, Route } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import { Box } from "@mui/material";
+
 import "./App.css";
+import "./styles/output.css";
+import Layout from "./components/Layout/Layout";
+import Homepage from "./pages/Homepage/Homepage";
+import BlogPage from "./pages/Blog/Blog";
+import MenuPage from "./pages/Menu/Menu";
 
 function App() {
-	return <div className="App">Hello</div>;
+	useTheme();
+	return (
+		<Box className="App">
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route index element={<Homepage />}></Route>
+					<Route path="blog" element={<BlogPage />}></Route>
+					<Route path="menu" element={<MenuPage />}></Route>
+				</Route>
+			</Routes>
+		</Box>
+	);
 }
 
 export default App;
