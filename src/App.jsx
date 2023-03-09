@@ -8,6 +8,7 @@ import Layout from "./components/Layout/Layout";
 import Homepage from "./pages/Homepage/Homepage";
 import BlogPage from "./pages/Blog/Blog";
 import MenuPage from "./pages/Menu/Menu";
+import AboutPage from "./pages/About/AboutPage";
 
 function App() {
 	useTheme();
@@ -18,6 +19,7 @@ function App() {
 					<Route index element={<Homepage />}></Route>
 					<Route path="blog" element={<BlogPage />}></Route>
 					<Route path="menu" element={<MenuPage />}></Route>
+					<Route path="about" element={<AboutPage />}></Route>
 				</Route>
 			</Routes>
 		</Box>

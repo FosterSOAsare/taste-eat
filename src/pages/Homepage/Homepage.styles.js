@@ -1,7 +1,6 @@
 import { flex } from "../../app.styles";
 import titleStyles from "../../components/Title/Title.styles";
 import testimonialStyles from "../../components/Testimonial/Testimonial.style";
-import ReservationBackgroundImage from "../../assets/reservation-background.png";
 
 const homepageStyles = {
 	hero: {
@@ -145,23 +144,6 @@ const homepageStyles = {
 		...flex("center", "center", "column"),
 	},
 
-	homepage__reservation: {
-		width: "100%",
-		height: "600px",
-		...flex("center", "center", "column"),
-		background: `url(${ReservationBackgroundImage})`,
-		backgroundSize: "cover",
-		backgroundRepeat: "no-repeat",
-		backgroundPosition: "center",
-	},
-	homepage__reservation__container: {
-		width: "100%",
-		height: "60%",
-		...flex("center", "center", "column"),
-	},
-	reservation__input: {
-		borderRadius: "0 !important",
-	},
 	...titleStyles,
 	...testimonialStyles,
 };

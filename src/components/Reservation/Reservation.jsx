@@ -1,12 +1,14 @@
 import React from "react";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Button } from "@mui/material";
 import Title from "../Title/Title";
 import styles from "../../app.styles";
+import { useTheme } from "@emotion/react";
 
 const Reservation = () => {
+	const theme = useTheme();
 	return (
-		<Box className="reservation" sx={styles.homepage__reservation}>
-			<Box sx={{ ...styles.homepage__reservation__container, backgroundColor: theme.palette.background3.main }}>
+		<Box className="reservation" sx={styles.reservation}>
+			<Box sx={{ ...styles.reservation__container, backgroundColor: theme.palette.background3.main }}>
 				<Title text="reservation" sx={{ color: theme.palette.white.main }} />
 				<Typography variant="p" sx={{ color: theme.palette.white.main, ...styles.title, marginTop: "5px" }}>
 					Book your table now
