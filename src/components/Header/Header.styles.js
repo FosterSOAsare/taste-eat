@@ -25,6 +25,7 @@ const headerStyles = {
 		color: "white !important",
 		marginRight: "5px",
 		"&:hover": {
+			cursor: "pointer",
 			color: "#E1B168 !important",
 		},
 	},

@@ -4,7 +4,7 @@ import { Box, Container, Button, Typography } from "@mui/material";
 import styles from "../../app.styles";
 import { useTheme } from "@mui/material/styles";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import Links from "./links";
+import Links from "../../data/links";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";

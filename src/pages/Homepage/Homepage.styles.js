@@ -1,10 +1,12 @@
 import { flex } from "../../app.styles";
+import titleStyles from "../../components/Title/Title.styles";
+import testimonialStyles from "../../components/Testimonial/Testimonial.style";
+import ReservationBackgroundImage from "../../assets/reservation-background.png";
 
 const homepageStyles = {
 	hero: {
 		width: "100%",
 		height: "350px",
-		backgroundColor: "red",
 	},
 	hero__container: {
 		height: "100%",
@@ -84,5 +86,96 @@ const homepageStyles = {
 		width: "60%",
 		height: "auto",
 	},
+	testimonials: {
+		width: "100%",
+		color: "white !important",
+		height: "auto",
+		paddingBlock: "70px 40px",
+	},
+	testimonials__container: {
+		width: "100%",
+		height: "auto",
+		gap: "30px",
+		maxWidth: "calc(1124px + 7%)",
+		marginLeft: "auto",
+	},
+	testimonials__slider: {
+		width: "100%",
+		height: "300px",
+		marginTop: "20px",
+	},
+	testimonials__slider__content: {
+		width: "100%",
+		height: "80%",
+		...flex("space-between", "center"),
+		gap: "20px",
+	},
+	testimonials__slider__controls: {
+		width: "100px",
+		height: "30px",
+
+		marginTop: "10px",
+		marginInline: "auto",
+		...flex("center", "center"),
+		gap: "10px",
+	},
+	testimonials__slider__dot: {
+		width: "10px",
+		height: "10px",
+		borderRadius: "50%",
+	},
+	offer__container: {
+		...flex("center", "center", "column"),
+	},
+	offers__images__container: {
+		...flex("space-between", "center"),
+		gap: "20px",
+		marginTop: "20px",
+	},
+	popular__dish: { width: "25%", height: "100%" },
+	popular__dish__top: {
+		...flex("space-between", "center"),
+		paddingBlock: "5px",
+		borderBottom: "1px solid #DCDCDC",
+	},
+	offer__box: {
+		width: "170px",
+		height: "150px",
+		border: "10px solid white",
+		...flex("center", "center", "column"),
+	},
+	homepage__blog: {
+		width: "100%",
+		marginBlock: "100px",
+		height: "auto",
+		...flex("center", "center", "column"),
+	},
+	homepage__blogs__container: {
+		...flex("space-between", "center"),
+		width: "100%",
+		marginTop: "20px",
+		height: "450px",
+		gap: "20px",
+	},
+	homepage__reservation: {
+		width: "100%",
+		height: "600px",
+		background: "red",
+		...flex("center", "center", "column"),
+		background: `url(${ReservationBackgroundImage})`,
+		backgroundSize: "cover",
+		backgroundRepeat: "no-repeat",
+		backgroundPosition: "center",
+	},
+	reservation__container: {
+		width: "50%",
+		height: "60%",
+		...flex("center", "center", "column"),
+	},
+	reservation__input: {
+		borderRadius: "0 !important",
+	},
+	...titleStyles,
+	...testimonialStyles,
 };
 export default homepageStyles;

@@ -1,4 +1,5 @@
 import headerStyles from "./components/Header/Header.styles";
+import footerStyles from "./components/Footer/Footer.styles";
 import homepageStyles from "./pages/Homepage/Homepage.styles";
 
 export function flex(justify, align, direction = "row") {
@@ -26,10 +27,12 @@ const styles = {
 	},
 	title: {
 		fontFamily: "'Cormorant Infant', serif !important",
-		marginBottom: "20px",
+		fontWeight: "bold",
+		display: "block",
 	},
 	...headerStyles,
 	...homepageStyles,
+	...footerStyles,
 };
 
 export default styles;

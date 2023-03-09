@@ -1,13 +1,20 @@
 import React from "react";
 import styles from "../../app.styles";
-import { Box, Typography, Button, Container } from "@mui/material";
-import PageDescription from "../../components/Header/PageDesc";
+import { Box, Typography, Button, Container, Grid, TextField } from "@mui/material";
 import HeroImage from "../../assets/hero-image.png";
 import { useTheme } from "@mui/material/styles";
+
 import Contact from "./Contact";
 import Dishes from "./Dishes";
+import Title from "../../components/Title/Title";
+import Testimonial from "../../components/Testimonial/Testimonial";
+import PopularDish from "./PopularDish";
+import BlogItem from "./BlogItem";
 
-import foodDishes from "./dishesData";
+import foodDishes from "../../data/dishesData";
+import testimonials from "../../data/testimonials";
+import popularDishes from "../../data/popularDishes";
+import homepageBlogs from "../../data/homepageBlog";
 
 import LocationImage from "../../assets/Location.svg";
 import ReserveImage from "../../assets/Reserve.svg";
@@ -15,6 +22,12 @@ import OpenImage from "../../assets/Open.svg";
 import StoryImage from "../../assets/story-image.png";
 import Signature from "../../assets/signature.png";
 import SpecialFoodImage from "../../assets/special-food.png";
+import TestimonialImage from "../../assets/testimonial-image.png";
+import ChickenBurgerImage from "../../assets/chicken-burger.png";
+import ChickenPizzaImage from "../../assets/chicken-pizza.png";
+import HomeDelivery from "../../assets/home-delivery.svg";
+import SpecialMenus from "../../assets/menus.svg";
+import Opened247 from "../../assets/opened.svg";
 
 const Homepage = () => {
 	const theme = useTheme();
@@ -33,12 +46,11 @@ const Homepage = () => {
 							View Menu
 						</Button>
 					</Box>
-					<Box>
-						<img src={HeroImage} alt="" className="w-[400px] h-[420px] mt-[100px] block " />
+					<Box sx={{ width: "auto", height: "400px", marginTop: "auto", marginRight: "50px" }}>
+						<img src={HeroImage} alt="" className="w-[400px] h-[100%] mt-[10px] " />
 					</Box>
 				</Container>
 			</Box>
-
 			<Box className="about" sx={{ ...styles.homepage__about, backgroundColor: theme.palette.background2.main }}>
 				<Container maxWidth="lg" sx={styles.homepage__about__container}>
 					<Box sx={styles.homepage__about__contacts} className="contacts">
@@ -87,13 +99,10 @@ const Homepage = () => {
 					</Box>
 				</Container>
 			</Box>
-
 			<Box className="menu" sx={styles.homepage__menu}>
 				<Container maxWidth="lg" sx={styles.homepage__menu__container}>
 					<Box sx={{ width: "25%" }} className="special__offer">
-						<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px", borderBlock: `2px solid ${theme.palette.secondary.main}`, display: "inline-block" }}>
-							MENU
-						</Typography>
+						<Title text="menu" />
 						<Typography variant="h3" sx={{ ...styles.title, fontSize: "26px" }}>
 							Try Our Special Offers
 						</Typography>
@@ -112,19 +121,156 @@ const Homepage = () => {
 					</Box>
 				</Container>
 			</Box>
-
 			<Box className="testimonials" sx={{ ...styles.testimonials, background: theme.palette.primary.main }}>
-				<Typography variant="h3">TESTIMONIAL</Typography>
-				<Typography variant="h3">What our clients say</Typography>
-				<Typography variant="p">We love to hear from customers, so please leave a comment or say hello in an email.</Typography>
+				<Box sx={styles.testimonials__container}>
+					<Title text="testimonials" />
+					<Typography variant="h3" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "28px", marginBlock: "10px 0" }}>
+						What our clients say
+					</Typography>
+					<Typography variant="p" sx={{ ...styles.desc, marginTop: "0" }} color="desc">
+						We love to hear from customers, so please leave a comment or say hello in an email.
+					</Typography>
 
-				<Box>
-					<Box></Box>
-					<Box></Box>
+					<Box sx={styles.testimonials__slider}>
+						<Box sx={styles.testimonials__slider__content}>
+							{testimonials.map((testimonial, index) => (
+								<Testimonial key={index} {...testimonial} />
+							))}
+						</Box>
+						<Box sx={styles.testimonials__slider__controls}>
+							<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette.white.main }}></Box>
+							<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette.desc.main }}></Box>
+						</Box>
+					</Box>
 				</Box>
 			</Box>
+			<img src={TestimonialImage} alt="" className="w-[100%] h-[300px]" />
+			<Box className="offers" sx={{ marginTop: "100px" }}>
+				<Container maxWidth="lg" sx={{ ...styles.offer__container }}>
+					<Title text="offer" />
+					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
+						Our special Offer dishes
+					</Typography>
+					<Typography variant="p" sx={{ ...styles.desc, width: "40%", fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
+						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
+					</Typography>
 
-			<img src="" alt="" />
+					<Box sx={styles.offers__images__container}>
+						<img src={ChickenBurgerImage} alt="" className="h-[100%] w-[50%]" />
+						<img src={ChickenPizzaImage} alt="" className="h-[100%] w-[50%]" />
+					</Box>
+				</Container>
+			</Box>
+			<Box className="Menu" sx={{ marginBlock: "100px" }}>
+				<Container maxWidth="lg" sx={{ ...styles.offer__container }}>
+					<Title text="menu" />
+					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
+						Popular Dishes
+					</Typography>
+					<Typography variant="p" sx={{ ...styles.desc, width: "40%", fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
+						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
+					</Typography>
+
+					<Box sx={styles.offers__images__container}>
+						{popularDishes.map((dish, index) => (
+							<PopularDish key={index} {...dish} />
+						))}
+					</Box>
+
+					<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "20px" }}>
+						See all dishes
+					</Button>
+				</Container>
+			</Box>
+			<Box sx={{ width: "100%", height: "300px", background: theme.palette.primary.main }}>
+				<Container maxWidth="lg" sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+					<Box sx={{ width: "25%" }}>
+						<Title text="what we offer" sx={{ color: theme.palette.white.main }} />
+						<Typography variant="p" sx={{ ...styles.title, display: "block", color: theme.palette.white.main, fontSize: "20px" }}>
+							Our Great Services
+						</Typography>
+						<Typography variant="p" sx={{ ...styles.desc, display: "block", color: theme.palette.white.main, fontSize: "13px" }}>
+							Lorem Ipsum is that it has a more-or-less normal distribution content making it look like readable English.{" "}
+						</Typography>
+					</Box>
+					<Box sx={{ width: "60%", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px" }}>
+						<Box sx={{ ...styles.offer__box, borderColor: theme.palette.background3.main }}>
+							<img src={Opened247} alt="" className="w-[30px] block mx-[auto]" />
+							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "5px" }}>
+								Opened 24/7
+							</Typography>
+						</Box>
+						<Box sx={{ ...styles.offer__box, borderColor: theme.palette.background3.main }}>
+							<img src={Opened247} alt="" className="w-[30px] block mx-[auto]" />
+							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "5px" }}>
+								Special Menus
+							</Typography>
+						</Box>
+						<Box sx={{ ...styles.offer__box, borderColor: theme.palette.background3.main }}>
+							<img src={Opened247} alt="" className="w-[30px] block mx-[auto]" />
+							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "5px" }}>
+								Home Delivery
+							</Typography>
+						</Box>
+					</Box>
+				</Container>
+			</Box>
+
+			<Box className="blog" sx={styles.homepage__blog}>
+				<Container maxWidth="lg" sx={{ ...styles.offer__container }}>
+					<Title text="blog" />
+					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
+						Be First Who Read News
+					</Typography>
+					<Typography variant="p" sx={{ ...styles.desc, width: "40%", fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
+						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
+					</Typography>
+
+					<Box sx={styles.homepage__blogs__container}>
+						{homepageBlogs.map((blog, index) => (
+							<BlogItem {...blog} key={index} />
+						))}
+					</Box>
+				</Container>
+			</Box>
+
+			<Box className="reservation" sx={styles.homepage__reservation}>
+				<Box sx={{ ...styles.reservation__container, backgroundColor: theme.palette.background3.main }}>
+					<Title text="reservation" sx={{ color: theme.palette.white.main }} />
+					<Typography variant="p" sx={{ color: theme.palette.white.main, ...styles.title, marginTop: "5px" }}>
+						Book your table now
+					</Typography>
+					<Grid container sx={{ width: "80%", height: "auto", marginBlock: "20px" }}>
+						{[{ name: "Name" }, { name: "Email" }].map((e, index) => (
+							<Grid item md={6} sx={{ width: "100%", marginBottom: "20px" }} key={index}>
+								<input
+									type="text"
+									className="w-[95%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
+									aria-label={e.name}
+									placeholder={e.name}
+									name={e.name.toLowerCase()}
+								/>
+							</Grid>
+						))}
+
+						{[{ name: "Person" }, { name: "Timing" }, { name: "Date" }].map((e, index) => (
+							<Grid item md={4} sx={{ width: "100%", marginBottom: "10px" }} key={index}>
+								<input
+									type="text"
+									className="w-[95%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
+									aria-label={e.name}
+									placeholder={e.name}
+									name={e.name.toLowerCase()}
+								/>
+							</Grid>
+						))}
+					</Grid>
+
+					<Button variant="contained" color="white" sx={{ ...styles.button }}>
+						Book a Table
+					</Button>
+				</Box>
+			</Box>
 		</>
 	);
 };

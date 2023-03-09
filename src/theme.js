@@ -19,6 +19,9 @@ const theme = createTheme({
 		white: {
 			main: "#FFFFFF",
 		},
+		footerBg: {
+			main: "#1F242C",
+		},
 	},
 	breakpoints: {
 		values: {

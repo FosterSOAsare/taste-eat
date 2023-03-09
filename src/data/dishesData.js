@@ -1,13 +1,13 @@
-import RawScallops from "../../assets/raw-scallops.png";
-import SpringRoll from "../../assets/spring-roll.png";
-import FrenchOnion from "../../assets/french-onion.png";
-import TomatoBruschetta from "../../assets/tomato-bruschetta.png";
-import GrilledSalmon from "../../assets/grilled-salmon.png";
-import RoastBeef from "../../assets/roast-beef.png";
-import Marrkesh from "../../assets/marrkesh.png";
-import SpicyVegan from "../../assets/spicy-vegan.png";
-import ApplePie from "../../assets/apple-pie.jpg";
-import LemonMeringue from "../../assets/lemon-meringue.png";
+import RawScallops from "../assets/raw-scallops.png";
+import SpringRoll from "../assets/spring-roll.png";
+import FrenchOnion from "../assets/french-onion.png";
+import TomatoBruschetta from "../assets/tomato-bruschetta.png";
+import GrilledSalmon from "../assets/grilled-salmon.png";
+import RoastBeef from "../assets/roast-beef.png";
+import Marrkesh from "../assets/marrkesh.png";
+import SpicyVegan from "../assets/spicy-vegan.png";
+import ApplePie from "../assets/apple-pie.jpg";
+import LemonMeringue from "../assets/lemon-meringue.png";
 
 const foodDishes = [
 	{
