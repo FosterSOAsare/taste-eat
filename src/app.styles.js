@@ -1,6 +1,7 @@
 import headerStyles from "./components/Header/Header.styles";
 import footerStyles from "./components/Footer/Footer.styles";
 import homepageStyles from "./pages/Homepage/Homepage.styles";
+import blogStyles from "./pages/Blog/Blog.style";
 
 export function flex(justify, align, direction = "row") {
 	return {
@@ -32,6 +33,7 @@ const styles = {
 	},
 	...headerStyles,
 	...homepageStyles,
+	...blogStyles,
 	...footerStyles,
 };
 

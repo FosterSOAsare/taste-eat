@@ -1,11 +1,11 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
-import Title from "../../components/Title/Title";
+import { Box, Typography, Grid } from "@mui/material";
+import Title from "../Title/Title";
 import styles from "../../app.styles";
 
 const BlogItem = ({ image, desc, title, date, tag }) => {
 	return (
-		<Box sx={{ width: "50%", height: "100%", border: "1px solid #D5D5D5 " }}>
+		<Grid item md={5.8} sx={{ width: "100%", height: "100%", border: "1px solid #D5D5D5 " }}>
 			<img src={image} alt="" className="w-[100%] h-[60%]" />
 			<Box sx={{ height: "40%", width: "100%", padding: "20px" }}>
 				<Title text={tag} sx={{ marginRight: "20px", fontSize: "10px" }} />
@@ -17,7 +17,7 @@ const BlogItem = ({ image, desc, title, date, tag }) => {
 					{desc}
 				</Typography>
 			</Box>
-		</Box>
+		</Grid>
 	);
 };
 

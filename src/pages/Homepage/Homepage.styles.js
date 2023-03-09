@@ -144,31 +144,18 @@ const homepageStyles = {
 		border: "10px solid white",
 		...flex("center", "center", "column"),
 	},
-	homepage__blog: {
-		width: "100%",
-		marginBlock: "100px",
-		height: "auto",
-		...flex("center", "center", "column"),
-	},
-	homepage__blogs__container: {
-		...flex("space-between", "center"),
-		width: "100%",
-		marginTop: "20px",
-		height: "450px",
-		gap: "20px",
-	},
+
 	homepage__reservation: {
 		width: "100%",
 		height: "600px",
-		background: "red",
 		...flex("center", "center", "column"),
 		background: `url(${ReservationBackgroundImage})`,
 		backgroundSize: "cover",
 		backgroundRepeat: "no-repeat",
 		backgroundPosition: "center",
 	},
-	reservation__container: {
-		width: "50%",
+	homepage__reservation__container: {
+		width: "100%",
 		height: "60%",
 		...flex("center", "center", "column"),
 	},

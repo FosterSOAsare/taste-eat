@@ -4,7 +4,6 @@ const footerStyles = {
 		width: "100%",
 		paddingBlock: "70px 30px",
 		height: "auto",
-		backgroundColor: "red",
 	},
 	footer__socials: { display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "30px" },
 	footer__newsletter: {

@@ -9,12 +9,13 @@ import Dishes from "./Dishes";
 import Title from "../../components/Title/Title";
 import Testimonial from "../../components/Testimonial/Testimonial";
 import PopularDish from "./PopularDish";
-import BlogItem from "./BlogItem";
+import BlogItem from "../../components/BlogItem/BlogItem";
+import Reservation from "../../components/Reservation/Reservation";
 
 import foodDishes from "../../data/dishesData";
 import testimonials from "../../data/testimonials";
 import popularDishes from "../../data/popularDishes";
-import homepageBlogs from "../../data/homepageBlog";
+import blogs from "../../data/blogData";
 
 import LocationImage from "../../assets/Location.svg";
 import ReserveImage from "../../assets/Reserve.svg";
@@ -216,8 +217,8 @@ const Homepage = () => {
 				</Container>
 			</Box>
 
-			<Box className="blog" sx={styles.homepage__blog}>
-				<Container maxWidth="lg" sx={{ ...styles.offer__container }}>
+			<Box className="blog" sx={styles.blog}>
+				<Container maxWidth="lg" sx={{ ...styles.blogs__container }}>
 					<Title text="blog" />
 					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
 						Be First Who Read News
@@ -226,51 +227,18 @@ const Homepage = () => {
 						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
 					</Typography>
 
-					<Box sx={styles.homepage__blogs__container}>
-						{homepageBlogs.map((blog, index) => (
-							<BlogItem {...blog} key={index} />
-						))}
-					</Box>
+					<Grid container sx={{ marginTop: "20px", gap: "30px" }}>
+						{blogs.map((blog, index) => {
+							if (index < 2) {
+								return <BlogItem {...blog} key={index} />;
+							}
+							return "";
+						})}
+					</Grid>
 				</Container>
 			</Box>
 
-			<Box className="reservation" sx={styles.homepage__reservation}>
-				<Box sx={{ ...styles.reservation__container, backgroundColor: theme.palette.background3.main }}>
-					<Title text="reservation" sx={{ color: theme.palette.white.main }} />
-					<Typography variant="p" sx={{ color: theme.palette.white.main, ...styles.title, marginTop: "5px" }}>
-						Book your table now
-					</Typography>
-					<Grid container sx={{ width: "80%", height: "auto", marginBlock: "20px" }}>
-						{[{ name: "Name" }, { name: "Email" }].map((e, index) => (
-							<Grid item md={6} sx={{ width: "100%", marginBottom: "20px" }} key={index}>
-								<input
-									type="text"
-									className="w-[95%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
-									aria-label={e.name}
-									placeholder={e.name}
-									name={e.name.toLowerCase()}
-								/>
-							</Grid>
-						))}
-
-						{[{ name: "Person" }, { name: "Timing" }, { name: "Date" }].map((e, index) => (
-							<Grid item md={4} sx={{ width: "100%", marginBottom: "10px" }} key={index}>
-								<input
-									type="text"
-									className="w-[95%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
-									aria-label={e.name}
-									placeholder={e.name}
-									name={e.name.toLowerCase()}
-								/>
-							</Grid>
-						))}
-					</Grid>
-
-					<Button variant="contained" color="white" sx={{ ...styles.button }}>
-						Book a Table
-					</Button>
-				</Box>
-			</Box>
+			<Reservation />
 		</>
 	);
 };
