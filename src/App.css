@@ -6,3 +6,7 @@
 	box-sizing: border-box;
 	font-family: "Josefin Sans", sans-serif !important;
 }
+
+.bigimage {
+	display: none !important;
+}

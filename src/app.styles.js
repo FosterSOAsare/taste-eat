@@ -3,6 +3,7 @@ import footerStyles from "./components/Footer/Footer.styles";
 import homepageStyles from "./pages/Homepage/Homepage.styles";
 import blogStyles from "./pages/Blog/Blog.style";
 import reservationStyle from "./components/Reservation/Reservation.style";
+import aboutPageStyles from "./pages/About/About.style";
 
 export function flex(justify, align, direction = "row") {
 	return {
@@ -37,6 +38,7 @@ const styles = {
 	...homepageStyles,
 	...blogStyles,
 	...footerStyles,
+	...aboutPageStyles,
 };
 
 export default styles;

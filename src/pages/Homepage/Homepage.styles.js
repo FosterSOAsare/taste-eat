@@ -22,14 +22,7 @@ const homepageStyles = {
 		fontSize: "24px",
 		lineHeight: "28px",
 	},
-	homepage__about: {
-		width: "100%",
-		height: "auto",
-	},
-	homepage__about__container: {
-		height: "100%",
-		paddingBlock: "70px",
-	},
+
 	homepage__about__contacts: {
 		width: "100%",
 		height: "70px",
