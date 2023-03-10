@@ -5,7 +5,7 @@ import ReservationBackgroundImage from "../../assets/reservation-background.png"
 const reservationStyle = {
 	reservation: {
 		width: "100%",
-		height: "600px",
+		height: "800px",
 		...flex("center", "center", "column"),
 		background: `url(${ReservationBackgroundImage})`,
 		backgroundSize: "cover",
@@ -13,8 +13,8 @@ const reservationStyle = {
 		backgroundPosition: "center",
 	},
 	reservation__container: {
-		width: "60%",
-		height: "60%",
+		width: "40%",
+		height: "65%",
 		...flex("center", "center", "column"),
 	},
 	reservation__input: {

@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "../../app.styles";
 import { Box, Typography, Button, Container, Grid, TextField } from "@mui/material";
-import HeroImage from "../../assets/hero-image.png";
 import { useTheme } from "@mui/material/styles";
 
 import Contact from "./Contact";
@@ -17,6 +16,7 @@ import testimonials from "../../data/testimonials";
 import popularDishes from "../../data/popularDishes";
 import blogs from "../../data/blogData";
 
+import HeroImage from "../../assets/hero-image.png";
 import LocationImage from "../../assets/Location.svg";
 import ReserveImage from "../../assets/Reserve.svg";
 import OpenImage from "../../assets/Open.svg";

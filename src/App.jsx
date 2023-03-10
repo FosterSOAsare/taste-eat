@@ -9,6 +9,7 @@ import Homepage from "./pages/Homepage/Homepage";
 import BlogPage from "./pages/Blog/Blog";
 import MenuPage from "./pages/Menu/Menu";
 import AboutPage from "./pages/About/AboutPage";
+import ChefsPage from "./pages/Chefs/Chefs";
 
 function App() {
 	useTheme();
@@ -20,6 +21,7 @@ function App() {
 					<Route path="blog" element={<BlogPage />}></Route>
 					<Route path="menu" element={<MenuPage />}></Route>
 					<Route path="about" element={<AboutPage />}></Route>
+					<Route path="chefs" element={<ChefsPage />}></Route>
 				</Route>
 			</Routes>
 		</Box>
