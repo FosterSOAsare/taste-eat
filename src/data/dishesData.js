@@ -83,6 +83,18 @@ const foodDishes = [
 				description: "Candied Jerusalem artichokes, truffle",
 				image: LemonMeringue,
 			},
+			{
+				name: "Apple Pie with Cream",
+				price: 40,
+				description: "Candied Jerusalem artichokes, truffle",
+				image: ApplePie,
+			},
+			{
+				name: "Lemon Meringue Pie",
+				price: 20,
+				description: "Candied Jerusalem artichokes, truffle",
+				image: LemonMeringue,
+			},
 		],
 	},
 ];

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import styles from "../../app.styles";
-import LineImage from "../../assets/Line.png";
+import styles from "../app.styles";
+import LineImage from "../assets/Line.png";
 
 const Dishes = ({ type, dishes }) => {
 	return (

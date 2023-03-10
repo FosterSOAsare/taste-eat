@@ -10,6 +10,7 @@ import BlogPage from "./pages/Blog/Blog";
 import MenuPage from "./pages/Menu/Menu";
 import AboutPage from "./pages/About/AboutPage";
 import ChefsPage from "./pages/Chefs/Chefs";
+import Chef from "./pages/About/Chef";
 
 function App() {
 	useTheme();
@@ -22,6 +23,7 @@ function App() {
 					<Route path="menu" element={<MenuPage />}></Route>
 					<Route path="about" element={<AboutPage />}></Route>
 					<Route path="chefs" element={<ChefsPage />}></Route>
+					<Route path="chef/:chefId" element={<Chef />}></Route>
 				</Route>
 			</Routes>
 		</Box>

@@ -4,7 +4,7 @@ import { Box, Typography, Button, Container, Grid, TextField } from "@mui/materi
 import { useTheme } from "@mui/material/styles";
 
 import Contact from "./Contact";
-import Dishes from "./Dishes";
+import Dishes from "../../components/Dishes";
 import Title from "../../components/Title/Title";
 import Testimonial from "../../components/Testimonial/Testimonial";
 import PopularDish from "./PopularDish";

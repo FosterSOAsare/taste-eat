@@ -5,6 +5,7 @@ import blogStyles from "./pages/Blog/Blog.style";
 import reservationStyle from "./components/Reservation/Reservation.style";
 import aboutPageStyles from "./pages/About/About.style";
 import chefpageStyles from "./pages/Chefs/Chefs.style";
+import menuPageStyles from "./pages/Menu/Menu.styles";
 
 export function flex(justify, align, direction = "row") {
 	return {
@@ -42,6 +43,7 @@ const styles = {
 	...footerStyles,
 	...aboutPageStyles,
 	...chefpageStyles,
+	...menuPageStyles,
 };
 
 export default styles;
