@@ -13,7 +13,7 @@ const reservationStyle = {
 		backgroundPosition: "center",
 	},
 	reservation__container: {
-		width: "40%",
+		width: "50%",
 		height: "65%",
 		...flex("center", "center", "column"),
 	},

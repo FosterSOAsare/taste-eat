@@ -10,13 +10,14 @@ import BlogPage from "./pages/Blog/Blog";
 import MenuPage from "./pages/Menu/Menu";
 import AboutPage from "./pages/About/AboutPage";
 import ChefsPage from "./pages/Chefs/Chefs";
-import Chef from "./pages/About/Chef";
+import Chef from "./pages/Chef/Chef";
 
 function App() {
 	useTheme();
 	return (
 		<Box className="App">
 			<Routes>
+				/blog
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Homepage />}></Route>
 					<Route path="blog" element={<BlogPage />}></Route>
