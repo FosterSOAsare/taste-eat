@@ -18,7 +18,7 @@ const Feature = ({ img, title, desc, link, order }) => {
 					View Menu
 				</Button>
 			</Box>
-			<Box sx={{ width: "50%", height: "100%", backgroundColor: "green", order }}>
+			<Box sx={{ width: "50%", height: "100%", order }}>
 				<img src={img} alt="" className="w-full h-full" />
 			</Box>
 		</Box>

@@ -51,7 +51,7 @@ const homepageStyles = {
 		...flex("space-between", "center"),
 	},
 	homepage__story__text: {
-		width: "calc(50% - 3px)",
+		width: "55%",
 		height: "auto",
 	},
 	homepage__story__title: {

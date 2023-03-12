@@ -1,15 +1,17 @@
 import React from "react";
-import Logo from "../../assets/Logo.svg";
 import { Box, Container, Button, Typography } from "@mui/material";
-import styles from "../../app.styles";
 import { useTheme } from "@mui/material/styles";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+
+import styles from "../../app.styles";
 import Links from "../../data/links";
+
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
-import { flex } from "../../app.styles";
+
+import Logo from "../../assets/Logo.svg";
 
 const Header = () => {
 	const theme = useTheme();
@@ -40,10 +42,10 @@ const Header = () => {
 					</nav>
 
 					<Box>
-						<InstagramIcon sx={styles.menu__icon} />
-						<FacebookOutlinedIcon sx={styles.menu__icon} />
-						<TwitterIcon sx={styles.menu__icon} />
-						<PinterestIcon sx={styles.menu__icon} />
+						<InstagramIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
+						<FacebookOutlinedIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
+						<TwitterIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
+						<PinterestIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
 					</Box>
 				</Container>
 			</Box>

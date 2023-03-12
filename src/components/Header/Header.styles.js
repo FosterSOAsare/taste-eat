@@ -22,7 +22,6 @@ const headerStyles = {
 		height: "100%",
 	},
 	menu__icon: {
-		color: "white !important",
 		marginRight: "5px",
 		"&:hover": {
 			cursor: "pointer",

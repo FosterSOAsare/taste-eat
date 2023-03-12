@@ -1,7 +1,6 @@
 import { flex } from "../../app.styles";
 const testimonialStyles = {
 	testimonial: {
-		backgroundColor: "green",
 		height: "100%",
 		width: "33%",
 		padding: "30px",
