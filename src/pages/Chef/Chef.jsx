@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import styles from "../../app.styles";
+import { useNavigate } from "react-router-dom";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
+
+import styles from "../../app.styles";
 
 import PageDesc from "../../components/Header/PageDesc";
 
@@ -22,15 +24,20 @@ const Chef = () => {
   const [chefData, setChefData] = useState({});
   const theme = useTheme();
   const { chefId } = useParams();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    setChefData(chefsData[chefId]);
-  }, [chefId]);
-  return (
-    <>
-      <PageDesc content="Chefs Single" />
-
-      <Box sx={{ marginBlock: "70px" }}>
+useEffect(() => {
+		if (chefsData[chefId]) {
+			setChefData(chefsData[chefId]);
+			return;
+		}
+		navigate("/404");
+	}, [chefId]);
+ 
+	return (
+		<>
+			<PageDesc content="Chefs Single" />
+       <Box sx={{ marginBlock: "70px" }}>
         <Container maxWidth="lg">
           <Box
             sx={{
@@ -47,6 +54,8 @@ const Chef = () => {
               alt=""
               className="w-[calc(50% - 30px)] h-[300px]"
             />
+            </Box>
+
 
             <Box className="story__text" sx={styles.homepage__story__text}>
               <Typography

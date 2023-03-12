@@ -8,7 +8,7 @@ import chefpageStyles from "./pages/Chefs/Chefs.style";
 import menuPageStyles from "./pages/Menu/Menu.styles";
 import chefPageStyles from "./pages/Chef/Chef.style";
 import SkillIconStyles from "./components/SkillIcon/SkillIcon.style";
-
+import galleriesPageStyles from "./pages/Gallery/Galleries.styles";
 export function flex(justify, align, direction = "row") {
 	return {
 		display: "flex",
@@ -37,6 +37,10 @@ const styles = {
 		fontWeight: "bold",
 		display: "block",
 	},
+	container: {
+		height: "auto",
+		...flex("center", "center", "column"),
+	},
 
 	...headerStyles,
 	...reservationStyle,
@@ -48,6 +52,8 @@ const styles = {
 	...menuPageStyles,
 	...chefPageStyles,
 	...SkillIconStyles,
+	...galleriesPageStyles,
+
 };
 
 export default styles;

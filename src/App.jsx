@@ -11,13 +11,14 @@ import MenuPage from "./pages/Menu/Menu";
 import AboutPage from "./pages/About/AboutPage";
 import ChefsPage from "./pages/Chefs/Chefs";
 import Chef from "./pages/Chef/Chef";
+import GalleryCollection from "./pages/Gallery/GalleryCollection";
+import NotFoundPage from "./pages/NotFound/NotFound";
 
 function App() {
 	useTheme();
 	return (
 		<Box className="App">
 			<Routes>
-				/blog
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Homepage />}></Route>
 					<Route path="blog" element={<BlogPage />}></Route>
@@ -25,6 +26,8 @@ function App() {
 					<Route path="about" element={<AboutPage />}></Route>
 					<Route path="chefs" element={<ChefsPage />}></Route>
 					<Route path="chef/:chefId" element={<Chef />}></Route>
+					<Route path="gallery" element={<GalleryCollection />}></Route>
+					<Route path="*" element={<NotFoundPage />}></Route>
 				</Route>
 			</Routes>
 		</Box>

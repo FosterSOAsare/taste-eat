@@ -43,7 +43,7 @@ const Homepage = () => {
 						<Typography variant="p" color="desc" sx={{ ...styles.desc, color: theme.palette.white.main }}>
 							Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy .
 						</Typography>
-						<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "20px" }}>
+						<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "20px" }} href="/menu">
 							View Menu
 						</Button>
 					</Box>
@@ -111,7 +111,7 @@ const Homepage = () => {
 							Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making it look like readable English.{" "}
 						</Typography>
 						<img src={SpecialFoodImage} alt="" className="h-[400px] my-[20px] w-[100%]" />
-						<Button variant="outlined" color="secondary" sx={styles.button}>
+						<Button variant="outlined" color="secondary" sx={styles.button} href="menu">
 							See all dishes
 						</Button>
 					</Box>
@@ -178,7 +178,7 @@ const Homepage = () => {
 						))}
 					</Box>
 
-					<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "20px" }}>
+					<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "20px" }} href="/menu">
 						See all dishes
 					</Button>
 				</Container>

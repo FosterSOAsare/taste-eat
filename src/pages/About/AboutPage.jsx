@@ -112,6 +112,10 @@ const AboutPage = () => {
 							return;
 						})}
 					</Box>
+
+					<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "30px" }} href="chefs">
+						See More
+					</Button>
 				</Container>
 			</Box>
 			<Testimonials />
