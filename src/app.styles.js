@@ -37,6 +37,10 @@ const styles = {
 		fontWeight: "bold",
 		display: "block",
 	},
+	container: {
+		height: "auto",
+		...flex("center", "center", "column"),
+	},
 
 	...headerStyles,
 	...reservationStyle,

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
-import styles from "../../app.styles";
+import { useNavigate } from "react-router-dom";
 
+import styles from "../../app.styles";
 import PageDesc from "../../components/Header/PageDesc";
 
 import Reservation from "../../components/Reservation/Reservation";
@@ -18,9 +19,14 @@ const Chef = () => {
 	const [chefData, setChefData] = useState({});
 	const theme = useTheme();
 	const { chefId } = useParams();
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		setChefData(chefsData[chefId]);
+		if (chefsData[chefId]) {
+			setChefData(chefsData[chefId]);
+			return;
+		}
+		navigate("/404");
 	}, [chefId]);
 	return (
 		<>
