@@ -7,6 +7,7 @@ import aboutPageStyles from "./pages/About/About.style";
 import chefpageStyles from "./pages/Chefs/Chefs.style";
 import menuPageStyles from "./pages/Menu/Menu.styles";
 import chefPageStyles from "./pages/Chef/Chef.style";
+import galleriesPageStyles from "./pages/Gallery/Galleries.styles";
 
 export function flex(justify, align, direction = "row") {
 	return {
@@ -46,6 +47,7 @@ const styles = {
 	...chefpageStyles,
 	...menuPageStyles,
 	...chefPageStyles,
+	...galleriesPageStyles,
 };
 
 export default styles;
