@@ -23,7 +23,7 @@ const GalleryCollection = () => {
 			<PageDesc content="Gallery" />
 
 			<Box className="gallery" sx={{ marginBlock: "120px", height: "auto" }}>
-				<Container maxWidth="lg">
+				<Container maxWidth="lg" sx={{ width: "100%", height: "auto", display: "flex", flexDirection: "column" }}>
 					<div container style={{ gap: "20px", justifyContent: "space-between", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr" }}>
 						<img src={GalleryImage1} alt="" style={{ ...styles.gallery__item, gridColumn: "1/3" }}></img>
 						<img src={GalleryImage2} alt="" style={styles.gallery__item}></img>
@@ -33,7 +33,7 @@ const GalleryCollection = () => {
 						<img src={GalleryImage6} alt="" style={{ ...styles.gallery__item, gridColumn: "3/5" }}></img>
 					</div>
 
-					<Button variant="outlined" sx={{ ...styles.button, marginTop: "50px", marginInline: "auto", display: "block" }} color="secondary">
+					<Button variant="outlined" href="/menu" sx={{ ...styles.button, marginTop: "50px", marginInline: "auto", display: "inline-block" }} color="secondary">
 						See all dishes
 					</Button>
 				</Container>

@@ -70,7 +70,7 @@ const homepageStyles = {
 		paddingBlock: "50px",
 	},
 	homepage__menu__container: {
-		height: "900px",
+		height: "auto",
 		...flex("space-between", "flex-start"),
 		gap: "30px",
 	},

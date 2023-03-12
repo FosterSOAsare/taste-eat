@@ -28,7 +28,7 @@ const ChefsPage = () => {
 
 					<Box className="about__teams__container" sx={styles.chefs__teams__container}>
 						{chefsData.map((chef, index) => (
-							<Chef key={index} {...chef} />
+							<Chef key={index} {...chef} index={index} />
 						))}
 					</Box>
 				</Container>
