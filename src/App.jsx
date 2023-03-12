@@ -27,7 +27,7 @@ function App() {
 					<Route path="chefs" element={<ChefsPage />}></Route>
 					<Route path="chef/:chefId" element={<Chef />}></Route>
 					<Route path="gallery" element={<GalleryCollection />}></Route>
-					<Route path="404" element={<NotFoundPage />}></Route>
+					<Route path="*" element={<NotFoundPage />}></Route>
 				</Route>
 			</Routes>
 		</Box>
