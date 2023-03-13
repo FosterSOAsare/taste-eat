@@ -7,6 +7,7 @@ import "./styles/output.css";
 import Layout from "./components/Layout/Layout";
 import Homepage from "./pages/Homepage/Homepage";
 import BlogsPage from "./pages/Blogs/Blogs";
+import BlogPage from "./pages/Blogs/Blog";
 import MenuPage from "./pages/Menu/Menu";
 import AboutPage from "./pages/About/AboutPage";
 import ChefsPage from "./pages/Chefs/Chefs";
@@ -23,6 +24,7 @@ function App() {
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Homepage />}></Route>
 					<Route path="blogs" element={<BlogsPage />}></Route>
+					<Route path="blog/:blogId" element={<BlogPage />}></Route>
 					<Route path="menu" element={<MenuPage />}></Route>
 					<Route path="about" element={<AboutPage />}></Route>
 					<Route path="chefs" element={<ChefsPage />}></Route>

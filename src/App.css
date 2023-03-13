@@ -10,3 +10,12 @@
 .bigimage {
 	display: none !important;
 }
+
+@keyframes toggle {
+	from {
+		color: black;
+	}
+	to {
+		color: red;
+	}
+}

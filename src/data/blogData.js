@@ -4,6 +4,7 @@ import Blog2Image from "../assets/blog2.png";
 const blogs = [
 	{
 		image: Blog1Image,
+		id: 252,
 		tag: "Restaurants",
 		date: "FEB 23 , 2023",
 		title: "The Most Popular Delicious Food Of Mediterranean Cuisine",
@@ -11,6 +12,7 @@ const blogs = [
 	},
 	{
 		image: Blog2Image,
+		id: 253,
 		tag: "Restaurants",
 		date: "FEB 23 , 2023",
 		title: "Elegant Dessert: 10 Tips How to Make It at Home",
@@ -18,6 +20,7 @@ const blogs = [
 	},
 	{
 		image: Blog1Image,
+		id: 254,
 		tag: "Restaurants",
 		date: "FEB 23 , 2023",
 		title: "The Most Popular Delicious Food Of Mediterranean Cuisine",
@@ -25,6 +28,7 @@ const blogs = [
 	},
 	{
 		image: Blog2Image,
+		id: 255,
 		tag: "Restaurants",
 		date: "FEB 23 , 2023",
 		title: "Elegant Dessert: 10 Tips How to Make It at Home",

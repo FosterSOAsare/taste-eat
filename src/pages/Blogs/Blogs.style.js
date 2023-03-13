@@ -24,5 +24,6 @@ const blogStyles = {
 		...flex("center", "center", "column"),
 		marginBlock: "70px",
 	},
+	
 };
 export default blogStyles;
