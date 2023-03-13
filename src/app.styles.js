@@ -9,6 +9,7 @@ import menuPageStyles from "./pages/Menu/Menu.styles";
 import chefPageStyles from "./pages/Chef/Chef.style";
 import SkillIconStyles from "./components/SkillIcon/SkillIcon.style";
 import galleriesPageStyles from "./pages/Gallery/Galleries.styles";
+import reservationPageStyles from "./pages/Reservation/Reservation.styles";
 export function flex(justify, align, direction = "row") {
 	return {
 		display: "flex",
@@ -53,7 +54,7 @@ const styles = {
 	...chefPageStyles,
 	...SkillIconStyles,
 	...galleriesPageStyles,
-
+	...reservationPageStyles,
 };
 
 export default styles;

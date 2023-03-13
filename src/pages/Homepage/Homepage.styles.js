@@ -62,7 +62,7 @@ const homepageStyles = {
 	homepage__story__desc: {
 		fontSize: "14px",
 		fontWeight: "normal",
-		fontFamily: "'Cormorant Infant', serif !important",
+		opacity: "0.7",
 	},
 	homepage__menu: {
 		width: "100%",

@@ -13,6 +13,7 @@ import ChefsPage from "./pages/Chefs/Chefs";
 import Chef from "./pages/Chef/Chef";
 import GalleryCollection from "./pages/Gallery/GalleryCollection";
 import NotFoundPage from "./pages/NotFound/NotFound";
+import ReservationPage from "./pages/Reservation/Reservation";
 
 function App() {
 	useTheme();
@@ -27,6 +28,7 @@ function App() {
 					<Route path="chefs" element={<ChefsPage />}></Route>
 					<Route path="chef/:chefId" element={<Chef />}></Route>
 					<Route path="gallery" element={<GalleryCollection />}></Route>
+					<Route path="reservation" element={<ReservationPage />}></Route>
 					<Route path="*" element={<NotFoundPage />}></Route>
 				</Route>
 			</Routes>

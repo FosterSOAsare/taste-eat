@@ -24,10 +24,10 @@ const Footer = () => {
 							<img src={Logo} alt="" className="w-[210px]" />
 						</Grid>
 						<Grid item md={3} sx={styles.footer__socials}>
-							<InstagramIcon sx={styles.menu__icon} />
-							<FacebookOutlinedIcon sx={styles.menu__icon} />
-							<TwitterIcon sx={styles.menu__icon} />
-							<PinterestIcon sx={styles.menu__icon} />
+							<InstagramIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
+							<FacebookOutlinedIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
+							<TwitterIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
+							<PinterestIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
 						</Grid>
 						<Grid item md={3} sx={{ display: "flex", alignItems: "flex-start", flexDirection: "column" }}>
 							<Title text="Contact" sx={{ color: theme.palette.white.main }} />
