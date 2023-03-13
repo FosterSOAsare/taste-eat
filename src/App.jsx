@@ -6,7 +6,7 @@ import "./App.css";
 import "./styles/output.css";
 import Layout from "./components/Layout/Layout";
 import Homepage from "./pages/Homepage/Homepage";
-import BlogPage from "./pages/Blog/Blog";
+import BlogsPage from "./pages/Blogs/Blogs";
 import MenuPage from "./pages/Menu/Menu";
 import AboutPage from "./pages/About/AboutPage";
 import ChefsPage from "./pages/Chefs/Chefs";
@@ -22,13 +22,13 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Homepage />}></Route>
-					<Route path="blog" element={<BlogPage />}></Route>
+					<Route path="blogs" element={<BlogsPage />}></Route>
 					<Route path="menu" element={<MenuPage />}></Route>
 					<Route path="about" element={<AboutPage />}></Route>
 					<Route path="chefs" element={<ChefsPage />}></Route>
 					<Route path="chef/:chefId" element={<Chef />}></Route>
 					<Route path="gallery" element={<GalleryCollection />}></Route>
-					<Route path="reservation" element={<ReservationPage />}></Route>
+					<Route path="reserve" element={<ReservationPage />}></Route>
 					<Route path="*" element={<NotFoundPage />}></Route>
 				</Route>
 			</Routes>

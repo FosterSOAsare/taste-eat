@@ -13,7 +13,7 @@ const links = [
 	},
 	{
 		name: "Reservation",
-		link: "/reservation",
+		link: "/reserve",
 	},
 	{
 		name: "Gallery",
@@ -21,7 +21,7 @@ const links = [
 	},
 	{
 		name: "Blog",
-		link: "/blog",
+		link: "/blogs",
 	},
 ];
 

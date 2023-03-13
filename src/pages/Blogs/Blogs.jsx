@@ -12,7 +12,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import gallery from "../../data/gallery";
 
-const BlogPage = () => {
+const BlogsPage = () => {
 	const theme = useTheme();
 	return (
 		<>
@@ -97,4 +97,4 @@ const BlogPage = () => {
 	);
 };
 
-export default BlogPage;
+export default BlogsPage;
