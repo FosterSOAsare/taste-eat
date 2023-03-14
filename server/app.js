@@ -1,11 +1,22 @@
 const express = require("express");
-const cors = require('cors');
-const morgan = require('morgan')
-const app = express();
+const cors = require("cors");
+const morgan = require("morgan");
 
-app.use(morgan('combined'))
-app.use(cors({
-  origin : '*'
-}))
+const dishesRouter = require("./routes/Dishes/Dishes.route");
+const blogsRouter = require("./routes/Blogs/Blogs.route");
+const chefsRouter = require("./routes/Chefs/Chefs.route");
+
+const app = express();
+app.use(morgan("combined"));
+app.use(
+	cors({
+		origin: "*",
+	})
+);
+
+app.use(express.json());
+app.use(dishesRouter);
+app.use(blogsRouter);
+app.use(chefsRouter);
 
 module.exports = app;
