@@ -33,6 +33,19 @@ const chefpageStyles = {
 		gap: "40px",
 	},
 
-	chef__promo__image__container: { width: "80%", height: "400px", marginTop: "30px", zIndex: "4", position: "absolute", bottom: "-100px" },
+	chef__promo__image__container: {
+		width: "80%",
+		height: "400px",
+		marginTop: "30px",
+		zIndex: "4",
+		position: "absolute",
+		bottom: "-100px",
+	},
+
+	chef__textarea__container: {
+		...flex("space-between", "center"),
+		gap: "20px",
+		marginBottom: "20px",
+	},
 };
 export default chefpageStyles;
