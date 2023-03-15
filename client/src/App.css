@@ -4,6 +4,8 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+}
+body:not(.ck-content) * {
 	font-family: "Josefin Sans", sans-serif !important;
 }
 
@@ -22,4 +24,16 @@
 }
 .ck-content > h4 {
 	font-size: 24px;
+}
+
+.ck-content {
+	min-height: 400px;
+	padding: 20px;
+}
+
+.ck-focused {
+	border: 2px solid #000000 !important;
+}
+.ck-placeholder {
+	opacity: 0.4;
 }
