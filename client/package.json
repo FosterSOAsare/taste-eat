@@ -10,6 +10,7 @@
 		"styles": "tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css -w"
 	},
 	"dependencies": {
+		"@ckeditor/ckeditor5-style": "^36.0.1",
 		"@emotion/react": "^11.10.6",
 		"@emotion/styled": "^11.10.6",
 		"@mui/icons-material": "^5.11.11",

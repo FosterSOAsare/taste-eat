@@ -724,6 +724,16 @@ video {
   background-color: transparent;
 }
 
+.bg-\[red\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 0 0 / var(--tw-bg-opacity));
+}
+
+.bg-\[green\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 128 0 / var(--tw-bg-opacity));
+}
+
 .p-\[15px\] {
   padding: 15px;
 }
@@ -746,6 +756,10 @@ video {
   font-size: 14px;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .tracking-\[10px\] {
   letter-spacing: 10px;
 }
@@ -762,6 +776,10 @@ video {
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.outline {
+  outline-style: solid;
 }
 
 .container {

@@ -11,11 +11,15 @@
 	display: none !important;
 }
 
-@keyframes toggle {
-	from {
-		color: black;
-	}
-	to {
-		color: red;
-	}
+.ck-content > p {
+	font-size: 20px;
+}
+.ck-content > h2 {
+	font-size: 38px;
+}
+.ck-content > h3 {
+	font-size: 28px;
+}
+.ck-content > h4 {
+	font-size: 24px;
 }
