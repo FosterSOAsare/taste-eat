@@ -16,6 +16,7 @@ import GalleryCollection from "./pages/Gallery/GalleryCollection";
 import NotFoundPage from "./pages/NotFound/NotFound";
 import ReservationPage from "./pages/Reservation/Reservation";
 import NewBlogPage from "./pages/Blogs/NewBlog";
+import NewDishPage from "./pages/Dish/NewDish";
 
 function App() {
 	useTheme();
@@ -37,6 +38,8 @@ function App() {
 					</Route>
 					<Route path="gallery" element={<GalleryCollection />}></Route>
 					<Route path="reserve" element={<ReservationPage />}></Route>
+
+					<Route path="dishes/new" element={<NewDishPage />}></Route>
 					<Route path="*" element={<NotFoundPage />}></Route>
 				</Route>
 			</Routes>

@@ -16,7 +16,6 @@ const NewBlogPage = () => {
 		e.preventDefault();
 	}
 	function handleChange(name, value) {
-		console.log(name, value);
 		setBlogData((prev) => {
 			return { ...prev, [name]: value };
 		});
