@@ -7,13 +7,26 @@ import styles from "../../app.styles";
 import Title from "../../components/Title/Title";
 import PageDesc from "../../components/Header/PageDesc";
 import ImageInput from "../../components/ImageInput/ImageInput";
+import { httpStoreBlog, httpFetchBlogs } from "../../hooks/requests/request";
 
 const NewBlogPage = () => {
 	const theme = useTheme();
-	const [blogData, setBlogData] = useState({});
+	const [blogData, setBlogData] = useState({
+		title: "This is a test title",
+		summary: "This is a test summary",
+		content: "This is a test content",
+	});
 
-	function storeBlog(e) {
-		e.preventDefault();
+	async function storeBlog() {
+		// console.log(await httpFetchBlogs());
+		let formData = new FormData();
+		let keys = Object.keys(blogData);
+		keys.forEach((e) => {
+			formData.append(e, blogData[e]);
+		});
+
+		let res = await httpStoreBlog(formData);
+		console.log("result", res);
 	}
 	function handleChange(name, value) {
 		setBlogData((prev) => {
@@ -30,10 +43,17 @@ const NewBlogPage = () => {
 					<Typography variant="h1" sx={{ ...styles.title, fontSize: "28px", marginBlock: "10px" }}>
 						Write A New Blog
 					</Typography>
-					<TextField placeholder="Blog title" multiline maxRows={4} sx={styles.new__blog__text__field} onChange={(event) => handleChange("title", event.target.value)} />
+					<TextField
+						placeholder="Blog title"
+						multiline
+						maxRows={4}
+						sx={styles.new__blog__text__field}
+						onChange={(event) => handleChange("title", event.target.value)}
+						value={blogData.title || ""}
+					/>
 					<CKEditor
 						editor={ClassicEditor}
-						data=""
+						data={blogData.content || ""}
 						onChange={(event, editor) => {
 							const data = editor.getData();
 							handleChange("content", data);
@@ -44,13 +64,20 @@ const NewBlogPage = () => {
 					/>
 
 					<Box sx={styles.blog__summary__container}>
-						<TextField placeholder="Blog summary" multiline maxRows={4} sx={{ ...styles.new__blog__text__field }} onChange={(event) => handleChange("summary", event.target.value)} />
+						<TextField
+							placeholder="Blog summary"
+							multiline
+							maxRows={4}
+							sx={{ ...styles.new__blog__text__field }}
+							value={blogData.summary || ""}
+							onChange={(event) => handleChange("summary", event.target.value)}
+						/>
 					</Box>
-					<TextField placeholder="Tag" sx={styles.new__blog__text__field} onChange={(event) => handleChange("tag", event.target.value)} />
+					<TextField placeholder="Tag" sx={styles.new__blog__text__field} onChange={(event) => handleChange("tag", event.target.value)} value={blogData.tag || ""} />
 
-					<ImageInput name="image" label="Lead Image" handleChange={handleChange} sx={{ marginTop: "20px" }} />
+					<ImageInput label="Lead Image" handleChange={handleChange} sx={{ marginTop: "20px" }} />
 					<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-						<Button variant="contained" sx={{ color: theme.palette.white.main, ...styles.button }} color="secondary">
+						<Button variant="contained" sx={{ color: theme.palette.white.main, ...styles.button }} color="secondary" onClick={() => storeBlog()}>
 							Publish
 						</Button>
 						<Button variant="outlined" sx={{ ...styles.button }} color="secondary">

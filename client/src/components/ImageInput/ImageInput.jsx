@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "@mui/material/styles";
 
-const ImageInput = ({ name, label, handleChange, sx }) => {
+const ImageInput = ({ name = "image", label, handleChange, sx }) => {
 	const [imageData, setImageData] = useState(null);
 	const theme = useTheme();
 
@@ -29,8 +29,7 @@ const ImageInput = ({ name, label, handleChange, sx }) => {
 				accept="image/png, image/gif, image/jpeg"
 				aria-label={label}
 				onChange={(e) => {
-					handleChange(name, e.target.files);
-
+					handleChange(name, e.currentTarget.files[0]);
 					if (e.target.files[0]) {
 						readImage(e.target.files[0]);
 					}

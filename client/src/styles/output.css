@@ -685,12 +685,12 @@ video {
   justify-content: center;
 }
 
-.gap-\[20px\] {
-  gap: 20px;
-}
-
 .gap-\[10px\] {
   gap: 10px;
+}
+
+.gap-\[20px\] {
+  gap: 20px;
 }
 
 .rounded-full {

@@ -7,6 +7,7 @@ const blogsRouter = require("./routes/Blogs/Blogs.route");
 const chefsRouter = require("./routes/Chefs/Chefs.route");
 
 const app = express();
+
 app.use(morgan("combined"));
 app.use(
 	cors({
@@ -18,5 +19,9 @@ app.use(express.json());
 app.use(dishesRouter);
 app.use(blogsRouter);
 app.use(chefsRouter);
+
+// For  images
+
+app.use("/photos", express.static("uploads"));
 
 module.exports = app;
