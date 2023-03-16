@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Container, Typography, useTheme, TextField, Button } from "@mui/material";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useAuthContext } from "../../context/AuthContext";
 
 import styles from "../../app.styles";
 import { httpStoreBlog, httpFetchBlogs } from "../../hooks/requests/request";
@@ -10,16 +11,15 @@ import Title from "../../components/Title/Title";
 import PageDesc from "../../components/Header/PageDesc";
 import ImageInput from "../../components/ImageInput/ImageInput";
 import Error from "../../components/Error/Error";
-import { useAuthContext } from "../../context/AuthContext";
 
 const NewBlogPage = () => {
 	const theme = useTheme();
 	const { error, errorDispatchFunc, validations, clearError, waiting, setWaiting } = useAuthContext();
 
 	const [blogData, setBlogData] = useState({
-		title: "This is a test title",
-		summary: "This is a test summary",
-		content: "This is a test content",
+		// title: "This is a test title",
+		// summary: "This is a test summary",
+		// content: "This is a test content",
 	});
 
 	async function storeBlog() {
