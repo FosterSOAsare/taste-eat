@@ -22,6 +22,9 @@ const theme = createTheme({
 		footerBg: {
 			main: "#1F242C",
 		},
+		error: {
+			main: "#FF0000",
+		},
 	},
 	breakpoints: {
 		values: {

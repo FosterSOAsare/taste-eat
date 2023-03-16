@@ -4,13 +4,18 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import styles from "../../app.styles";
+import { httpStoreBlog, httpFetchBlogs } from "../../hooks/requests/request";
+
 import Title from "../../components/Title/Title";
 import PageDesc from "../../components/Header/PageDesc";
 import ImageInput from "../../components/ImageInput/ImageInput";
-import { httpStoreBlog, httpFetchBlogs } from "../../hooks/requests/request";
+import Error from "../../components/Error/Error";
+import { useAuthContext } from "../../context/AuthContext";
 
 const NewBlogPage = () => {
 	const theme = useTheme();
+	const { error, errorDispatchFunc, validations, clearError, waiting, setWaiting } = useAuthContext();
+
 	const [blogData, setBlogData] = useState({
 		title: "This is a test title",
 		summary: "This is a test summary",
@@ -18,15 +23,29 @@ const NewBlogPage = () => {
 	});
 
 	async function storeBlog() {
-		// console.log(await httpFetchBlogs());
+		setWaiting(true);
+		// Form validation
+		let { content, summary, title, image, tag } = blogData;
+		if (!content || !summary || !title || !image || !tag) {
+			errorDispatchFunc({ type: "displayError", payload: "Please fill in all fields" });
+			return;
+		}
+		if (validations.checkTextLength(title, 100)) {
+			errorDispatchFunc({ type: "displayError", payload: "Title is too long. Should be less than 100 characters" });
+			return;
+		}
+		if (validations.checkTextLength(tag, 30)) {
+			errorDispatchFunc({ type: "displayError", payload: "Tag is too long. Should be less than 30 characters" });
+			return;
+		}
 		let formData = new FormData();
 		let keys = Object.keys(blogData);
 		keys.forEach((e) => {
 			formData.append(e, blogData[e]);
 		});
 
-		let res = await httpStoreBlog(formData);
-		console.log("result", res);
+		// let res = await httpStoreBlog(formData);
+		// console.log("result", res);
 	}
 	function handleChange(name, value) {
 		setBlogData((prev) => {
@@ -50,6 +69,7 @@ const NewBlogPage = () => {
 						sx={styles.new__blog__text__field}
 						onChange={(event) => handleChange("title", event.target.value)}
 						value={blogData.title || ""}
+						onFocus={() => clearError()}
 					/>
 					<CKEditor
 						editor={ClassicEditor}
@@ -58,6 +78,7 @@ const NewBlogPage = () => {
 							const data = editor.getData();
 							handleChange("content", data);
 						}}
+						onFocus={() => clearError()}
 						config={{
 							placeholder: "Enter detailed blog content here",
 						}}
@@ -71,14 +92,23 @@ const NewBlogPage = () => {
 							sx={{ ...styles.new__blog__text__field }}
 							value={blogData.summary || ""}
 							onChange={(event) => handleChange("summary", event.target.value)}
+							onFocus={() => clearError()}
 						/>
 					</Box>
-					<TextField placeholder="Tag" sx={styles.new__blog__text__field} onChange={(event) => handleChange("tag", event.target.value)} value={blogData.tag || ""} />
+					<TextField
+						placeholder="Tag"
+						sx={styles.new__blog__text__field}
+						onChange={(event) => handleChange("tag", event.target.value)}
+						onFocus={() => clearError()}
+						value={blogData.tag || ""}
+					/>
 
 					<ImageInput label="Lead Image" handleChange={handleChange} sx={{ marginTop: "20px" }} />
+					{error.display === "block" && <Error text={error.text} />}
+
 					<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-						<Button variant="contained" sx={{ color: theme.palette.white.main, ...styles.button }} color="secondary" onClick={() => storeBlog()}>
-							Publish
+						<Button variant="contained" sx={{ color: theme.palette.white.main, ...styles.button }} color="secondary" onClick={() => storeBlog()} disabled={waiting}>
+							{!waiting ? "Publish" : "Waiting..."}
 						</Button>
 						<Button variant="outlined" sx={{ ...styles.button }} color="secondary">
 							Save Draft

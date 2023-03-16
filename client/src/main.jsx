@@ -4,11 +4,14 @@ import App from "./App";
 import theme from "./theme";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
+import AuthProvider from "./context/AuthContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<ThemeProvider theme={theme}>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<AuthProvider>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</AuthProvider>
 	</ThemeProvider>
 );
