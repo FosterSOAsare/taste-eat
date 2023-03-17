@@ -1,13 +1,25 @@
 const chefsCollection = require("./Chefs.mongo");
-function getChefs() {}
+async function getChefs(limit) {
+	let res = await chefsCollection.find({}, { name: 1, image: 1, position: 1 }).limit(limit);
+	return res;
+}
 
-function getAChef(chefId) {}
+async function getAChef(chefId) {
+	console.log(chefId);
+	let res = await chefsCollection.findOne({ _id: chefId }, { __v: 0 });
+	if (res) return res;
+	return { error: "No chef exists with the specified id" };
+}
 
-function deleteAChef(chefId) {}
+async function deleteAChef(chefId) {}
 
-function updateAChef(chefId) {}
+async function updateAChef(chefId) {}
 
-function postAChef(chefData) {}
+async function postAChef(chefData) {
+	let res = await chefsCollection.create(chefData);
+	if (res) return res;
+	return { error: "An error occurred during post request" };
+}
 
 module.exports = {
 	getChefs,

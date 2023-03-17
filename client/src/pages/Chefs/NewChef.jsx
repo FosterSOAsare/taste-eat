@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Box, Container, Typography, TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 import styles from "../../app.styles";
 import { useAuthContext } from "../../context/AuthContext";
+import { httpStoreChef } from "../../hooks/requests/request";
 
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
@@ -13,19 +15,20 @@ import Error from "../../components/Error/Error";
 const NewChefPage = () => {
 	const theme = useTheme();
 	const { error, errorDispatchFunc, validations, clearError, waiting, setWaiting } = useAuthContext();
+	const navigate = useNavigate();
 	const [chefData, setChefData] = useState({
-		// name: "Asare Foster",
-		// position: "Senior chef",
-		// email: "evanmattew@mail.com",
-		// experience: "10",
-		// contact: "+1 (800)-234-5675",
-		// location: "Riverside 25, San Francisco, California",
-		// summary:
-		// 	"Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divid with additional clickthroughs from Nanotechnology immersion along the information highway will close the loop on focusing solely the bottom line.",
-		// facebook: "http://facebook.com",
-		// twitter: "http://twitter.com",
-		// instagram: "http://instagram.com",
-		// pinterest: "http://pinterest.com",
+		name: "Asare Foster",
+		position: "Senior chef",
+		email: "evanmattew@mail.com",
+		experience: "10",
+		contact: "+1 (800)-234-5675",
+		location: "Riverside 25, San Francisco, California",
+		summary:
+			"Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divid with additional clickthroughs from Nanotechnology immersion along the information highway will close the loop on focusing solely the bottom line.",
+		facebook: "http://facebook.com",
+		twitter: "http://twitter.com",
+		instagram: "http://instagram.com",
+		pinterest: "http://pinterest.com",
 	});
 	function handleChange(name, value) {
 		setChefData((prev) => {
@@ -33,32 +36,48 @@ const NewChefPage = () => {
 		});
 	}
 
-	function saveChef() {
-		// setWaiting(true);
-		// Form validation
-		let { email, contact, experience, location, facebook, twitter, instagram, pinterest, name, image, summary, position } = chefData;
-		if (!name || !email || !experience || !location || !image || !summary || !position) {
-			errorDispatchFunc({ type: "displayError", payload: "Please fill in all required fields" });
-			return;
-		}
-
-		if (!validations.validateNumber(experience)) {
-			errorDispatchFunc({ type: "displayError", payload: "Enter a valid number for years of experiece" });
-			return;
-		}
-
-		if (!validations.validatePhoneNumber(contact)) {
-			errorDispatchFunc({ type: "displayError", payload: "Enter a valid phone number" });
-			return;
-		}
-
-		let formData = new FormData();
-		let keys = Object.keys(chefData);
-		keys.forEach((e) => {
-			formData.append(e, chefData[e]);
+	function validateForm() {
+		return new Promise((resolve, reject) => {
+			let { email, contact, experience, location, facebook, twitter, instagram, pinterest, name, image, summary, position } = chefData;
+			if (!name || !email || !experience || !location || !image || !summary || !position) {
+				reject({ type: "displayError", payload: "Please fill in all required fields" });
+				return;
+			}
+			if (!validations.validateNumber(experience)) {
+				reject({ type: "displayError", payload: "Enter a valid number for years of experiece" });
+				return;
+			}
+			if (!validations.validatePhoneNumber(contact)) {
+				reject({ type: "displayError", payload: "Enter a valid phone number" });
+				return;
+			}
+			resolve({ success: true });
 		});
-		console.log(Array.from(formData.entries()));
 	}
+
+	async function saveChef(type = "store") {
+		setWaiting(true);
+		// Form validation
+		try {
+			await validateForm();
+
+			let formData = new FormData();
+			let keys = Object.keys(chefData);
+			keys.forEach((e) => {
+				formData.append(e, chefData[e]);
+			});
+			let res = await httpStoreChef(formData);
+			setWaiting(false);
+			navigate("/chefs");
+		} catch (err) {
+			errorDispatchFunc(err);
+		}
+	}
+
+	function handleClose() {
+		console.log("closed");
+	}
+
 	return (
 		<>
 			<PageDesc content="Add Chef" />
@@ -159,7 +178,7 @@ const NewChefPage = () => {
 					<ImageInput name="image" label="Chef Image" handleChange={handleChange} sx={{ marginTop: "20px" }} image={chefData.image} />
 					{error.display === "block" && <Error text={error.text} />}
 					<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-						<Button variant="outlined" sx={{ ...styles.button }} color="secondary" onClick={saveChef} disabled={waiting}>
+						<Button variant="outlined" sx={{ ...styles.button }} color="secondary" onClick={() => saveChef()} disabled={waiting}>
 							Save Chef
 						</Button>
 					</Box>

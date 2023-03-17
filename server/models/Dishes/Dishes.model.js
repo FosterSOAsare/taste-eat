@@ -1,11 +1,13 @@
 const dishesCollection = require("./Dishes.mongo");
-function getDishes() {}
+async function getDishes() {
+	return await dishesCollection.find({}, { __v: 0 });
+}
 
-function getADish(blogId) {}
+async function getADish(blogId) {}
 
-function deleteADish(blogId) {}
+async function deleteADish(blogId) {}
 
-function updateADish(blogId) {}
+async function updateADish(blogId) {}
 
 async function postADish(blogData) {
 	let res = await dishesCollection.create(blogData);

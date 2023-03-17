@@ -1,36 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import { useTheme } from "@emotion/react";
 
 import styles from "../../app.styles";
+import { httpFetchChefs } from "../../hooks/requests/request";
+
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
 import Chef from "../About/Chef";
 import Reservation from "../../components/Reservation/Reservation";
 import Testimonials from "../../components/Testimonials/Testimonials";
 import Skill from "../../components/Skill";
+import Loading from "../../components/Loading/Loading";
 
-import chefsData from "../../data/chefsData";
+// import chefsData from "../../data/chefsData";
 
 import ExperiencedChefImage from "../../assets/experienced-chef.png";
 
 const ChefsPage = () => {
 	const theme = useTheme();
+	const [chefsData, setChefsData] = useState([]);
+	const [loading, setLoading] = useState(true);
+	useEffect(() => {
+		(async function () {
+			let result = await httpFetchChefs();
+			setChefsData(result);
+			setLoading(false);
+		})();
+	}, []);
 	return (
 		<>
 			<PageDesc content="About Us" />
 			<Box sx={styles.chefspage__section} className="team">
 				<Container maxWidth="lg" sx={{ ...styles.chefpage__container }}>
-					<Title text="team" />
-					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
-						Meet Our Professional Chefs
-					</Typography>
+					{!loading && (
+						<>
+							<Title text="team" />
+							<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
+								Meet Our Professional Chefs
+							</Typography>
 
-					<Box className="about__teams__container" sx={styles.chefs__teams__container}>
-						{chefsData.map((chef, index) => (
-							<Chef key={index} {...chef} index={index} />
-						))}
-					</Box>
+							<Box className="about__teams__container" sx={styles.chefs__teams__container}>
+								{chefsData.map((chef) => (
+									<Chef key={chef._id} {...chef} />
+								))}
+							</Box>
+						</>
+					)}
+					{loading && <Loading />}
 				</Container>
 			</Box>
 			<Testimonials />

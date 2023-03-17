@@ -12,12 +12,14 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 
 import styles from "../../app.styles";
+import { httpFetchAChef } from "../../hooks/requests/request";
 
 import PageDesc from "../../components/Header/PageDesc";
 
 import Reservation from "../../components/Reservation/Reservation";
 import { useTheme } from "@mui/material/styles";
 import Title from "../../components/Title/Title";
+import Loading from "../../components/Loading/Loading";
 
 import chefsData from "../../data/chefsData";
 
@@ -27,61 +29,96 @@ import SkillIcon from "../../components/SkillIcon/SkillIcon";
 
 const Chef = () => {
 	const [chefData, setChefData] = useState({});
+	const [loading, setLoading] = useState(true);
 	const theme = useTheme();
-	const { chefId } = useParams();
 	const navigate = useNavigate();
+	const { chefId } = useParams();
 
+	// Using data from the database
 	useEffect(() => {
-		if (chefsData[chefId]) {
-			setChefData(chefsData[chefId]);
-			return;
-		}
-		navigate("/404");
+		(async function () {
+			let res = await httpFetchAChef(chefId);
+			setChefData(res);
+			setLoading(false);
+		})();
 	}, [chefId]);
+
+	// useEffect(() => {
+	// 	if (chefsData[chefId]) {
+	// 		setChefData(chefsData[chefId]);
+	// 		return;
+	// 	}
+	// 	navigate("/404");
+	// }, [chefId]);
 
 	return (
 		<>
 			<PageDesc content="Chefs Single" />
 			<Box sx={{ marginBlock: "70px" }}>
 				<Container maxWidth="lg" sx={styles.chef__info__container}>
-					<Box sx={{ backgroundColor: "yellow", width: "40%", height: "450px" }}>
-						<img src={chefData.img} alt="" className="w-[100%] h-[100%]" />
-					</Box>
+					{!loading && (
+						<>
+							<Box sx={{ width: "40%", height: "450px" }}>
+								<img src={chefData.image} alt="" className="w-[100%] h-[100%]" />
+							</Box>
 
-					<Box className="story__text" sx={styles.homepage__story__text}>
-						<Typography variant="h3" sx={{ ...styles.homepage__story__title, fontSize: "40px" }}>
-							{chefData.name}
-						</Typography>
-						<Typography variant="p" sx={{ ...styles.homepage__story__desc, color: theme.palette.secondary.main, display: "block", marginBlock: "5px", fontSize: "25px" }}>
-							{chefData.position}
-						</Typography>
-						<Typography variant="p" sx={{ ...styles.homepage__story__desc, fontSize: "16px", lineHeight: "10px" }}>
-							{chefData.desc}
-						</Typography>
+							<Box className="story__text" sx={styles.homepage__story__text}>
+								<Typography variant="h3" sx={{ ...styles.homepage__story__title, fontSize: "40px" }}>
+									{chefData.name}
+								</Typography>
+								<Typography variant="p" sx={{ ...styles.homepage__story__desc, color: theme.palette.secondary.main, display: "block", marginBlock: "5px", fontSize: "25px" }}>
+									{chefData.position}
+								</Typography>
+								<Typography variant="p" sx={{ ...styles.homepage__story__desc, fontSize: "16px", lineHeight: "10px" }}>
+									{chefData.summary}
+								</Typography>
 
-						<Grid container sx={{ width: "100%", height: "auto", marginTop: "20px" }}>
-							{[
-								{ topic: " Experience", details: `${chefData["experience"]} Years of Experience`, icon: WorkOutlineOutlinedIcon },
-								{ topic: "Mail", details: chefData["mail"], icon: MailOutlineIcon },
-								{ topic: "Contact Us", details: chefData["contact"], icon: LocalPhoneOutlinedIcon },
-								{ topic: "Locate Us", details: chefData["location"], icon: PlaceOutlinedIcon },
-							].map((e, index) => {
-								return (
-									<Grid item md={6} sx={{ marginBottom: "20px" }} key={index}>
-										<SkillIcon subject={e.topic} details={e.details}>
-											{<e.icon sx={{ ...styles.icon__style, color: theme.palette.white.main }} />}
-										</SkillIcon>
-									</Grid>
-								);
-							})}
-						</Grid>
-						<Box>
-							<InstagramIcon sx={{ ...styles.menu__icon, color: theme.palette.primary.main }} />
-							<FacebookOutlinedIcon sx={{ ...styles.menu__icon, color: theme.palette.primary.main }} />
-							<TwitterIcon sx={{ ...styles.menu__icon, color: theme.palette.primary.main }} />
-							<PinterestIcon sx={{ ...styles.menu__icon, color: theme.palette.primary.main }} />
-						</Box>
-					</Box>
+								<Grid container sx={{ width: "100%", height: "auto", marginTop: "20px" }}>
+									{[
+										{ topic: " Experience", details: `${chefData["experience"]} Years of Experience`, icon: WorkOutlineOutlinedIcon },
+										{ topic: "Mail", details: chefData["email"], icon: MailOutlineIcon },
+										{ topic: "Contact Us", details: chefData["contact"], icon: LocalPhoneOutlinedIcon },
+										{ topic: "Locate Us", details: chefData["location"], icon: PlaceOutlinedIcon },
+									].map((e, index) => {
+										return (
+											<Grid item md={6} sx={{ marginBottom: "20px" }} key={index}>
+												<SkillIcon subject={e.topic} details={e.details}>
+													{<e.icon sx={{ ...styles.icon__style, color: theme.palette.white.main }} />}
+												</SkillIcon>
+											</Grid>
+										);
+									})}
+								</Grid>
+								<Box>
+									{chefData.instagram && (
+										<a href={chefData.instagram} target="_blank" rel="noreferrer" aria-label="Instagram icon">
+											<p className="hidden">Chef's Instagram Profile</p>
+											<InstagramIcon sx={{ ...styles.menu__icon, color: theme.palette.primary.main }} />
+										</a>
+									)}
+									{chefData.facebook && (
+										<a href={chefData.facebook} target="_blank" rel="noreferrer">
+											<p className="hidden">Chef's Facebook Profile</p>
+											<FacebookOutlinedIcon sx={{ ...styles.menu__icon, color: theme.palette.primary.main }} />
+										</a>
+									)}
+									{chefData.twitter && (
+										<a href={chefData.twitter} target="_blank" rel="noreferrer">
+											<p className="hidden">Chef's Twitter Profile</p>
+											<TwitterIcon sx={{ ...styles.menu__icon, color: theme.palette.primary.main }} />{" "}
+										</a>
+									)}
+									{chefData.pinterest && (
+										<a href={chefData.pinterest} target="_blank" rel="noreferrer">
+											<p className="hidden">Chef's Pinterest Profile</p>
+											<PinterestIcon sx={{ ...styles.menu__icon, color: theme.palette.primary.main }} />
+										</a>
+									)}
+								</Box>
+							</Box>
+						</>
+					)}
+					{loading && <Loading />}
 				</Container>
 			</Box>
 
