@@ -51,17 +51,28 @@ export async function httpFetchChefs(limit = 6) {
 			method: "get",
 			url: `${baseUrl}/chefs`,
 		});
-		console.log(res);
 		return res.data;
 	} catch (e) {
 		return e.response.data;
 	}
 }
-export async function httpFetchAChef(id) {
+export async function httpFetchAChef(chefId) {
 	try {
 		let res = await axios({
 			method: "get",
-			url: `${baseUrl}/chef/${id}`,
+			url: `${baseUrl}/chef/${chefId}`,
+		});
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
+export async function httpUpdateChef(chefId, newData) {
+	try {
+		let res = await axios({
+			method: "put",
+			url: `${baseUrl}/chefs/${chefId}`,
+			data: newData,
 		});
 		console.log(res);
 		return res.data;
@@ -69,3 +80,4 @@ export async function httpFetchAChef(id) {
 		return e.response.data;
 	}
 }
+httpUpdateChef;

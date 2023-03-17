@@ -28,7 +28,21 @@ async function controllerSaveChef(req, res) {
 	res.json(req.data);
 }
 
-async function controllerUpdateAChef(req, res) {}
+async function controllerUpdateAChef(req, res) {
+	let data = req.body;
+	if (req.files?.length) {
+		data.image = `http://localhost:8000/photos/chefs/${req.files[0].filename}`;
+	}
+
+	// Updating data in database
+	const response = await updateAChef(data._id, data);
+
+	// Sending response
+	if (response?.error) {
+		return res.status(404).json(response);
+	}
+	res.status(201).json(data);
+}
 
 module.exports = {
 	controllerGetChefs,

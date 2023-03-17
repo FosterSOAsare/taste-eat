@@ -19,7 +19,7 @@ async function controllerSaveDish(req, res) {
 	data.imageUrl = imageUrl;
 	data.price = parseFloat(data.price);
 
-	console.log(data);
+
 
 	// Storing data in database
 	const response = await postADish(data);

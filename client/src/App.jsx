@@ -36,6 +36,7 @@ function App() {
 						<Route path="chefs" element={<ChefsPage />}></Route>
 						<Route path="chefs/new" element={<NewChefPage />}></Route>
 						<Route path="chef/:chefId" element={<Chef />}></Route>
+						<Route path="chef/:chefId/edit" element={<NewChefPage />}></Route>
 					</Route>
 					<Route path="gallery" element={<GalleryCollection />}></Route>
 					<Route path="reserve" element={<ReservationPage />}></Route>

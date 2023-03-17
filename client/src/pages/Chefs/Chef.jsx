@@ -10,6 +10,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
+import CreateIcon from "@mui/icons-material/Create";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import styles from "../../app.styles";
 import { httpFetchAChef } from "../../hooks/requests/request";
@@ -50,6 +52,10 @@ const Chef = () => {
 	// 	}
 	// 	navigate("/404");
 	// }, [chefId]);
+
+	function deleteChef() {
+		console.log("Delete chef??");
+	}
 
 	return (
 		<>
@@ -114,6 +120,17 @@ const Chef = () => {
 											<PinterestIcon sx={{ ...styles.menu__icon, color: theme.palette.primary.main }} />
 										</a>
 									)}
+								</Box>
+
+								{/* Edit and delete chef */}
+								<Box sx={{ marginTop: "10px", display: "flex" }}>
+									<Box onClick={() => navigate(`/chef/${chefData._id}/edit`)}>
+										<CreateIcon sx={{ fontSize: "19px", marginRight: "10px", color: theme.palette.primary.main }} />
+									</Box>
+
+									<Box onClick={() => deleteChef()}>
+										<DeleteIcon sx={{ fontSize: "19px", color: theme.palette.error.main }} />
+									</Box>
 								</Box>
 							</Box>
 						</>

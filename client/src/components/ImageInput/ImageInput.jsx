@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "@mui/material/styles";
 
 const ImageInput = ({ name = "image", label, handleChange, sx, image }) => {
+
 	const [imageData, setImageData] = useState(image);
 	const theme = useTheme();
 

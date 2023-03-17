@@ -5,7 +5,6 @@ async function getChefs(limit) {
 }
 
 async function getAChef(chefId) {
-	console.log(chefId);
 	let res = await chefsCollection.findOne({ _id: chefId }, { __v: 0 });
 	if (res) return res;
 	return { error: "No chef exists with the specified id" };
@@ -13,7 +12,18 @@ async function getAChef(chefId) {
 
 async function deleteAChef(chefId) {}
 
-async function updateAChef(chefId) {}
+async function updateAChef(chefId, newData) {
+	try {
+		let res = await chefsCollection.findOne({ _id: chefId }, { name: 1 });
+		if (!res) {
+			return { error: "No chef exists with the specified id" };
+		}
+		await chefsCollection.updateOne({ _id: chefId }, newData);
+		console.log("updated");
+	} catch (e) {
+		console.log(e);
+	}
+}
 
 async function postAChef(chefData) {
 	let res = await chefsCollection.create(chefData);
