@@ -4,33 +4,44 @@ import { Box, Container, TextField, Typography, Button, MenuItem, Select } from 
 import { useTheme } from "@mui/material/styles";
 
 import { useAuthContext } from "../../context/AuthContext";
+import { httpStoreDish } from "../../hooks/requests/request";
 
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
 import ImageInput from "../../components/ImageInput/ImageInput";
 import Error from "../../components/Error/Error";
+import { useNavigate } from "react-router-dom";
 
 const NewDishPage = () => {
 	const theme = useTheme();
 	const { error, errorDispatchFunc, validations, clearError, waiting, setWaiting } = useAuthContext();
-	const [dishData, setDishData] = useState({});
+	const [dishData, setDishData] = useState({
+		price: 40,
+		summary: "Candied Jerusalem artichokes, truffle",
+	});
+	const navigate = useNavigate();
 	function handleChange(name, value) {
 		setDishData((prev) => {
-			return { ...prev, [name]: value };
+			return { ...prev, [name]: name === "price" ? parseFloat(value) : value };
 		});
 	}
 
-	function saveDish() {
+	async function saveDish() {
 		setWaiting(true);
 		// Form validation
-		let { name, summary, type, image } = dishData;
-		if (!name || !summary || !type || !image) {
+		let { name, summary, type, image, price } = dishData;
+		if (!name || !summary || !type || !image || !price) {
 			errorDispatchFunc({ type: "displayError", payload: "Please fill in all fields" });
 			return;
 		}
 
 		if (validations.checkTextLength(name, 40)) {
 			errorDispatchFunc({ type: "displayError", payload: "Name is too long. Should be less than 40 characters" });
+			return;
+		}
+
+		if (typeof price !== "number") {
+			errorDispatchFunc({ type: "displayError", payload: "Enter a valid price. To Nearest Whole Number" });
 			return;
 		}
 
@@ -49,7 +60,15 @@ const NewDishPage = () => {
 		keys.forEach((e) => {
 			formData.append(e, dishData[e]);
 		});
-		console.log(Array.from(formData.entries()));
+
+		try {
+			let res = await httpStoreDish(formData);
+			setWaiting(false);
+			setDishData({});
+			navigate("/");
+		} catch (e) {
+			console.log(e);
+		}
 	}
 	return (
 		<>
@@ -66,6 +85,13 @@ const NewDishPage = () => {
 						onFocus={() => clearError()}
 						placeholder="Dish Name"
 						value={dishData.name || ""}
+					/>
+					<TextField
+						sx={styles.new__dish__text__field}
+						onChange={(event) => handleChange("price", event.target.value)}
+						onFocus={() => clearError()}
+						placeholder="Dish Price"
+						value={dishData.price || ""}
 					/>
 
 					<Select value={dishData.type || "Select Dish Type"} onChange={(e) => handleChange("type", e.target.value)} sx={{ width: "100%" }} onFocus={() => clearError()}>
@@ -91,8 +117,8 @@ const NewDishPage = () => {
 					<ImageInput label="Dish Image" handleChange={handleChange} sx={{ marginTop: "20px" }} />
 					{error.display === "block" && <Error text={error.text} />}
 					<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-						<Button variant="outlined" sx={{ ...styles.button }} color="secondary" onClick={() => saveDish()}>
-							Save Dish
+						<Button variant="outlined" sx={{ ...styles.button }} color="secondary" onClick={() => saveDish()} disabled={waiting}>
+							{!waiting ? "Save Dish" : "Waiting..."}
 						</Button>
 					</Box>
 				</Container>

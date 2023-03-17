@@ -18,3 +18,16 @@ export async function httpStoreBlog(data) {
 		return e.response.data;
 	}
 }
+
+export async function httpStoreDish(data) {
+	try {
+		let res = await axios({
+			method: "post",
+			url: `${baseUrl}/dishes`,
+			data,
+		});
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}

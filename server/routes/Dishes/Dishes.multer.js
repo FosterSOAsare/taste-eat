@@ -5,15 +5,15 @@ function formatImageName(name) {
 	return name.replace(/[^a-zA-Z0-9.]/g, "");
 }
 const storage = multer.diskStorage({
-	destination: path.join(__dirname, "uploads"),
+	destination: path.join(__dirname, "..", "..", "uploads", "dishes"),
 	filename: (req, file, cb) => {
 		cb(null, Date.now() + formatImageName(file.originalname));
 	},
 });
-const uploads = multer({
+const dishesUpload = multer({
 	storage,
 });
 
 module.exports = {
-	uploads,
+	dishesUpload,
 };

@@ -7,7 +7,11 @@ function deleteADish(blogId) {}
 
 function updateADish(blogId) {}
 
-function postADish(blogData) {}
+async function postADish(blogData) {
+	let res = await dishesCollection.create(blogData);
+	if (res) return res;
+	return { error: "An error occurred during post request" };
+}
 
 module.exports = {
 	getDishes,

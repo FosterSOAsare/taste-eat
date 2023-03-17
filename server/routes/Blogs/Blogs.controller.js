@@ -21,7 +21,7 @@ async function controllerSaveBlog(req, res) {
 		return;
 	}
 	// Setting Image Url
-	let imageUrl = `http://localhost:8000/photos/${req.files[0].filename}`;
+	let imageUrl = `http://localhost:8000/photos/blogs/${req.files[0].filename}`;
 	data.imageUrl = imageUrl;
 
 	// Storing data in database

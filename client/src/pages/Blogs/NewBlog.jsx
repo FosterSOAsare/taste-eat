@@ -3,6 +3,7 @@ import { Box, Container, Typography, useTheme, TextField, Button } from "@mui/ma
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useAuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 import styles from "../../app.styles";
 import { httpStoreBlog, httpFetchBlogs } from "../../hooks/requests/request";
@@ -15,11 +16,13 @@ import Error from "../../components/Error/Error";
 const NewBlogPage = () => {
 	const theme = useTheme();
 	const { error, errorDispatchFunc, validations, clearError, waiting, setWaiting } = useAuthContext();
+	const navigate = useNavigate();
 
 	const [blogData, setBlogData] = useState({
-		// title: "This is a test title",
-		// summary: "This is a test summary",
-		// content: "This is a test content",
+		title: "This is a test title",
+		summary: "This is a test summary",
+		content: "This is a test content",
+		tag: "Recipes",
 	});
 
 	async function storeBlog() {
@@ -44,8 +47,14 @@ const NewBlogPage = () => {
 			formData.append(e, blogData[e]);
 		});
 
-		// let res = await httpStoreBlog(formData);
-		// console.log("result", res);
+		try {
+			let res = await httpStoreBlog(formData);
+			setWaiting(false);
+			setBlogData({});
+			navigate("/");
+		} catch (e) {
+			console.log(e);
+		}
 	}
 	function handleChange(name, value) {
 		setBlogData((prev) => {
