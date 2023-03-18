@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Box, Container, Typography, Grid, Button } from "@mui/material";
 
@@ -8,8 +8,10 @@ import PageDesc from "../../components/Header/PageDesc";
 import Reservation from "../../components/Reservation/Reservation";
 import Chef from "./Chef";
 import Testimonials from "../../components/Testimonials/Testimonials";
+import Loading from "../../components/Loading/Loading";
 
-import chefsData from "../../data/chefsData";
+// import chefsData from "../../data/chefsData";
+import { httpFetchChefs } from "../../hooks/requests/request";
 import countsData from "../../data/countsData";
 
 import AboutHeroImage from "../../assets/about-hero.png";
@@ -24,6 +26,20 @@ import StarImage from "../../assets/star.png";
 
 const AboutPage = () => {
 	const theme = useTheme();
+	const [chefsData, setChefsData] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		(async function () {
+			try {
+				let chefs = await httpFetchChefs(4);
+				setChefsData(chefs);
+				setLoading(false);
+			} catch (e) {
+				console.error(e);
+			}
+		})();
+	}, []);
 
 	return (
 		<>
@@ -99,23 +115,25 @@ const AboutPage = () => {
 			</Box>
 			<Box sx={styles.aboutpage__section} className="team">
 				<Container maxWidth="md" sx={{ ...styles.aboutpage__container }}>
-					<Title text="team" />
-					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
-						Meet Our Professional Chefs
-					</Typography>
+					{!loading && (
+						<>
+							<Title text="team" />
+							<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
+								Meet Our Professional Chefs
+							</Typography>
 
-					<Box className="about__teams__container" sx={styles.about__teams__container}>
-						{chefsData.map((chef, index) => {
-							if (index < 4) {
-								return <Chef key={index} {...chef} />;
-							}
-							return;
-						})}
-					</Box>
+							<Box className="about__teams__container" sx={styles.about__teams__container}>
+								{chefsData.map((chef, index) => (
+									<Chef key={index} {...chef} />
+								))}
+							</Box>
 
-					<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "30px" }} href="chefs">
-						See More
-					</Button>
+							<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "30px" }} href="chefs">
+								See More
+							</Button>
+						</>
+					)}
+					{loading && <Loading />}
 				</Container>
 			</Box>
 			<Testimonials />

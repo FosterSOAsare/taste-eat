@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import styles from "../../app.styles";
 import { useAuthContext } from "../../context/AuthContext";
-import { httpStoreChef, httpFetchAChef, httpUpdateChef } from "../../hooks/requests/request";
+import { httpStoreChef, httpFetchAChef, httpUpdateChef, httpDeleteChef } from "../../hooks/requests/request";
 
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
@@ -84,26 +84,27 @@ const NewChefPage = () => {
 		try {
 			await validateForm();
 
-			// Check image change. If typeof image is an object , image has changed and will need to be re-uploaded
-			// console.log(typeof chefData.image);
-
 			let formData = new FormData();
 			let keys = Object.keys(chefData);
 			keys.forEach((e) => {
 				formData.append(e, chefData[e]);
 			});
 
-			let res = chefId ? await httpUpdateChef(chefData._id, formData) : await httpStoreChef(formData);
-
-			setWaiting(false);
-			navigate("/chefs");
+			try {
+				let res = chefId ? await httpUpdateChef(chefData._id, formData) : await httpStoreChef(formData);
+				setWaiting(false);
+				if (res.error) {
+					errorDispatchFunc({ type: "displayError", payload: res.error });
+					return;
+				}
+				navigate("/chefs");
+			} catch (e) {
+				console.log(e);
+			}
 		} catch (err) {
+			// Handles the form validation
 			errorDispatchFunc(err);
 		}
-	}
-
-	function handleClose() {
-		console.log("closed");
 	}
 
 	return (
@@ -208,8 +209,18 @@ const NewChefPage = () => {
 							<ImageInput name="image" label="Chef Image" handleChange={handleChange} sx={{ marginTop: "20px" }} image={chefData.image} />
 							{error.display === "block" && <Error text={error.text} />}
 							<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-								<Button variant="outlined" sx={{ ...styles.button }} color="secondary" onClick={() => saveChef()} disabled={waiting}>
+								<Button variant="contained" sx={{ ...styles.button, color: theme.palette.white.main }} color="secondary" onClick={() => saveChef()} disabled={waiting}>
 									{!waiting ? (chefId ? "Update" : "Save") + " Chef" : "Waiting..."}
+								</Button>
+								<Button
+									variant="outlined"
+									sx={{ ...styles.button }}
+									color="primary"
+									onClick={() => {
+										errorDispatchFunc({ type: "clearError" });
+										navigate("/chefs");
+									}}>
+									Cancel
 								</Button>
 							</Box>
 						</>

@@ -50,6 +50,9 @@ export async function httpFetchChefs(limit = 6) {
 		let res = await axios({
 			method: "get",
 			url: `${baseUrl}/chefs`,
+			params: {
+				limit,
+			},
 		});
 		return res.data;
 	} catch (e) {
@@ -74,10 +77,21 @@ export async function httpUpdateChef(chefId, newData) {
 			url: `${baseUrl}/chefs/${chefId}`,
 			data: newData,
 		});
-		console.log(res);
 		return res.data;
 	} catch (e) {
 		return e.response.data;
 	}
 }
-httpUpdateChef;
+export async function httpDeleteChef(chefId) {
+	console.log("httpDeleteChef");
+	try {
+		let res = await axios({
+			method: "delete",
+			url: `${baseUrl}/chefs/${chefId}`,
+		});
+
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}

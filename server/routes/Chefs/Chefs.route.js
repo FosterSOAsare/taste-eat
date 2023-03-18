@@ -9,6 +9,6 @@ chefsRouter.get("/chefs", controllerGetChefs);
 chefsRouter.post("/chefs", chefUpload.array("image"), controllerSaveChef);
 chefsRouter.get("/chef/:chefId", controllerGetAChef);
 chefsRouter.put("/chefs/:chefId", chefUpload.array("image"), controllerUpdateAChef);
-chefsRouter.delete("/chef/:chefId", controllerDeleteAChef);
+chefsRouter.delete("/chefs/:chefId", controllerDeleteAChef);
 
 module.exports = chefsRouter;

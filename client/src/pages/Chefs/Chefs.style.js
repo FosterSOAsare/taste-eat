@@ -31,6 +31,7 @@ const chefpageStyles = {
 		height: "auto",
 		...flex("center", "flex-start"),
 		gap: "40px",
+		position: "relative",
 	},
 
 	chef__promo__image__container: {

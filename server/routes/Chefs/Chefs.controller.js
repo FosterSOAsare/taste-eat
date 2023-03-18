@@ -1,31 +1,56 @@
 const { getChefs, getAChef, deleteAChef, updateAChef, postAChef } = require("../../models/Chefs/Chefs.model");
 
 async function controllerGetChefs(req, res) {
-	let chefs = await getChefs();
-	res.status(200).json(chefs);
+	const { limit } = req.query;
+	try {
+		let chefs = await getChefs(limit);
+		res.status(200).json(chefs);
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
+	}
 }
 
 async function controllerGetAChef(req, res) {
 	let { chefId } = req.params;
-	let chef = await getAChef(chefId);
-	res.status(200).json(chef);
+	try {
+		let chef = await getAChef(chefId);
+		res.status(200).json(chef);
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
+	}
 }
 
-async function controllerDeleteAChef(req, res) {}
+async function controllerDeleteAChef(req, res) {
+	let { chefId } = req.params;
+	try {
+		let response = await deleteAChef(chefId);
+		res.status(201).json({ success: `Chef of id ${chefId} has been deleted ` });
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
+	}
+}
 
 async function controllerSaveChef(req, res) {
 	let data = req.body;
 	let image = `http://localhost:8000/photos/chefs/${req.files[0].filename}`;
 	data = { ...data, experience: parseInt(data.experience), image };
 	// Storing data in database
-	const response = await postAChef(data);
 
-	// Sending response
-	if (response.error) {
-		return res.status(404).json(response);
+	try {
+		const response = await postAChef(data);
+		// Sending response
+		res.status(201).json(response);
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
 	}
-	res.status(201).json(response);
-	res.json(req.data);
 }
 
 async function controllerUpdateAChef(req, res) {
@@ -33,15 +58,15 @@ async function controllerUpdateAChef(req, res) {
 	if (req.files?.length) {
 		data.image = `http://localhost:8000/photos/chefs/${req.files[0].filename}`;
 	}
-
 	// Updating data in database
-	const response = await updateAChef(data._id, data);
-
-	// Sending response
-	if (response?.error) {
-		return res.status(404).json(response);
+	try {
+		await updateAChef(data._id, data);
+		res.status(201).json(data);
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
 	}
-	res.status(201).json(data);
 }
 
 module.exports = {

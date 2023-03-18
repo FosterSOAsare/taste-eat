@@ -53,6 +53,7 @@ const homepageStyles = {
 	homepage__story__text: {
 		width: "55%",
 		height: "auto",
+		position: "relative",
 	},
 	homepage__story__title: {
 		fontSize: "18px",

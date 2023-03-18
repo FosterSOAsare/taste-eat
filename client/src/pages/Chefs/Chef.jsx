@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography, Button, Popper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -14,16 +15,15 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import styles from "../../app.styles";
-import { httpFetchAChef } from "../../hooks/requests/request";
+import { httpDeleteChef, httpFetchAChef } from "../../hooks/requests/request";
 
 import PageDesc from "../../components/Header/PageDesc";
-
 import Reservation from "../../components/Reservation/Reservation";
-import { useTheme } from "@mui/material/styles";
 import Title from "../../components/Title/Title";
 import Loading from "../../components/Loading/Loading";
-
 import chefsData from "../../data/chefsData";
+
+import ConfirmationPopper from "../../components/ConfirmPopup/Popper";
 
 import PromoVideoImage from "../../assets/promo-video.png";
 import { useParams } from "react-router-dom";
@@ -45,17 +45,23 @@ const Chef = () => {
 		})();
 	}, [chefId]);
 
-	// useEffect(() => {
-	// 	if (chefsData[chefId]) {
-	// 		setChefData(chefsData[chefId]);
-	// 		return;
-	// 	}
-	// 	navigate("/404");
-	// }, [chefId]);
+	// For process before deleting chef
 
-	function deleteChef() {
-		console.log("Delete chef??");
-	}
+	const deleteChef = () => {
+		return new Promise(async (resolve, reject) => {
+			try {
+				let res = await httpDeleteChef(chefData._id);
+				if (res) {
+					resolve(res);
+				} else {
+					reject(res);
+				}
+			} catch (e) {
+				reject(e);
+			}
+		});
+		// Handle confirmation logic here
+	};
 
 	return (
 		<>
@@ -123,14 +129,17 @@ const Chef = () => {
 								</Box>
 
 								{/* Edit and delete chef */}
-								<Box sx={{ marginTop: "10px", display: "flex" }}>
+								<Box sx={{ marginTop: "20px", display: "flex" }}>
 									<Box onClick={() => navigate(`/chef/${chefData._id}/edit`)}>
-										<CreateIcon sx={{ fontSize: "19px", marginRight: "10px", color: theme.palette.primary.main }} />
+										<CreateIcon sx={{ fontSize: "16px", marginRight: "5px", color: theme.palette.primary.main, "&:hover": { cursor: "pointer" } }} />
 									</Box>
 
-									<Box onClick={() => deleteChef()}>
-										<DeleteIcon sx={{ fontSize: "19px", color: theme.palette.error.main }} />
-									</Box>
+									<ConfirmationPopper
+										anchor={<DeleteIcon sx={{ fontSize: "16px", color: theme.palette.error.main, "&:hover": { cursor: "pointer" } }} />}
+										question={`Are you sure you want to delete this chef?`}
+										confirm={deleteChef}
+										proceedLink="/chefs"
+									/>
 								</Box>
 							</Box>
 						</>
