@@ -28,7 +28,7 @@ const NotFoundPage = () => {
 					<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px" }}>
 						The page you are looking for doesn't exist or has been moved.
 					</Typography>
-					<Button color="secondary" variant="contained" sx={{ ...styles.button, marginTop: "40px" }}>
+					<Button color="secondary" variant="contained" sx={{ ...styles.button, marginTop: "40px" }} href="/">
 						Back to Home
 					</Button>
 				</Container>
