@@ -12,6 +12,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 
 import Logo from "../../assets/Logo.svg";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
 	const theme = useTheme();
@@ -35,9 +36,9 @@ const Header = () => {
 				<Container className="logo" maxWidth="lg" sx={styles.menu__container}>
 					<nav className="navigation ">
 						{Links.map((link, index) => (
-							<a href={link.link} key={index} className="text-[14px] text-white hover:text-secondary mr-[30px]">
+							<NavLink to={link.link} key={index} className="text-[14px] text-white hover:text-secondary mr-[30px]">
 								{link.name}
-							</a>
+							</NavLink>
 						))}
 					</nav>
 
