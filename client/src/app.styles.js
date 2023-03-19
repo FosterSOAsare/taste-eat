@@ -11,6 +11,7 @@ import galleriesPageStyles from "./pages/Gallery/Galleries.styles";
 import reservationPageStyles from "./pages/Reservation/Reservation.styles";
 import loadingStyles from "./components/Loading/Loading.styles";
 import dishPageStyles from "./pages/Dish/Dish.styles";
+import passwordProtectedPageStyles from "./pages/PasswordProtected/PasswordProtected.styles";
 export function flex(justify, align, direction = "row") {
 	return {
 		display: "flex",
@@ -66,6 +67,7 @@ const styles = {
 	...reservationPageStyles,
 	...loadingStyles,
 	...dishPageStyles,
+	...passwordProtectedPageStyles,
 };
 
 export default styles;

@@ -1,9 +1,13 @@
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
 import "./App.css";
 import "./styles/output.css";
+import { useAdminContext } from "./context/AdminContext";
+
+import Loading from "./components/Loading/Loading";
 import Layout from "./components/Layout/Layout";
 import Homepage from "./pages/Homepage/Homepage";
 import BlogsPage from "./pages/Blogs/Blogs";
@@ -19,6 +23,20 @@ import NewBlogPage from "./pages/Blogs/NewBlog";
 import NewDishPage from "./pages/Dish/NewDish";
 import NewChefPage from "./pages/Chefs/NewChef";
 import LicensesPage from "./pages/Licenses/Licenses";
+import PasswordProtectedPage from "./pages/PasswordProtected/PasswordProtected";
+
+function CheckAdmin({ children }) {
+	const { loading, isAdmin } = useAdminContext();
+
+	return (
+		<>
+			{loading && <Loading />}
+			{!loading && isAdmin && children}
+			{!loading && !isAdmin && <PasswordProtectedPage />}
+		</>
+	);
+}
+
 function App() {
 	useTheme();
 	return (
@@ -28,7 +46,13 @@ function App() {
 					<Route index element={<Homepage />}></Route>
 					<Route>
 						<Route path="blogs" element={<BlogsPage />}></Route>
-						<Route path="blogs/new" element={<NewBlogPage />}></Route>
+						<Route
+							path="blogs/new"
+							element={
+								<CheckAdmin>
+									<NewBlogPage />
+								</CheckAdmin>
+							}></Route>
 						<Route path="blog/:blogId" element={<BlogPage />}></Route>
 					</Route>
 					<Route path="menu" element={<MenuPage />}></Route>
@@ -36,9 +60,21 @@ function App() {
 					<Route path="about" element={<AboutPage />}></Route>
 					<Route>
 						<Route path="chefs" element={<ChefsPage />}></Route>
-						<Route path="chefs/new" element={<NewChefPage />}></Route>
+						<Route
+							path="chefs/new"
+							element={
+								<CheckAdmin>
+									<NewChefPage />
+								</CheckAdmin>
+							}></Route>
 						<Route path="chef/:chefId" element={<Chef />}></Route>
-						<Route path="chef/:chefId/edit" element={<NewChefPage />}></Route>
+						<Route
+							path="chef/:chefId/edit"
+							element={
+								<CheckAdmin>
+									<NewChefPage />
+								</CheckAdmin>
+							}></Route>
 					</Route>
 					<Route path="gallery" element={<GalleryCollection />}></Route>
 					<Route path="reserve" element={<ReservationPage />}></Route>
