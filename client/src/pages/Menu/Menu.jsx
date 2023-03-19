@@ -17,11 +17,11 @@ const MenuPage = () => {
 			<Box sx={{ width: "100%", height: "300px" }}>
 				<img src={DishesImage1} alt="" className="w-full h-full" />
 			</Box>
-			<MenuDishes type="main dish" image={MainDishImage} order="2" />
+			<MenuDishes type="main dishes" image={MainDishImage} order="2" />
 			<Box sx={{ width: "100%", height: "300px" }}>
 				<img src={DishesImage2} alt="" className="w-full h-full" />
 			</Box>
-			<MenuDishes type="dessert" image={DessertImage} order="1" />
+			<MenuDishes type="desserts" image={DessertImage} order="1" />
 		</>
 	);
 };

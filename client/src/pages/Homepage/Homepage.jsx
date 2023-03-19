@@ -118,8 +118,21 @@ const Homepage = () => {
 						</Button>
 					</Box>
 					<Box className="dishes" sx={styles.homepage__dishes}>
-						{["starters", "main dishes", "desserts"].map((dish, index) => (
-							<Dishes key={index} type={dish} />
+						{[
+							{
+								type: "starters",
+								limit: "4",
+							},
+							{
+								type: "main dishes",
+								limit: "4",
+							},
+							{
+								type: "desserts",
+								limit: "2",
+							},
+						].map((dish, index) => (
+							<Dishes key={index} type={dish.type} limit={dish.limit} />
 						))}
 					</Box>
 				</Container>

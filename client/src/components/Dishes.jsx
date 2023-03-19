@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import styles from "../app.styles";
 
 import LineImage from "../assets/Line.png";
@@ -7,7 +7,7 @@ import Loading from "./Loading/Loading";
 
 import { httpFetchDishes } from "../hooks/requests/request";
 
-const Dishes = ({ type, limit }) => {
+const Dishes = ({ type, limit, next = false }) => {
 	const [data, setData] = useState({});
 	const [loading, setLoading] = useState({});
 
@@ -17,7 +17,16 @@ const Dishes = ({ type, limit }) => {
 			setData(res);
 			setLoading(false);
 		})();
-	});
+	}, []);
+
+	async function fetchMore() {
+		let skip = data.dishes.length;
+		let res = await httpFetchDishes(type, limit, skip);
+
+		setData((prev) => {
+			return { ...res, dishes: [...prev.dishes, ...res.dishes] };
+		});
+	}
 	return (
 		<Box sx={{ width: "100%", marginBottom: "20px" }}>
 			<Typography variant="h3" sx={{ fontSize: "24px", marginBottom: "20px", fontFamily: "'Cormorant Infant', serif !important", fontWeight: "bold", textTransform: "capitalize" }}>
@@ -48,6 +57,11 @@ const Dishes = ({ type, limit }) => {
 									</Box>
 								</Box>
 							))}
+						{data.nextpage && next && (
+							<Button variant="outlined" color="secondary" sx={{ ...styles.button }} onClick={fetchMore}>
+								View More
+							</Button>
+						)}
 					</>
 				)}
 				{loading && <Loading sx="bg-white" text_sx="text-primary" />}
