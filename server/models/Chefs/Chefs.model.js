@@ -6,9 +6,12 @@ async function getChefs(limit) {
 }
 
 async function getAChef(chefId) {
-	let res = await chefsCollection.findOne({ _id: chefId }, { __v: 0 });
-	if (res) return res;
-	throw new Error("No chef exists with the specified id");
+	try {
+		let res = await chefsCollection.findOne({ _id: chefId }, { __v: 0 });
+		return res;
+	} catch (error) {
+		throw new Error("No chef exists with the specified id");
+	}
 }
 
 async function deleteAChef(chefId) {

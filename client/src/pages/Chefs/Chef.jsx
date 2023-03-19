@@ -16,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import styles from "../../app.styles";
 import { httpDeleteChef, httpFetchAChef } from "../../hooks/requests/request";
+import { useAdminContext } from "../../context/AdminContext";
 
 import PageDesc from "../../components/Header/PageDesc";
 import Reservation from "../../components/Reservation/Reservation";
@@ -35,13 +36,18 @@ const Chef = () => {
 	const theme = useTheme();
 	const navigate = useNavigate();
 	const { chefId } = useParams();
+	const { isAdmin } = useAdminContext();
 
 	// Using data from the database
 	useEffect(() => {
 		(async function () {
 			let res = await httpFetchAChef(chefId);
-			setChefData(res);
 			setLoading(false);
+			if (res.error) {
+				navigate("/404");
+				return;
+			}
+			setChefData(res);
 		})();
 	}, [chefId]);
 
@@ -129,18 +135,20 @@ const Chef = () => {
 								</Box>
 
 								{/* Edit and delete chef */}
-								<Box sx={{ marginTop: "20px", display: "flex" }}>
-									<Box onClick={() => navigate(`/chef/${chefData._id}/edit`)}>
-										<CreateIcon sx={{ fontSize: "16px", marginRight: "5px", color: theme.palette.primary.main, "&:hover": { cursor: "pointer" } }} />
-									</Box>
+								{isAdmin && (
+									<Box sx={{ marginTop: "20px", display: "flex" }}>
+										<Box onClick={() => navigate(`/chef/${chefData._id}/edit`)}>
+											<CreateIcon sx={{ fontSize: "16px", marginRight: "5px", color: theme.palette.primary.main, "&:hover": { cursor: "pointer" } }} />
+										</Box>
 
-									<ConfirmationPopper
-										anchor={<DeleteIcon sx={{ fontSize: "16px", color: theme.palette.error.main, "&:hover": { cursor: "pointer" } }} />}
-										question={`Are you sure you want to delete this chef?`}
-										confirm={deleteChef}
-										proceedLink="/chefs"
-									/>
-								</Box>
+										<ConfirmationPopper
+											anchor={<DeleteIcon sx={{ fontSize: "16px", color: theme.palette.error.main, "&:hover": { cursor: "pointer" } }} />}
+											question={`Are you sure you want to delete this chef?`}
+											confirm={deleteChef}
+											proceedLink="/chefs"
+										/>
+									</Box>
+								)}
 							</Box>
 						</>
 					)}
