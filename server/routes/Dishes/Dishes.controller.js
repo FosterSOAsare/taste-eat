@@ -1,7 +1,15 @@
 const { getDishes, getADish, deleteADish, updateADish, postADish } = require("../../models/Dishes/Dishes.model");
 
 async function controllerGetDishes(req, res) {
-	res.status(200).json(await getDishes());
+	let { type, limit, skip } = req.query;
+	let correspondingType = type === "starters" ? "Starter" : type === "main dishes" ? "Main Dish" : "Dessert";
+	let response = await getDishes(correspondingType, limit, skip);
+	if (!res) {
+		res.status(404).json({ error: "An error occurred" });
+		return;
+	}
+	response = { ...response, type };
+	res.status(200).json(response);
 }
 
 async function controllerGetADish(req, res) {}
@@ -18,8 +26,6 @@ async function controllerSaveDish(req, res) {
 	let imageUrl = `http://localhost:8000/photos/dishes/${req.files[0].filename}`;
 	data.imageUrl = imageUrl;
 	data.price = parseFloat(data.price);
-
-
 
 	// Storing data in database
 	const response = await postADish(data);

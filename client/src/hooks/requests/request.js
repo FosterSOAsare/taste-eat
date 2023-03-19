@@ -19,6 +19,23 @@ export async function httpStoreBlog(data) {
 	}
 }
 
+export async function httpFetchDishes(type, limit = 6, skip = 0) {
+	try {
+		let res = await axios({
+			method: "get",
+			url: `${baseUrl}/dishes`,
+			params: {
+				type,
+				limit,
+				skip,
+			},
+		});
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
+
 export async function httpStoreDish(data) {
 	try {
 		let res = await axios({
@@ -83,7 +100,6 @@ export async function httpUpdateChef(chefId, newData) {
 	}
 }
 export async function httpDeleteChef(chefId) {
-	console.log("httpDeleteChef");
 	try {
 		let res = await axios({
 			method: "delete",

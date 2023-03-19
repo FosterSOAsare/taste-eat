@@ -17,7 +17,8 @@ const NewDishPage = () => {
 	const { error, errorDispatchFunc, validations, clearError, waiting, setWaiting } = useAuthContext();
 	const [dishData, setDishData] = useState({
 		price: 40,
-		summary: "Candied Jerusalem artichokes, truffle",
+		summary: "Candied Jerusalem dummy texts",
+		type: "Dessert",
 	});
 	const navigate = useNavigate();
 	function handleChange(name, value) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../app.styles";
 import { Box, Typography, Button, Container, Grid, TextField } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -15,6 +15,7 @@ import foodDishes from "../../data/dishesData";
 import testimonials from "../../data/testimonials";
 import popularDishes from "../../data/popularDishes";
 import blogs from "../../data/blogData";
+import { httpFetchDishes } from "../../hooks/requests/request";
 
 import HeroImage from "../../assets/hero-image.png";
 import LocationImage from "../../assets/Location.svg";
@@ -32,6 +33,7 @@ import Opened247 from "../../assets/opened.svg";
 
 const Homepage = () => {
 	const theme = useTheme();
+
 	return (
 		<>
 			<Box className="hero" sx={{ ...styles.hero, backgroundColor: theme.palette.primary.main }}>
@@ -116,8 +118,8 @@ const Homepage = () => {
 						</Button>
 					</Box>
 					<Box className="dishes" sx={styles.homepage__dishes}>
-						{foodDishes.map((dish, index) => (
-							<Dishes key={index} {...dish} />
+						{["starters", "main dishes", "desserts"].map((dish, index) => (
+							<Dishes key={index} type={dish} />
 						))}
 					</Box>
 				</Container>

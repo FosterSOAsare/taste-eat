@@ -1,6 +1,8 @@
 const dishesCollection = require("./Dishes.mongo");
-async function getDishes() {
-	return await dishesCollection.find({}, { __v: 0 });
+async function getDishes(type, limit, skip) {
+	let totalCount = await dishesCollection.countDocuments({ type });
+	let response = await dishesCollection.find({ type }, { __v: 0 }).limit(limit).skip(skip);
+	return { dishes: response, nextpage: parseInt(limit) + parseInt(skip) < totalCount };
 }
 
 async function getADish(blogId) {}
