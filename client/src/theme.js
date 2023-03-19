@@ -25,6 +25,12 @@ const theme = createTheme({
 		error: {
 			main: "#FF0000",
 		},
+		stroke: {
+			main: "#E1B168",
+		},
+		protectedBg: {
+			main: "#FFF8F5",
+		},
 	},
 	breakpoints: {
 		values: {

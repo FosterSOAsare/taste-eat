@@ -111,3 +111,16 @@ export async function httpDeleteChef(chefId) {
 		return e.response.data;
 	}
 }
+
+export async function httpValidateAdmin(type, value) {
+	try {
+		let res = await axios({
+			method: "get",
+			url: `${baseUrl}/users`,
+			params: { type, value },
+		});
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}

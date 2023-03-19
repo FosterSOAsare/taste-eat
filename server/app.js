@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const dishesRouter = require("./routes/Dishes/Dishes.route");
 const blogsRouter = require("./routes/Blogs/Blogs.route");
 const chefsRouter = require("./routes/Chefs/Chefs.route");
+const usersRouter = require("./routes/Users/Users.route");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(dishesRouter);
 app.use(blogsRouter);
 app.use(chefsRouter);
+app.use(usersRouter);
 
 // For  images
 
