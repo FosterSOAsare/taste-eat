@@ -659,6 +659,10 @@ video {
   width: 100%;
 }
 
+.w-\[100px\] {
+  width: 100px;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -836,4 +840,10 @@ video {
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .md\:w-\[180px\] {
+    width: 180px;
+  }
 }

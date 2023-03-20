@@ -3,13 +3,14 @@ const headerStyles = {
 	header: {
 		height: "auto",
 		width: "100%",
-		paddingTop: "20px",
+		background: "green",
 	},
 	logo__section: {
 		width: "100%",
-		height: "70px",
-		backgroundColor: "white",
+		height: "auto",
 		...flex("space-between", "center"),
+		justifyContent: { xxs: "space-between", xs: "center", md: "space-between" },
+		marginBlock: "20px",
 	},
 	menu: {
 		width: "100%",
