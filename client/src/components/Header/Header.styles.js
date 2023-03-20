@@ -31,7 +31,7 @@ const headerStyles = {
 	},
 	page__desc: {
 		width: "100%",
-		height: "150px",
+		height: { xxs: "90px", xs: "120px", sm: "150px" },
 		...flex("center", "center"),
 	},
 	desc__container: {

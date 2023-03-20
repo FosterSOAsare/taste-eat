@@ -13,12 +13,12 @@ const Reservation = () => {
 				<Typography variant="p" sx={{ color: theme.palette.white.main, ...styles.title, marginTop: "5px" }}>
 					Book your table now
 				</Typography>
-				<Grid container sx={{ width: "80%", height: "auto", marginBlock: "20px" }}>
+				<Grid container sx={{ width: "80%", height: "auto", marginBlock: "20px", justifyContent: "space-between" }}>
 					{[{ name: "Name" }, { name: "Email" }].map((e, index) => (
-						<Grid item md={6} sx={{ width: "100%", marginBottom: "20px" }} key={index}>
+						<Grid item xs={5.9} sx={{ width: "100%", marginBottom: "20px", display: "flex", justifyContent: (index + 1) % 2 === 0 ? "flex-end" : "flex-start" }} key={index}>
 							<input
 								type="text"
-								className="w-[95%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
+								className="w-[100%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
 								aria-label={e.name}
 								placeholder={e.name}
 								name={e.name.toLowerCase()}
@@ -27,10 +27,10 @@ const Reservation = () => {
 					))}
 
 					{[{ name: "Person" }, { name: "Timing" }, { name: "Date" }].map((e, index) => (
-						<Grid item md={4} sx={{ width: "100%", marginBottom: "10px" }} key={index}>
+						<Grid item xs={3.8} sx={{ width: "100%", marginBottom: "10px" }} key={index}>
 							<input
 								type="text"
-								className="w-[95%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
+								className="w-[100%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
 								aria-label={e.name}
 								placeholder={e.name}
 								name={e.name.toLowerCase()}
