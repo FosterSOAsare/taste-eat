@@ -23,6 +23,10 @@ const links = [
 		name: "Blog",
 		link: "/blogs",
 	},
+	{
+		name: "Contact",
+		link: "/contact",
+	},
 ];
 
 export default links;

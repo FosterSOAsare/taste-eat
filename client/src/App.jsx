@@ -24,6 +24,8 @@ import NewDishPage from "./pages/Dish/NewDish";
 import NewChefPage from "./pages/Chefs/NewChef";
 import LicensesPage from "./pages/Licenses/Licenses";
 import PasswordProtectedPage from "./pages/PasswordProtected/PasswordProtected";
+import FaqPage from "./pages/Faq/Faq";
+import ContactUsPage from "./pages/Contact/Contact";
 
 function CheckAdmin({ children }) {
 	const { loading, isAdmin } = useAdminContext();
@@ -56,8 +58,10 @@ function App() {
 						<Route path="blog/:blogId" element={<BlogPage />}></Route>
 					</Route>
 					<Route path="menu" element={<MenuPage />}></Route>
+					<Route path="faq" element={<FaqPage />}></Route>
 					<Route path="licenses" element={<LicensesPage />}></Route>
 					<Route path="about" element={<AboutPage />}></Route>
+					<Route path="contact" element={<ContactUsPage />}></Route>
 					<Route>
 						<Route path="chefs" element={<ChefsPage />}></Route>
 						<Route

@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Container, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { NavLink } from "react-router-dom";
 
 import styles from "../../app.styles";
 import Links from "../../data/links";
@@ -12,7 +13,6 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 
 import Logo from "../../assets/Logo.svg";
-import { NavLink } from "react-router-dom";
 
 const Header = () => {
 	const theme = useTheme();

@@ -790,6 +790,10 @@ video {
   outline-offset: 2px;
 }
 
+.outline {
+  outline-style: solid;
+}
+
 .container {
   width: 100%;
 }
