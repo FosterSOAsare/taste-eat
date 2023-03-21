@@ -18,7 +18,7 @@ const ReservationPage = () => {
 		<>
 			<PageDesc content="Booking Page"></PageDesc>
 			<Box sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
-				<Container maxWidth="lg" sx={{ ...styles.chef__info__container, alignItems: "center" }}>
+				<Container maxWidth="lg" sx={{ ...styles.reservation__page__container, alignItems: "center" }}>
 					<Box className="story__text" sx={{ ...styles.homepage__story__text, width: { sm: "50%", xxs: "100%" }, order: { xxs: 2, sm: 1 } }}>
 						<Title text="reservation" />
 						<Typography variant="h3" sx={{ ...styles.homepage__story__title, fontSize: "40px", marginBlock: "5px" }}>
@@ -44,15 +44,15 @@ const ReservationPage = () => {
 						</Button>
 					</Box>
 
-					<Box sx={{ backgroundColor: "yellow", width: { sm: "40%", xxs: "100%" }, height: "450px", order: { xxs: 1, sm: 2 } }}>
+					<Box sx={{ backgroundColor: "yellow", width: { sm: "40%", xxs: "100%" }, height: { sm: "450px", xxs: "350px" }, order: { xxs: 1, sm: 2 } }}>
 						<img src={ReservedImage} alt="" className="w-[100%] h-[100%]" />
 					</Box>
 				</Container>
 			</Box>
 
 			<Box sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
-				<Container maxWidth="lg" sx={{ ...styles.chef__info__container, alignItems: "center" }}>
-					<Box sx={{ backgroundColor: "yellow", width: { xxs: "100%", sm: "40%" }, height: "450px" }}>
+				<Container maxWidth="lg" sx={{ ...styles.reservation__page__container, alignItems: "center" }}>
+					<Box sx={{ width: { xxs: "100%", sm: "40%" }, height: { sm: "450px", xxs: "350px" } }}>
 						<img src={WhyChooseUsImage} alt="" className="w-[100%] h-[100%]" />
 					</Box>
 

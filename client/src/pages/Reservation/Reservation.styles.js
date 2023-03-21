@@ -8,5 +8,13 @@ const reservationPageStyles = {
 		...flex("flex-start", "center"),
 		paddingInline: "10px",
 	},
+	reservation__page__container: {
+		width: { sm: "80%", xxs: "100%" },
+		height: "auto",
+		...flex("center", "flex-start"),
+		gap: "40px",
+		position: "relative",
+		flexDirection: { xxs: "column", sm: "row" },
+	},
 };
 export default reservationPageStyles;
