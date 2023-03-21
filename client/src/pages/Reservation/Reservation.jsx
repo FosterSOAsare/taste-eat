@@ -17,9 +17,9 @@ const ReservationPage = () => {
 	return (
 		<>
 			<PageDesc content="Booking Page"></PageDesc>
-			<Box sx={{ marginBlock: "100px" }}>
+			<Box sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
 				<Container maxWidth="lg" sx={{ ...styles.chef__info__container, alignItems: "center" }}>
-					<Box className="story__text" sx={{ ...styles.homepage__story__text, width: "50%" }}>
+					<Box className="story__text" sx={{ ...styles.homepage__story__text, width: { sm: "50%", xxs: "100%" }, order: { xxs: 2, sm: 1 } }}>
 						<Title text="reservation" />
 						<Typography variant="h3" sx={{ ...styles.homepage__story__title, fontSize: "40px", marginBlock: "5px" }}>
 							Book your table now
@@ -32,7 +32,7 @@ const ReservationPage = () => {
 						<Grid container sx={{ width: "100%", height: "auto", marginTop: "20px" }}>
 							{[{ text: "Name" }, { text: "Email" }, { text: "Phone" }, { text: "Date" }, { text: "Time" }, { text: "Person" }].map((e, index) => {
 								return (
-									<Grid item key={index} md={6} sx={{ height: "auto", marginBottom: "20px" }}>
+									<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px" }}>
 										<input style={{ ...styles.choose__us__reason }} className="focus:outline-none" placeholder={e.text} aria-label={e.text}></input>
 									</Grid>
 								);
@@ -44,19 +44,19 @@ const ReservationPage = () => {
 						</Button>
 					</Box>
 
-					<Box sx={{ backgroundColor: "yellow", width: "40%", height: "450px" }}>
+					<Box sx={{ backgroundColor: "yellow", width: { sm: "40%", xxs: "100%" }, height: "450px", order: { xxs: 1, sm: 2 } }}>
 						<img src={ReservedImage} alt="" className="w-[100%] h-[100%]" />
 					</Box>
 				</Container>
 			</Box>
 
-			<Box sx={{ marginBlock: "100px" }}>
+			<Box sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
 				<Container maxWidth="lg" sx={{ ...styles.chef__info__container, alignItems: "center" }}>
-					<Box sx={{ backgroundColor: "yellow", width: "40%", height: "450px" }}>
+					<Box sx={{ backgroundColor: "yellow", width: { xxs: "100%", sm: "40%" }, height: "450px" }}>
 						<img src={WhyChooseUsImage} alt="" className="w-[100%] h-[100%]" />
 					</Box>
 
-					<Box className="story__text" sx={{ ...styles.homepage__story__text, width: "50%" }}>
+					<Box className="story__text" sx={{ ...styles.homepage__story__text, width: { sm: "50%", xxs: "100%" } }}>
 						<Title text="Why choose us" />
 						<Typography variant="h3" sx={{ ...styles.homepage__story__title, fontSize: "40px", marginBlock: "5px" }}>
 							Why We Are The Best?
@@ -75,7 +75,7 @@ const ReservationPage = () => {
 								{ text: "24/7 Service", icon: Service247 },
 							].map((e, index) => {
 								return (
-									<Grid item key={index} md={6} sx={{ height: "auto", marginBottom: "20px" }}>
+									<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px", width: "100%" }}>
 										<Box sx={styles.choose__us__reason}>
 											<img src={e.icon} alt="Why choose us" className="w-[30px] h-[25px] mr-[10px]" />
 											<Typography variant="p"> {e.text}</Typography>
