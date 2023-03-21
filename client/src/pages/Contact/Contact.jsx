@@ -22,13 +22,19 @@ const ContactUsPage = () => {
 	return (
 		<>
 			<PageDesc content="Contact Us"></PageDesc>
-			<Box sx={{ marginBlock: "100px" }}>
-				<Container maxWidth="lg" sx={{ display: "flex", justifyContent: "space-between", height: "auto" }}>
-					<Box sx={{ width: "40%", height: "100%", background: "#FFF8F5", padding: "40px" }}>
-						<Typography variant="h3" sx={{ ...styles.title, fontSize: "24px", marginBottom: "10px" }}>
+			<Box sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
+				<Container maxWidth="lg" sx={{ display: "flex", justifyContent: "space-between", height: "auto", flexDirection: { xxs: "column", sm: "row" } }}>
+					<Box
+						sx={{
+							width: { xxs: "100%", sm: "42%" },
+							height: { sm: "500px", md: "100%" },
+							background: "#FFF8F5",
+							padding: { xxs: "40px", xs: "40px 20px", md: "40px" },
+						}}>
+						<Typography variant="h3" sx={{ ...styles.title, fontSize: "28px", marginBottom: "10px" }}>
 							Contact Information
 						</Typography>
-						<Typography variant="p" sx={{ ...styles.desc, fontSize: "13px", marginBottom: "20px" }}>
+						<Typography variant="p" sx={{ ...styles.desc, fontSize: "15px", marginBottom: "20px" }}>
 							Bring the table winwin survival strateges ensure proactive domination the end of the day going real times multiple touchpoints.
 						</Typography>
 
@@ -114,7 +120,15 @@ const ContactUsPage = () => {
 							))}
 						</Box>
 					</Box>
-					<Box sx={{ width: "55%", height: "100%" }}>
+					<Box
+						sx={{
+							width: { xxs: "100%", sm: "55%" },
+							height: "100%",
+							display: "flex",
+							alignItems: { xxs: "center", sm: "flex-start" },
+							flexDirection: "column",
+							marginTop: { xxs: "30px", sm: 0 },
+						}}>
 						<Title text="mail" />
 						<Typography variant="h3" sx={{ ...styles.title, marginBlock: "20px", fontSize: "24px" }}>
 							Have a Question?
@@ -125,15 +139,17 @@ const ContactUsPage = () => {
 									<Grid
 										item
 										key={index}
+										xxs={12}
+										xs={12}
 										md={6}
-										sx={{ height: "auto", marginBottom: "20px", gap: "20px", justifyContent: (index + 1) % 2 === 0 ? "flex-end" : "flex-start", display: "flex" }}>
-										<input style={{ ...styles.choose__us__reason }} className="focus:outline-none" placeholder={e.text} aria-label={e.text}></input>
+										sx={{ height: "auto", marginBottom: "20px", justifyContent: (index + 1) % 2 === 0 ? "flex-end" : "flex-start", display: "flex" }}>
+										<input style={styles.input__field} className="focus:outline-none w-full md:w-[97%] " placeholder={e.text} aria-label={e.text}></input>
 									</Grid>
 								);
 							})}
 							<Grid
 								item
-								md={12}
+								xxs={12}
 								sx={{
 									height: "auto",
 									marginBottom: "20px",
@@ -148,10 +164,10 @@ const ContactUsPage = () => {
 					</Box>
 				</Container>
 			</Box>
-			<Box sx={{ marginBlock: "100px" }}>
+			<Box sx={{ paddingBlock: { xxs: "30px", sm: "100px" }, backgroundColor: theme.palette.primary.main }}>
 				<Container maxWidth="lg" sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-					<Title text="Visit us" />
-					<Typography variant="h3" sx={{ ...styles.title, fontSize: "28px", marginTop: "20px" }}>
+					<Title text="Visit us" sx={{ color: theme.palette.white.main }} />
+					<Typography variant="h3" sx={{ ...styles.title, fontSize: "28px", marginTop: "20px" }} color={theme.palette.white.main}>
 						Come and visit our Branches
 					</Typography>
 
@@ -172,28 +188,39 @@ const ContactUsPage = () => {
 								image: SFRestaurantImage,
 							},
 						].map((e, index) => (
-							<Grid item md={5.8} sx={{ width: "100%", height: "300px", border: `2px solid #C4C4C4ff`, display: "flex", alignItems: "center" }} key={index}>
-								<Box sx={{ width: "50%", padding: "20px" }}>
-									<Typography variant="h3" sx={{ ...styles.title, fontSize: "24px", marginBottom: "10px" }}>
+							<Grid
+								item
+								md={5.8}
+								sx={{
+									width: "100%",
+									height: { xxs: "auto", xs: "300px" },
+									border: `2px solid #C4C4C4ff`,
+									display: "flex",
+									alignItems: "center",
+									flexDirection: { xxs: "column ", xs: "row" },
+								}}
+								key={index}>
+								<Box sx={{ width: { xxs: "100%", sx: "50%" }, padding: "20px", order: { xxs: 2, xs: 1 } }}>
+									<Typography variant="h3" sx={{ ...styles.title, fontSize: "24px", marginBottom: "10px" }} color={theme.palette.white.main}>
 										{e.title}
 									</Typography>
-									<Typography variant="p" sx={{ ...styles.desc, fontSize: "16px", opacity: "0.7", lineHeight: "20px", marginBottom: "20px" }}>
+									<Typography variant="p" sx={{ ...styles.desc, fontSize: "16px", opacity: "0.7", lineHeight: "20px", marginBottom: "20px" }} color={theme.palette.white.main}>
 										{e.loc}
 									</Typography>
 									<Box sx={{ display: "flex", gap: "5px", alignItems: "center", marginBottom: "20px" }}>
 										<MailOutlineOutlinedIcon color="secondary" />
-										<Typography variant="p" sx={{ ...styles.desc }}>
+										<Typography variant="p" sx={{ ...styles.desc }} color={theme.palette.white.main}>
 											{e.mail}
 										</Typography>
 									</Box>
-									<Box sx={{ display: "flex", gap: "5px", alignItems: "center", marginBottom: "20px" }}>
+									<Box sx={{ display: "flex", gap: "5px", alignItems: "center", marginBottom: "20px" }} color={theme.palette.white.main}>
 										<CallOutlinedIcon color="secondary" />
 										<Typography variant="p" sx={{ ...styles.desc }}>
 											{e.phone}
 										</Typography>
 									</Box>
 								</Box>
-								<Box sx={{ width: "50%", height: "100%" }}>
+								<Box sx={{ width: { xxs: "100%", sx: "50%" }, height: { xxs: "400px", xs: "100%" }, order: { xxs: 1, xs: 2 } }}>
 									<img src={e.image} alt="" className="w-full h-full" />
 								</Box>
 							</Grid>

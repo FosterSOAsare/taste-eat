@@ -19,7 +19,7 @@ const ReservationPage = () => {
 			<PageDesc content="Booking Page"></PageDesc>
 			<Box sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
 				<Container maxWidth="lg" sx={{ ...styles.reservation__page__container, alignItems: "center" }}>
-					<Box className="story__text" sx={{ ...styles.homepage__story__text, width: { sm: "50%", xxs: "100%" }, order: { xxs: 2, sm: 1 } }}>
+					<Box className="story__text" sx={{ ...styles.homepage__story__text, width: { md: "50%", xxs: "100%" }, order: { xxs: 2, md: 1 } }}>
 						<Title text="reservation" />
 						<Typography variant="h3" sx={{ ...styles.homepage__story__title, fontSize: "40px", marginBlock: "5px" }}>
 							Book your table now
@@ -44,19 +44,19 @@ const ReservationPage = () => {
 						</Button>
 					</Box>
 
-					<Box sx={{ backgroundColor: "yellow", width: { sm: "40%", xxs: "100%" }, height: { sm: "450px", xxs: "350px" }, order: { xxs: 1, sm: 2 } }}>
+					<Box sx={{ backgroundColor: "yellow", width: { md: "40%", xxs: "100%" }, height: { md: "450px", xxs: "350px" }, order: { xxs: 1, md: 2 } }}>
 						<img src={ReservedImage} alt="" className="w-[100%] h-[100%]" />
 					</Box>
 				</Container>
 			</Box>
 
-			<Box sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
+			<Box sx={{ marginBlock: { xxs: "30px", md: "100px" } }}>
 				<Container maxWidth="lg" sx={{ ...styles.reservation__page__container, alignItems: "center" }}>
-					<Box sx={{ width: { xxs: "100%", sm: "40%" }, height: { sm: "450px", xxs: "350px" } }}>
+					<Box sx={{ width: { xxs: "100%", md: "40%" }, height: { md: "450px", xxs: "350px" } }}>
 						<img src={WhyChooseUsImage} alt="" className="w-[100%] h-[100%]" />
 					</Box>
 
-					<Box className="story__text" sx={{ ...styles.homepage__story__text, width: { sm: "50%", xxs: "100%" } }}>
+					<Box className="story__text" sx={{ ...styles.homepage__story__text, width: { md: "50%", xxs: "100%" } }}>
 						<Title text="Why choose us" />
 						<Typography variant="h3" sx={{ ...styles.homepage__story__title, fontSize: "40px", marginBlock: "5px" }}>
 							Why We Are The Best?

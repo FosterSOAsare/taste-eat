@@ -35,6 +35,12 @@ const styles = {
 	icon: {
 		marginRight: "20px",
 	},
+	input__field: {
+		height: "50px",
+		border: "1px solid #555555 ",
+		...flex("flex-start", "center"),
+		paddingInline: "10px",
+	},
 	desc: {
 		display: "block",
 	},
