@@ -17,7 +17,7 @@ export function flex(justify, align, direction = "row") {
 		display: "flex",
 		justifyContent: justify,
 		alignItems: align,
-		flexDirection: direction,
+		flexDirection: direction ,
 	};
 }
 const styles = {

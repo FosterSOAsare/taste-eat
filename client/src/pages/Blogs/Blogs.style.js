@@ -2,7 +2,7 @@ import { flex } from "../../app.styles";
 const blogStyles = {
 	blog: {
 		width: "100%",
-		marginBlock: "100px",
+		marginBlock: { xxs: "30px", sm: "100px" },
 		height: "auto",
 	},
 	blogs__container: {

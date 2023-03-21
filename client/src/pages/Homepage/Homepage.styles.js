@@ -5,12 +5,15 @@ import testimonialStyles from "../../components/Testimonial/Testimonial.style";
 const homepageStyles = {
 	hero: {
 		width: "100%",
-		height: "350px",
+		height: { xxs: "auto", sm: "350px" },
 	},
 	hero__container: {
 		height: "100%",
 		width: "100%",
 		...flex("space-between", "center"),
+		justifyContent: { xxs: "center", sm: "space-between" },
+		flexDirection: { xxs: "column", sm: "row" },
+		paddingBlock: { xxs: "30px", sm: 0 },
 	},
 	hero__title: {
 		fontFamily: "'Cormorant Infant', serif !important",
@@ -25,12 +28,16 @@ const homepageStyles = {
 
 	homepage__about__contacts: {
 		width: "100%",
-		height: "70px",
+		height: { sm: "70px" },
 		...flex("space-between", "center"),
+		flexDirection: { xxs: "column", sm: "row" },
+		gap: { xxs: "20px", sm: 0 },
 	},
 	homepage__about__contact: {
-		...flex("space-between", "center"),
+		...flex("flex-start", "center"),
+		flexDirection: "row",
 		gap: "10px",
+		width: "100%",
 	},
 	homepage__contact__icon: { width: "30px", height: "30px", borderRadius: "50%", ...flex("center", "center") },
 	homepage__contact__title: {
@@ -49,9 +56,11 @@ const homepageStyles = {
 		height: "auto",
 		marginTop: "40px",
 		...flex("space-between", "center"),
+		flexDirection: { xxs: "column", xs: "row" },
+		gap: "20px",
 	},
 	homepage__story__text: {
-		width: "55%",
+		width: { sm: "55%" },
 		height: "auto",
 		position: "relative",
 	},
@@ -74,9 +83,10 @@ const homepageStyles = {
 		height: "auto",
 		...flex("space-between", "flex-start"),
 		gap: "30px",
+		flexDirection: { xxs: "column", sm: "row" },
 	},
 	homepage__dishes: {
-		width: "60%",
+		width: { xxs: "100%", md: "65%" },
 		height: "auto",
 	},
 	testimonials: {
@@ -84,23 +94,26 @@ const homepageStyles = {
 		color: "white !important",
 		height: "auto",
 		paddingBlock: "70px 40px",
+		paddingInline: { xxs: "20px", lg: 0 },
 	},
 	testimonials__container: {
 		width: "100%",
 		height: "auto",
-		gap: "30px",
-		maxWidth: "calc(1124px + 7%)",
+		maxWidth: "calc(((100% - 1124px ) / 2) + 1124px)",
 		marginLeft: "auto",
+		...flex("center", "center", "column"),
+		alignItems: { xxs: "center", sm: "flex-start" },
 	},
 	testimonials__slider: {
 		width: "100%",
-		height: "300px",
+		height: "auto",
 		marginTop: "20px",
 	},
 	testimonials__slider__content: {
 		width: "100%",
 		height: "80%",
 		...flex("space-between", "center"),
+		flexDirection: { xxs: "column", sm: "row" },
 		gap: "20px",
 	},
 	testimonials__slider__controls: {
@@ -124,8 +137,14 @@ const homepageStyles = {
 		...flex("space-between", "center"),
 		gap: "20px",
 		marginTop: "20px",
+		flexDirection: { xxs: "column", sm: "row" },
 	},
-	popular__dish: { width: "25%", height: "100%" },
+	popular__dish: {
+		width: { xxs: "100%", sm: "25%" },
+		height: "100%",
+		border: { xxs: "1px solid #C4C4C4", sm: "none" },
+		paddingBottom: "20px",
+	},
 	popular__dish__top: {
 		...flex("space-between", "center"),
 		paddingBlock: "5px",

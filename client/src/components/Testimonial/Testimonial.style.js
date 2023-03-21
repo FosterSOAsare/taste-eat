@@ -2,8 +2,8 @@ import { flex } from "../../app.styles";
 const testimonialStyles = {
 	testimonial: {
 		height: "100%",
-		width: "33%",
-		padding: "30px",
+		width: { md: "33%", xs: "75%", xxs: "100%" },
+		padding: { xxs: "30px", sm: "10px", md: "30px" },
 	},
 	testimonial__top: {
 		width: "100%",
@@ -17,6 +17,7 @@ const testimonialStyles = {
 		fontSize: "16px",
 		marginTop: "10px",
 		lineHeight: "30px",
+		height: { xxs: "100px", sm: "150px", md: "130px", lg: "100px" },
 	},
 	testimonial_slider_dots: {
 		position: "absolute",

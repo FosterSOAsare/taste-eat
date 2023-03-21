@@ -8,7 +8,7 @@ const PopularDish = ({ image, name, price, desc }) => {
 	return (
 		<Box sx={styles.popular__dish}>
 			<img src={image} alt="" />
-			<Box sx={{ ...styles.popular__dish__top }}>
+			<Box sx={{ ...styles.popular__dish__top, paddingInline: { xxs: "10px", sm: 0 } }}>
 				<Typography variant="p" sx={{ ...styles.title }}>
 					{name}
 				</Typography>
@@ -16,7 +16,7 @@ const PopularDish = ({ image, name, price, desc }) => {
 					${price}
 				</Typography>
 			</Box>
-			<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px", marginTop: "5px", lineHeight: "15px" }}>
+			<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px", marginTop: "5px", lineHeight: "15px", paddingInline: { xxs: "10px", sm: 0 } }}>
 				{desc}
 			</Typography>
 		</Box>

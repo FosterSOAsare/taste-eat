@@ -38,7 +38,7 @@ const Homepage = () => {
 		<>
 			<Box className="hero" sx={{ ...styles.hero, backgroundColor: theme.palette.primary.main }}>
 				<Container maxWidth="lg" sx={styles.hero__container}>
-					<Box sx={{ width: "50%", height: "auto" }}>
+					<Box sx={{ width: { sm: "50%" }, height: "auto", order: { xxs: 2, sm: 1 } }}>
 						<Typography variant="h1" color="#FFFFFF" sx={styles.hero__title}>
 							Welcome to Restaurantate
 						</Typography>
@@ -49,8 +49,16 @@ const Homepage = () => {
 							View Menu
 						</Button>
 					</Box>
-					<Box sx={{ width: "auto", height: "400px", marginTop: "auto", marginRight: "50px" }}>
-						<img src={HeroImage} alt="" className="w-[400px] h-[100%] mt-[10px] " />
+					<Box
+						sx={{
+							width: "auto",
+							height: { sm: "400px" },
+							marginTop: "auto",
+							marginRight: { sm: "20px" },
+							order: { xxs: 1, sm: 2 },
+							marginBottom: { xxs: "30px", sm: 0 },
+						}}>
+						<img src={HeroImage} alt="" className="w-[250px] sm:w-[400px] sm:h-[100%] sm:mt-[10px]  md:ml-0" />
 					</Box>
 				</Container>
 			</Box>
@@ -63,8 +71,8 @@ const Homepage = () => {
 					</Box>
 
 					<Box sx={styles.homepage__story}>
-						<img src={StoryImage} alt="" className="w-[calc(50% - 30px)] h-[300px]" />
-						<Box className="line" sx={{ width: "1px", height: "300px", background: "#B29A90" }}></Box>
+						<img src={StoryImage} alt="" className="w-full xs:w-[45%] md:w-[calc(50% - 30px)] h-[400px] sm:h-[300px]" />
+						<Box className="line" sx={{ width: "1px", height: "300px", background: "#B29A90", display: { xxs: "none", md: "block" } }}></Box>
 						<Box className="story__text" sx={styles.homepage__story__text}>
 							<Typography variant="h3" sx={styles.homepage__story__title}>
 								The Story
@@ -73,7 +81,7 @@ const Homepage = () => {
 								Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content gfshere', makinlook like readable English. Many
 								desktop publishing packages.
 							</Typography>
-							<Box sx={{ display: "flex", marginTop: "10px" }}>
+							<Box sx={{ display: "flex", marginTop: "10px", flexDirection: { xxs: "row", xs: "column", sm: "row" }, gap: "15px" }}>
 								<Box>
 									<Typography variant="h3" sx={styles.homepage__story__title}>
 										1996
@@ -104,7 +112,7 @@ const Homepage = () => {
 			</Box>
 			<Box className="menu" sx={styles.homepage__menu}>
 				<Container maxWidth="lg" sx={styles.homepage__menu__container}>
-					<Box sx={{ width: "25%" }} className="special__offer">
+					<Box sx={{ width: { xxs: "100%", sm: "35%", md: "25%" } }} className="special__offer">
 						<Title text="menu" />
 						<Typography variant="h3" sx={{ ...styles.title, fontSize: "26px" }}>
 							Try Our Special Offers
@@ -143,7 +151,7 @@ const Homepage = () => {
 					<Typography variant="h3" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "28px", marginBlock: "10px 0" }}>
 						What our clients say
 					</Typography>
-					<Typography variant="p" sx={{ ...styles.desc, marginTop: "0" }} color="desc">
+					<Typography variant="p" sx={{ ...styles.desc, marginTop: "0", textAlign: { xxs: "center", sm: "left" } }} color="desc">
 						We love to hear from customers, so please leave a comment or say hello in an email.
 					</Typography>
 
@@ -161,29 +169,29 @@ const Homepage = () => {
 				</Box>
 			</Box>
 			<img src={TestimonialImage} alt="" className="w-[100%] h-[300px]" />
-			<Box className="offers" sx={{ marginTop: "100px" }}>
+			<Box className="offers" sx={{ marginTop: { xxs: "30px", sm: "100px" } }}>
 				<Container maxWidth="lg" sx={{ ...styles.offer__container }}>
 					<Title text="offer" />
 					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
 						Our special Offer dishes
 					</Typography>
-					<Typography variant="p" sx={{ ...styles.desc, width: "40%", fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
+					<Typography variant="p" sx={{ ...styles.desc, width: { xxs: "90%", sm: "40%" }, fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
 						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
 					</Typography>
 
 					<Box sx={styles.offers__images__container}>
-						<img src={ChickenBurgerImage} alt="" className="h-[100%] w-[50%]" />
-						<img src={ChickenPizzaImage} alt="" className="h-[100%] w-[50%]" />
+						<img src={ChickenBurgerImage} alt="" className="h-[100%] sm:w-[49%]" />
+						<img src={ChickenPizzaImage} alt="" className="h-[100%] sm:w-[49%]" />
 					</Box>
 				</Container>
 			</Box>
-			<Box className="Menu" sx={{ marginBlock: "100px" }}>
+			<Box className="Menu" sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
 				<Container maxWidth="lg" sx={{ ...styles.offer__container }}>
 					<Title text="menu" />
 					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
 						Popular Dishes
 					</Typography>
-					<Typography variant="p" sx={{ ...styles.desc, width: "40%", fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
+					<Typography variant="p" sx={{ ...styles.desc, width: { xxs: "90%", sm: "40%" }, fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
 						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
 					</Typography>
 
@@ -198,18 +206,29 @@ const Homepage = () => {
 					</Button>
 				</Container>
 			</Box>
-			<Box sx={{ width: "100%", height: "300px", background: theme.palette.primary.main }}>
-				<Container maxWidth="lg" sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-					<Box sx={{ width: "25%" }}>
+			<Box sx={{ width: "100%", height: "auto", paddingBlock: "70px", background: theme.palette.primary.main }}>
+				<Container maxWidth="lg" sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", flexDirection: { xxs: "column", sm: "row" } }}>
+					<Box sx={{ width: { sm: "25%" }, display: "flex", flexDirection: "column", alignItems: { xxs: "center", sm: "flex-start" }, justifyContent: "flex-start" }}>
 						<Title text="what we offer" sx={{ color: theme.palette.white.main }} />
 						<Typography variant="p" sx={{ ...styles.title, display: "block", color: theme.palette.white.main, fontSize: "20px" }}>
 							Our Great Services
 						</Typography>
-						<Typography variant="p" sx={{ ...styles.desc, display: "block", color: theme.palette.white.main, fontSize: "13px" }}>
+						<Typography
+							variant="p"
+							sx={{ ...styles.desc, display: "block", color: theme.palette.white.main, fontSize: "13px", textAlign: { xxs: "center", sm: "left" }, width: { xxs: "80%", sm: "100%" } }}>
 							Lorem Ipsum is that it has a more-or-less normal distribution content making it look like readable English.{" "}
 						</Typography>
 					</Box>
-					<Box sx={{ width: "60%", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px" }}>
+					<Box
+						sx={{
+							width: { xxs: "100%", sm: "60%" },
+							height: "100%",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "space-between",
+							gap: "20px",
+							marginTop: { xxs: "20px", sm: 0 },
+						}}>
 						<Box sx={{ ...styles.offer__box, borderColor: theme.palette.background3.main }}>
 							<img src={Opened247} alt="" className="w-[30px] block mx-[auto]" />
 							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "5px" }}>
@@ -238,7 +257,7 @@ const Homepage = () => {
 					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
 						Be First Who Read News
 					</Typography>
-					<Typography variant="p" sx={{ ...styles.desc, width: "40%", fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
+					<Typography variant="p" sx={{ ...styles.desc, width: { sm: "40%" }, fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
 						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
 					</Typography>
 

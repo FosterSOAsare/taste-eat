@@ -64,7 +64,7 @@ const aboutPageStyles = {
 	aboutpage__section: {
 		width: "100%",
 		height: "auto",
-		marginBlock: "70px",
+		marginBlock: { sm: "70px" },
 	},
 	aboutpage__container: {
 		height: "100%",
@@ -73,7 +73,7 @@ const aboutPageStyles = {
 	about__section: {
 		width: "100%",
 		height: "auto",
-		paddingBlock: "70px",
+		paddingBlock: { sm: "70px", xxs: "20px" },
 	},
 	rating__card: {
 		width: "300px",

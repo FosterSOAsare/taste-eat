@@ -39,15 +39,15 @@ const Dishes = ({ type, limit, next = false }) => {
 							data.dishes.map((dish, index) => (
 								<Box key={index} sx={{ width: "100%", display: "flex", alignItems: "flex-end", marginBottom: "20px" }}>
 									<img src={dish.imageUrl} alt="" className="block mr-[10px] w-[50px] h-[50px]" />
-									<Box sx={{ width: "70%", paddingRight: "10px" }}>
+									<Box sx={{ width: { xxs: "84%", sm: "70%" }, paddingRight: "10px" }}>
 										<Typography variant="p" sx={{ ...styles.title, fontWeight: "bold", fontSize: "18px" }}>
 											{dish.name}
 										</Typography>
 										<Box sx={{ display: "flex", alignItems: "center" }}>
-											<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px", width: type === "starters" ? "55%" : "45%", opacity: "0.3" }}>
+											<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px", width: { xxs: "100%" }, opacity: "0.3" }}>
 												{dish.summary}
 											</Typography>
-											<img src={LineImage} alt="" className="inline h-[2px] w-[50%]" />
+											<img src={LineImage} alt="" className="xs:inline h-[2px] hidden  w-[50%]" />
 										</Box>
 									</Box>
 									<Box>

@@ -11,10 +11,10 @@ const BlogItem = ({ image, desc, title, date, tag, id }) => {
 				<Box sx={{ height: "40%", width: "100%", padding: "20px" }}>
 					<Title text={tag} sx={{ marginRight: "20px", fontSize: "10px" }} />
 					<Title text={date} sx={{ fontSize: "10px" }} />
-					<Typography variant="p" sx={{ ...styles.title, width: "60%", marginBlock: "5px 10px" }}>
+					<Typography variant="p" sx={{ ...styles.title, width: { sm: "60%" }, marginBlock: "5px 10px" }}>
 						{title}
 					</Typography>
-					<Typography variant="p" sx={{ ...styles.desc, fontSize: "13px", lineHeight: "20px", width: "85%" }}>
+					<Typography variant="p" sx={{ ...styles.desc, fontSize: "13px", lineHeight: "20px", width: { sm: "85%" } }}>
 						{desc}
 					</Typography>
 				</Box>
