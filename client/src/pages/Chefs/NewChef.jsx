@@ -120,14 +120,14 @@ const NewChefPage = () => {
 							</Typography>
 							<Box sx={styles.chef__textarea__container}>
 								<TextField
-									sx={{ width: "50%" }}
+									sx={{ width: { xxs: "100%", md: "50%" } }}
 									onChange={(event) => handleChange("name", event.target.value)}
 									placeholder="Chef Name"
 									value={chefData.name || ""}
 									onFocus={() => clearError()}
 								/>
 								<TextField
-									sx={{ width: "50%" }}
+									sx={{ width: { xxs: "100%", md: "50%" } }}
 									onChange={(event) => handleChange("position", event.target.value)}
 									placeholder="Chef Position"
 									value={chefData.position || ""}
@@ -136,14 +136,14 @@ const NewChefPage = () => {
 							</Box>
 							<Box sx={styles.chef__textarea__container}>
 								<TextField
-									sx={{ width: "50%" }}
+									sx={{ width: { xxs: "100%", md: "50%" } }}
 									onChange={(event) => handleChange("email", event.target.value)}
 									placeholder="Email"
 									value={chefData.email || ""}
 									onFocus={() => clearError()}
 								/>
 								<TextField
-									sx={{ width: "50%" }}
+									sx={{ width: { xxs: "100%", md: "50%" } }}
 									onChange={(event) => handleChange("experience", event.target.value)}
 									placeholder="Years of experience"
 									value={chefData.experience || ""}
@@ -152,14 +152,14 @@ const NewChefPage = () => {
 							</Box>
 							<Box sx={styles.chef__textarea__container}>
 								<TextField
-									sx={{ width: "50%" }}
+									sx={{ width: { xxs: "100%", md: "50%" } }}
 									onChange={(event) => handleChange("contact", event.target.value)}
 									placeholder="Contact - add country code and valid country format"
 									value={chefData.contact || ""}
 									onFocus={() => clearError()}
 								/>
 								<TextField
-									sx={{ width: "50%" }}
+									sx={{ width: { xxs: "100%", md: "50%" } }}
 									onChange={(event) => handleChange("location", event.target.value)}
 									placeholder="Location"
 									value={chefData.location || ""}

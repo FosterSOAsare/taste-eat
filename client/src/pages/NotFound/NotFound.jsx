@@ -22,10 +22,10 @@ const NotFoundPage = () => {
 							4
 						</Typography>
 					</Box>
-					<Typography variant="h3" sx={{ ...styles.title, fontSize: "24px" }}>
+					<Typography variant="h3" sx={{ ...styles.title, fontSize: { xxs: "20px", sm: "24px" }, textAlign: "center", marginBottom: "5px" }}>
 						Whoops, Nothing delicious to find here!
 					</Typography>
-					<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px" }}>
+					<Typography variant="p" sx={{ ...styles.desc, fontSize: { xxs: "10px", sm: "12px" }, textAlign: "center" }}>
 						The page you are looking for doesn't exist or has been moved.
 					</Typography>
 					<Button color="secondary" variant="contained" sx={{ ...styles.button, marginTop: "40px" }} href="/">

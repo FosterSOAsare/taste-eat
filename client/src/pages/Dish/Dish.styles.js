@@ -20,7 +20,7 @@ const dishPageStyles = {
 			width: "100%",
 			margin: "0",
 			height: "auto",
-			minHeight: "100px",
+			minHeight: { xxs: "200px", sm: "100px" },
 			alignItems: "flex-start",
 			"&:focus": {
 				color: "red",

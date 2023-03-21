@@ -54,6 +54,7 @@ const chefpageStyles = {
 		...flex("space-between", "center"),
 		gap: "20px",
 		marginBottom: "20px",
+		flexDirection: { xxs: "column", sm: "row" },
 	},
 };
 export default chefpageStyles;
