@@ -24,13 +24,13 @@ const GalleryCollection = () => {
 
 			<Box className="gallery" sx={{ marginBlock: "120px", height: "auto" }}>
 				<Container maxWidth="lg" sx={{ width: "100%", height: "auto", display: "flex", flexDirection: "column" }}>
-					<div container style={{ gap: "20px", justifyContent: "space-between", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr" }}>
-						<img src={GalleryImage1} alt="" style={{ ...styles.gallery__item, gridColumn: "1/3" }}></img>
-						<img src={GalleryImage2} alt="" style={styles.gallery__item}></img>
-						<img src={GalleryImage3} alt="" style={styles.gallery__item}></img>
-						<img src={GalleryImage4} alt="" style={styles.gallery__item}></img>
-						<img src={GalleryImage5} alt="" style={styles.gallery__item}></img>
-						<img src={GalleryImage6} alt="" style={{ ...styles.gallery__item, gridColumn: "3/5" }}></img>
+					<div container style={{ gap: "20px", justifyContent: "space-between", display: "grid" }} className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+						<img src={GalleryImage1} alt="" style={styles.gallery__item} className="gallery-span1"></img>
+						<img src={GalleryImage2} alt="" style={styles.gallery__item} className=""></img>
+						<img src={GalleryImage3} alt="" style={styles.gallery__item} className=""></img>
+						<img src={GalleryImage4} alt="" style={styles.gallery__item} className=""></img>
+						<img src={GalleryImage5} alt="" style={styles.gallery__item} className=""></img>
+						<img src={GalleryImage6} alt="" style={styles.gallery__item} className="gallery-span2 "></img>
 					</div>
 
 					<Button variant="outlined" href="/menu" sx={{ ...styles.button, marginTop: "50px", marginInline: "auto", display: "inline-block" }} color="secondary">
@@ -41,7 +41,7 @@ const GalleryCollection = () => {
 
 			<Box sx={styles.gallery__reservation}>
 				<Container maxWidth="lg" sx={styles.gallery__reservation__container}>
-					<Box sx={{ width: "40%" }}>
+					<Box sx={{ width: { md: "40%" } }}>
 						<Title text="reservation" sx={{ color: theme.palette.white.main }}></Title>
 
 						<Typography variant="h3" sx={{ ...styles.title, width: "80%", marginTop: "10px", fontSize: "50px", color: theme.palette.white.main }}>
@@ -61,8 +61,8 @@ const GalleryCollection = () => {
 					</Box>
 				</Container>
 			</Box>
-			<Box className="features" sx={{ marginBlock: "100px" }}>
-				<Container maxWidth="lg">
+			<Box className="features" sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
+				<Container maxWidth="lg" sx={{ ...styles.column__container }}>
 					<Feature
 						title="Always fresh ingredients"
 						desc="The people, food and the prime locations make Rodich the perfect place good friends & family to come together and have great time."

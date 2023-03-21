@@ -4,8 +4,9 @@ import GalleryReservationImage from "../../assets/gallery-reservation.png";
 const galleriesPageStyles = {
 	gallery__feature: {
 		width: "100%",
-		height: "auto",
+		height: { xxs: "auto", sm: "400px", md: "450px", lg: "350px" },
 		...flex("space-between", "center"),
+		flexDirection: { xxs: "column", sm: "row" },
 	},
 	gallery__reservation: {
 		width: "100%",
