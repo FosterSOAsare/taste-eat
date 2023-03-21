@@ -58,7 +58,7 @@ const Footer = () => {
 							<Typography variant="p" sx={{ color: theme.palette.white.main, width: { xxs: "80%", md: "35%" } }}>
 								Join our mailing list for updates, Get news & offers events.
 							</Typography>
-							<Box sx={{ marginTop: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", width: { xxs: "100%", md: "60%" } }}>
+							<Box sx={{ marginTop: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", width: { xxs: "90%", md: "60%" } }}>
 								<input
 									type="text"
 									aria-label="Email address"
