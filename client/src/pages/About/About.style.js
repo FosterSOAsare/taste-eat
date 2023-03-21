@@ -7,23 +7,32 @@ const aboutPageStyles = {
 		marginBlock: "80px",
 		...flex("center", "center", "column"),
 	},
+	aboutpage__hero: {
+		width: "100%",
+		height: "auto",
+		marginTop: "40px",
+		...flex("space-between", "center"),
+		flexDirection: { xxs: "column", sm: "row" },
+		gap: "20px",
+	},
 
 	gallery__container: {
 		width: "100%",
 		height: "auto",
 		display: "grid",
-		gridTemplateColumns: "1fr 2fr 1fr",
+		gridTemplateColumns: { xxs: "1fr 1fr", sm: "1fr 2fr 1fr" },
 		gap: "10px",
 		marginTop: "20px",
 	},
 	row__span: {
-		gridColumn: "2/3",
-		gridRow: "1/3",
+		gridColumn: { xxs: "2/3" },
+		gridRow: { xxs: "1/3" },
+		// order: 2,
 	},
 	about__teams__container: {
 		height: "auto",
 		display: "grid",
-		gridTemplateColumns: "1fr 1fr 1fr 1fr",
+		gridTemplateColumns: { xxs: "repeat(2 , 1fr)", sm: "repeat(4 , 1fr)" },
 		gap: "10px",
 		marginTop: "20px",
 	},
@@ -64,10 +73,10 @@ const aboutPageStyles = {
 	aboutpage__section: {
 		width: "100%",
 		height: "auto",
-		marginBlock: { sm: "70px" },
+		marginBlock: { xxs: "30px", sm: "70px" },
 	},
 	aboutpage__container: {
-		height: "100%",
+		height: "auto",
 		...flex("center", "center", "column"),
 	},
 	about__section: {
@@ -81,7 +90,7 @@ const aboutPageStyles = {
 		background: "white",
 		boxShadow: "0px 4px 33px rgba(0, 0, 0, 0.1)",
 		position: "absolute",
-		left: "-150px",
+		left: { xxs: "18%", sm: "-150px" },
 		bottom: "-50px",
 		padding: "40px",
 	},
@@ -110,7 +119,8 @@ const aboutPageStyles = {
 		...flex("flex-start", "center"),
 	},
 	about__testimonial: {
-		height: "100%",
+		height: "auto",
+		paddingBlock: "20px",
 		...flex("space-between", "center", "column"),
 	},
 	slider__control: {

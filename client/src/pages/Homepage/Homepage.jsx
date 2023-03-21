@@ -62,8 +62,8 @@ const Homepage = () => {
 					</Box>
 				</Container>
 			</Box>
-			<Box className="about" sx={{ ...styles.about__section, backgroundColor: theme.palette.background2.main }}>
-				<Container maxWidth="lg" sx={{ ...styles.aboutpage__container }}>
+			<Box className="about" sx={{ backgroundColor: theme.palette.background2.main, paddingBlock: { xxs: "30px", sm: "70px" } }}>
+				<Container maxWidth="lg" sx={{ ...styles.column__container }}>
 					<Box sx={styles.homepage__about__contacts} className="contacts">
 						<Contact title="Locate Us" desc="Riverside 25, San Francisco, California" img={LocationImage} />
 						<Contact title="Open Hours" desc="Mon To Fri 9:00 AM - 9:00 PM" img={OpenImage} />

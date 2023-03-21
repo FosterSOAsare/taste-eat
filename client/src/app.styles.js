@@ -17,7 +17,7 @@ export function flex(justify, align, direction = "row") {
 		display: "flex",
 		justifyContent: justify,
 		alignItems: align,
-		flexDirection: direction ,
+		flexDirection: direction,
 	};
 }
 const styles = {
@@ -28,6 +28,9 @@ const styles = {
 	button: {
 		textTransform: "none",
 		borderRadius: "0px",
+	},
+	column__container: {
+		...flex("center", "center", "column"),
 	},
 	icon: {
 		marginRight: "20px",

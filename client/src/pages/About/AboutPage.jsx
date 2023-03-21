@@ -23,11 +23,13 @@ import GalleryImage4 from "../../assets/GalleryImage4.png";
 import GalleryImage5 from "../../assets/GalleryImage5.png";
 import JosefineImage from "../../assets/josefine.png";
 import StarImage from "../../assets/star.png";
+import { useMediaQuery } from "@mui/material";
 
 const AboutPage = () => {
 	const theme = useTheme();
 	const [chefsData, setChefsData] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const isMobileScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 
 	useEffect(() => {
 		(async function () {
@@ -45,10 +47,10 @@ const AboutPage = () => {
 		<>
 			<PageDesc content="About Us" />
 
-			<Box className="about" sx={{ ...styles.about__section, marginBlock: "80px 100px" }}>
+			<Box className="about" sx={{ ...styles.about__section, paddingBlock: { xxs: "30px", sm: "70px 120px" } }}>
 				<Container maxWidth="lg" sx={styles.aboutpage__container}>
-					<Box sx={styles.homepage__story}>
-						<Box className="story__text" sx={styles.homepage__story__text}>
+					<Box sx={{ ...styles.aboutpage__hero, height: "auto", margin: 0 }}>
+						<Box className="story__text" sx={{ ...styles.column__container, alignItems: "flex-start", width: { sm: "50%" }, order: { xxs: 2, sm: 1 } }}>
 							<Title text="about us" />
 							<Typography variant="h3" sx={{ ...styles.homepage__story__title, marginBlock: "5px 10px" }}>
 								Quality and Tradition
@@ -69,28 +71,38 @@ const AboutPage = () => {
 								See More
 							</Button>
 						</Box>
-						<Box sx={{ position: "relative" }}>
+						<Box
+							sx={{
+								position: "relative",
+								width: { xxs: "100%", sm: "45%" },
+								display: "flex",
+								justifyContent: { xxs: "center", xs: "flex-end", sm: "center" },
+								order: { xxs: 1, sm: 2 },
+								marginBottom: { sm: 0, xs: "70px", xxs: "30px" },
+							}}>
 							<img src={AboutHeroImage} alt="" className="w-[calc(50% - 30px)] h-[300px]" />
-							<Box sx={{ ...styles.rating__card }}>
-								<Box sx={styles.card__user__info}>
-									<img src={JosefineImage} alt="" className="w-[50px] h-[50px] " style={styles.card__image} />
-									<Box>
-										<Typography variant="h3" sx={{ ...styles.title, fontSize: "16px" }}>
-											Josefine
-										</Typography>
-										<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px" }}>
-											CEO & Founder
-										</Typography>
+							{!isMobileScreen && (
+								<Box sx={{ ...styles.rating__card }}>
+									<Box sx={styles.card__user__info}>
+										<img src={JosefineImage} alt="" className="w-[50px] h-[50px] " style={styles.card__image} />
+										<Box>
+											<Typography variant="h3" sx={{ ...styles.title, fontSize: "16px" }}>
+												Josefine
+											</Typography>
+											<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px" }}>
+												CEO & Founder
+											</Typography>
+										</Box>
 									</Box>
-								</Box>
-								<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px", marginBottom: "10px" }}>
-									Capitalize on low hanging fruit to identify a ballpark
-								</Typography>
+									<Typography variant="p" sx={{ ...styles.desc, fontSize: "12px", marginBottom: "10px" }}>
+										Capitalize on low hanging fruit to identify a ballpark
+									</Typography>
 
-								{[1, 2, 3, 4, 5].map((count) => (
-									<img src={StarImage} alt="" key={count} style={styles.star} />
-								))}
-							</Box>
+									{[1, 2, 3, 4, 5].map((count) => (
+										<img src={StarImage} alt="" key={count} style={styles.star} />
+									))}
+								</Box>
+							)}
 						</Box>
 					</Box>
 				</Container>
@@ -100,7 +112,16 @@ const AboutPage = () => {
 				<Container maxWidth="lg" sx={styles.about__counts__container}>
 					<Grid container>
 						{countsData.map((count, index) => (
-							<Grid item xs={12} sm={6} md={4} lg={3} key={index} sx={{ ...styles.about__count, borderRight: index !== countsData.length - 1 ? "2px solid #d5d5d5" : "" }}>
+							<Grid
+								item
+								xxs={6}
+								md={3}
+								key={index}
+								sx={{
+									...styles.about__count,
+									borderRight: { xxs: (index + 1) % 2 !== 0 ? "2px solid #d5d5d5" : "", md: index !== countsData.length - 1 ? "2px solid #d5d5d5" : "" },
+									borderBottom: { xxs: index + 1 <= 2 ? "2px solid #d5d5d5" : "", md: "none" },
+								}}>
 								<img src={GalleryImage1} alt="" className="w-[50px] h-[50px] block " />
 								<Typography variant="h6" component="h2" sx={{ ...styles.about__counts__title, ...styles.title, color: theme.palette.white.main }}>
 									{count.title}
@@ -113,7 +134,7 @@ const AboutPage = () => {
 					</Grid>
 				</Container>
 			</Box>
-			<Box sx={styles.aboutpage__section} className="team">
+			<Box sx={{ ...styles.aboutpage__section }} className="team">
 				<Container maxWidth="md" sx={{ ...styles.aboutpage__container }}>
 					{!loading && (
 						<>
@@ -147,7 +168,7 @@ const AboutPage = () => {
 
 					<Box className="gallery__container" sx={styles.gallery__container}>
 						<img src={GalleryImage1} alt="" className="w-full h-[200px]" />
-						<img src={GalleryImage2} alt="" className="bigImage w-full h-[100%]" style={styles.row__span} />
+						<img src={GalleryImage2} alt="" className="big-image w-full h-[250px] sm:h-[100%] " />
 						<img src={GalleryImage4} alt="" className="w-full h-[200px]" />
 						<img src={GalleryImage3} alt="" className="w-full h-[200px]" />
 						<img src={GalleryImage5} alt="" className="w-full h-[200px]" />
