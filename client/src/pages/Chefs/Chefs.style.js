@@ -9,10 +9,17 @@ const chefpageStyles = {
 		height: "100%",
 		...flex("center", "center", "column"),
 	},
+	best__chefs__container: {
+		height: "100%",
+		width: "100%",
+		...flex("space-between", "center"),
+		justifyContent: { xxs: "flex-start", sm: "space-between" },
+		flexDirection: { xxs: "column", sm: "row" },
+	},
 	chefs__teams__container: {
 		height: "auto",
 		display: "grid",
-		gridTemplateColumns: "1fr 1fr 1fr",
+		gridTemplateColumns: { xxs: "1fr 1fr", xs: "1fr 1fr 1fr" },
 		gap: "10px",
 		marginTop: "20px",
 	},

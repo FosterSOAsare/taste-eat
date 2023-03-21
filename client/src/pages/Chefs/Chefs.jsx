@@ -30,7 +30,7 @@ const ChefsPage = () => {
 	}, []);
 	return (
 		<>
-			<PageDesc content="About Us" />
+			<PageDesc content="Our Chefs" />
 			<Box sx={styles.chefspage__section} className="team">
 				<Container maxWidth="lg" sx={{ ...styles.chefpage__container }}>
 					{!loading && (
@@ -51,9 +51,9 @@ const ChefsPage = () => {
 				</Container>
 			</Box>
 			<Testimonials />
-			<Box className="hero" sx={{ ...styles.hero, marginBlock: "100px", height: "auto" }}>
-				<Container maxWidth="lg" sx={styles.hero__container}>
-					<Box sx={{ width: "40%", height: "auto" }}>
+			<Box className="best chefs" sx={{ marginBlock: { sm: "100px", xxs: "30px" }, height: "auto" }}>
+				<Container maxWidth="lg" sx={styles.best__chefs__container}>
+					<Box sx={{ width: { xxs: "100%", sm: "40%" }, order: { xxs: 2, sm: 1 }, height: "auto" }}>
 						<Title text="best chefs" />
 						<Typography variant="h3" sx={{ ...styles.title, fontSize: "22px", marginBlock: "5px 10px" }}>
 							Only Skilled Team
@@ -71,8 +71,16 @@ const ChefsPage = () => {
 							See all dishes
 						</Button>
 					</Box>
-					<Box sx={{ width: "auto", height: "100%", marginTop: "auto", marginRight: "50px" }}>
-						<img src={ExperiencedChefImage} alt="" className="w-[400px] h-[100%]  " />
+					<Box
+						sx={{
+							width: { xxs: "100%", sm: "300px", md: "400px" },
+							height: { xxs: "100%", md: "100%", sm: "450px" },
+							marginTop: "auto",
+							marginRight: { sm: "50px" },
+							order: { xxs: 1, sm: 2 },
+							marginBottom: { xxs: "30px", sm: 0 },
+						}}>
+						<img src={ExperiencedChefImage} alt="" className="w-[100%] h-[100%]  " />
 					</Box>
 				</Container>
 			</Box>
