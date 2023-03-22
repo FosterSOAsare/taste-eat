@@ -56,8 +56,9 @@ const headerStyles = {
 		height: "100vh",
 		position: "fixed",
 		top: 0,
-		left: 0,
+		left: "-100%",
 		zIndex: 2,
+		transition: "all 0.5s ease-in-out",
 	},
 };
 

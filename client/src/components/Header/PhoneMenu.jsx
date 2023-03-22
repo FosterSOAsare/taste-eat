@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 
 import styles from "../../app.styles";
@@ -13,12 +13,18 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const PhoneMenu = () => {
+const PhoneMenu = ({ showMenu, setShowMenu }) => {
 	const theme = useTheme();
+
+	const location = useLocation();
+	useEffect(() => {
+		setShowMenu(false);
+	}, [location]);
+
 	return (
-		<Box sx={{ ...styles.phone__menu, background: theme.palette.footerBg.main }}>
+		<Box sx={{ ...styles.phone__menu, background: theme.palette.footerBg.main, left: showMenu ? 0 : "-100%" }}>
 			<Box className="top" sx={{ width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-				<Button sx={{ ...styles.button }}>
+				<Button sx={{ ...styles.button }} onClick={() => setShowMenu(false)}>
 					<CloseIcon color="secondary" sx={{ fontSize: "24px" }} />
 				</Button>
 			</Box>

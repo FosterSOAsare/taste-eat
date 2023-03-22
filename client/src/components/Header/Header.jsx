@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
@@ -18,6 +18,7 @@ import PhoneMenu from "./PhoneMenu";
 
 const Header = () => {
 	const theme = useTheme();
+	const [showMenu, setShowMenu] = useState(false);
 	const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
 	const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 	const isMobileScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
@@ -39,7 +40,7 @@ const Header = () => {
 						</Box>
 					)}
 					{isMobileScreen && (
-						<Button sx={{ width: "50px" }} color="white">
+						<Button sx={{ width: "50px" }} color="white" onClick={() => setShowMenu(true)}>
 							<MenuIcon />
 						</Button>
 					)}
@@ -69,7 +70,7 @@ const Header = () => {
 				</Box>
 			)}
 
-			{isMobileScreen && <PhoneMenu />}
+			{isMobileScreen && <PhoneMenu showMenu={showMenu} setShowMenu={setShowMenu} />}
 		</Box>
 	);
 };
