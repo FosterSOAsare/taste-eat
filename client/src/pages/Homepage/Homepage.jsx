@@ -261,10 +261,10 @@ const Homepage = () => {
 						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
 					</Typography>
 
-					<Grid container sx={{ marginTop: "20px", gap: "30px" }}>
+					<Grid container sx={{ marginTop: "20px" }}>
 						{blogs.map((blog, index) => {
 							if (index < 2) {
-								return <BlogItem {...blog} key={index} />;
+								return <BlogItem {...blog} key={index} index={index} />;
 							}
 							return "";
 						})}
