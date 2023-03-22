@@ -51,6 +51,14 @@ const headerStyles = {
 		fontFamily: "'Cormorant Infant', serif !important",
 		fontWeight: "bold",
 	},
+	phone__menu: {
+		width: "100%",
+		height: "100vh",
+		position: "fixed",
+		top: 0,
+		left: 0,
+		zIndex: 2,
+	},
 };
 
 export default headerStyles;

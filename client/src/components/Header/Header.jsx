@@ -14,6 +14,7 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import Logo from "../../assets/Logo.svg";
+import PhoneMenu from "./PhoneMenu";
 
 const Header = () => {
 	const theme = useTheme();
@@ -21,7 +22,7 @@ const Header = () => {
 	const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 	const isMobileScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 	return (
-		<Box sx={{ ...styles.header, backgroundColor: theme.palette.primary.main }}>
+		<Box sx={{ ...styles.header, backgroundColor: theme.palette.primary.main, position: "relative" }}>
 			<Container className="logo" maxWidth="lg" sx={styles.container}>
 				<Box className="logo" sx={{ ...styles.logo__section }}>
 					{!isMediumScreen && (
@@ -67,6 +68,8 @@ const Header = () => {
 					</Container>
 				</Box>
 			)}
+
+			{isMobileScreen && <PhoneMenu />}
 		</Box>
 	);
 };
