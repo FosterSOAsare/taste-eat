@@ -2,7 +2,7 @@ const { getDishes, getADish, deleteADish, updateADish, postADish } = require("..
 
 async function controllerGetDishes(req, res) {
 	let { type, limit, skip } = req.query;
-	let correspondingType = type === "starters" ? "Starter" : type === "main dishes" ? "Main Dish" : "Dessert";
+	let correspondingType = type === "starters" ? "Starter" : type === "main dishes" ? "Main Dish" : type === "dessert" ? "Dessert" : "all";
 	let response = await getDishes(correspondingType, limit, skip);
 	if (!res) {
 		res.status(404).json({ error: "An error occurred" });

@@ -20,7 +20,8 @@ import GalleryCollection from "./pages/Gallery/GalleryCollection";
 import NotFoundPage from "./pages/NotFound/NotFound";
 import ReservationPage from "./pages/Reservation/Reservation";
 import NewBlogPage from "./pages/Blogs/NewBlog";
-import NewDishPage from "./pages/Dish/NewDish";
+import DishesPage from "./pages/Dishes/Dishes";
+import NewDishPage from "./pages/Dishes/NewDish";
 import NewChefPage from "./pages/Chefs/NewChef";
 import LicensesPage from "./pages/Licenses/Licenses";
 import PasswordProtectedPage from "./pages/PasswordProtected/PasswordProtected";
@@ -82,8 +83,10 @@ function App() {
 					</Route>
 					<Route path="gallery" element={<GalleryCollection />}></Route>
 					<Route path="reserve" element={<ReservationPage />}></Route>
-
-					<Route path="dishes/new" element={<NewDishPage />}></Route>
+					<Route>
+						<Route path="dishes" element={<DishesPage />}></Route>
+						<Route path="dishes/new" element={<NewDishPage />}></Route>
+					</Route>
 					<Route path="*" element={<NotFoundPage />}></Route>
 				</Route>
 			</Routes>
