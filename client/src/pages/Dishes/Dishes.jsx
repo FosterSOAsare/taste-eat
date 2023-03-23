@@ -32,7 +32,7 @@ const DishesPage = () => {
 							</Typography>
 							<Grid container sx={{ marginBlock: "30px", justifyContent: "center" }}>
 								{dishesData.dishes.map((e) => (
-									<Grid item key={e._id} md={3}>
+									<Grid item key={e._id} md={3} xxs={6}>
 										<a href={`/dishes/${e._id}`}>
 											<Card variant="outlined" sx={{ height: "100%", padding: "20px" }}>
 												<img src={e.imageUrl} alt="" />
