@@ -4,12 +4,15 @@ import styles from "../../app.styles";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 
+import socialLinks from "../../data/socialLinks";
+
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import Logo from "../../assets/Logo.svg";
 import Title from "../../components/Title/Title";
+import Socials from "../Socials/Socials";
 
 const Footer = () => {
 	const theme = useTheme();
@@ -34,10 +37,7 @@ const Footer = () => {
 							<img src={Logo} alt="" className="w-[120px] sm:w-[210px]" />
 						</Grid>
 						<Grid item sm={3} xxs={6} sx={styles.footer__socials}>
-							<InstagramIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
-							<FacebookOutlinedIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
-							<TwitterIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
-							<PinterestIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
+							<Socials color={theme.palette.white.main} links={socialLinks} />
 						</Grid>
 						<Grid item sm={3} xxs={6} sx={{ display: "flex", alignItems: "flex-start", flexDirection: "column", order: 1 }}>
 							<Title text="Contact" sx={{ color: theme.palette.white.main }} />

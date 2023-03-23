@@ -6,16 +6,13 @@ import { useMediaQuery } from "@mui/material";
 
 import styles from "../../app.styles";
 import Links from "../../data/links";
+import Socials from "../Socials/Socials";
 
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import PinterestIcon from "@mui/icons-material/Pinterest";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import Logo from "../../assets/Logo.svg";
 import PhoneMenu from "./PhoneMenu";
-
+import socialLinks from "../../data/socialLinks";
 const Header = () => {
 	const theme = useTheme();
 	const [showMenu, setShowMenu] = useState(false);
@@ -34,7 +31,7 @@ const Header = () => {
 					<img src={Logo} alt="" className="w-[100px] md:w-[180px]" />
 					{!isMediumScreen && (
 						<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-							<Button variant="contained" color="secondary" sx={styles.button}>
+							<Button variant="contained" color="secondary" sx={styles.button} href="/reserve">
 								Reservation
 							</Button>
 						</Box>
@@ -58,14 +55,7 @@ const Header = () => {
 							))}
 						</Box>
 
-						{!isSmallScreen && (
-							<Box>
-								<InstagramIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
-								<FacebookOutlinedIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
-								<TwitterIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
-								<PinterestIcon sx={{ ...styles.menu__icon, color: theme.palette.white.main }} />
-							</Box>
-						)}
+						{!isSmallScreen && <Socials color={theme.palette.white.main} links={socialLinks} />}
 					</Container>
 				</Box>
 			)}
