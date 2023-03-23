@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
-import styles from "../../app.styles";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 
+import styles from "../../app.styles";
 import socialLinks from "../../data/socialLinks";
 
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
+
 import Logo from "../../assets/Logo.svg";
 import Title from "../../components/Title/Title";
 import Socials from "../Socials/Socials";
-
+import Newsletter from "../Newsletter/Newsletter";
 const Footer = () => {
 	const theme = useTheme();
 	const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -55,20 +56,7 @@ const Footer = () => {
 							</Typography>
 						</Grid>
 						<Grid item sm={6} xxs={12} sx={{ ...styles.footer__newsletter, order: { xxs: 2, sm: 1 }, marginTop: { xxs: "20px", sm: "0" } }}>
-							<Typography variant="p" sx={{ color: theme.palette.white.main, width: { xxs: "80%", md: "35%" } }}>
-								Join our mailing list for updates, Get news & offers events.
-							</Typography>
-							<Box sx={{ marginTop: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", width: { xxs: "90%", md: "60%" } }}>
-								<input
-									type="text"
-									aria-label="Email address"
-									placeholder="Email"
-									className="h-full w-[70%] bg-transparent border-white border-[1px] px-[10px] focus:outline-none text-white"
-								/>
-								<Button color="white" sx={{ ...styles.button, width: "30%" }} variant="contained">
-									Subscribe
-								</Button>
-							</Box>
+							<Newsletter />
 						</Grid>
 						<Grid item sm={3} xxs={6} sx={{ display: "flex", alignItems: "flex-end", flexDirection: "column", order: 1 }}>
 							<Title text="Working Hours" sx={{ marginBottom: "20px", color: theme.palette.white.main }} />

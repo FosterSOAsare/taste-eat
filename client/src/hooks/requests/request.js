@@ -124,3 +124,18 @@ export async function httpValidateAdmin(type, value) {
 		return e.response.data;
 	}
 }
+
+export async function insertSubscription(email) {
+	console.log(email);
+	try {
+		let res = await axios({
+			method: "post",
+			url: `${baseUrl}/newsletter`,
+			data: { email },
+		});
+		console.log(res);
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
