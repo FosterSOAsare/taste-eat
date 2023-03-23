@@ -14,7 +14,7 @@ const Feature = ({ img, title, desc, link, order }) => {
 				<Typography variant="p" sx={{ ...styles.desc, fontSize: { xxs: "14px", sm: "16px" }, width: { xxs: "100%", md: "85%" }, marginBlock: "20px" }}>
 					{desc}
 				</Typography>
-				<Button variant="outlined" color="secondary" sx={{ ...styles.button }}>
+				<Button variant="outlined" color="secondary" sx={{ ...styles.button }} href="/menu">
 					View Menu
 				</Button>
 			</Box>

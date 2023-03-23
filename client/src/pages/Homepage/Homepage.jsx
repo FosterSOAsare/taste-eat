@@ -121,7 +121,7 @@ const Homepage = () => {
 							Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making it look like readable English.{" "}
 						</Typography>
 						<img src={SpecialFoodImage} alt="" className="h-[400px] my-[20px] w-[100%]" />
-						<Button variant="outlined" color="secondary" sx={styles.button} href="menu">
+						<Button variant="outlined" color="secondary" sx={styles.button} href="/dishes">
 							See all dishes
 						</Button>
 					</Box>
@@ -201,7 +201,7 @@ const Homepage = () => {
 						))}
 					</Box>
 
-					<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "20px" }} href="/menu">
+					<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "20px" }} href="/dishes">
 						See all dishes
 					</Button>
 				</Container>

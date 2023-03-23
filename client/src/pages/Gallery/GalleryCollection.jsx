@@ -33,7 +33,7 @@ const GalleryCollection = () => {
 						<img src={GalleryImage6} alt="" style={styles.gallery__item} className="gallery-span2 "></img>
 					</div>
 
-					<Button variant="outlined" href="/menu" sx={{ ...styles.button, marginTop: "50px", marginInline: "auto", display: "inline-block" }} color="secondary">
+					<Button variant="outlined" sx={{ ...styles.button, marginTop: "50px", marginInline: "auto", display: "inline-block" }} color="secondary" href="/dishes">
 						See all dishes
 					</Button>
 				</Container>
@@ -51,10 +51,10 @@ const GalleryCollection = () => {
 							Lorem Ipsum is that it has a more-or-less normal look like readable English.
 						</Typography>
 						<Box>
-							<Button variant="outlined" color="secondary" sx={{ ...styles.button }}>
+							<Button variant="outlined" color="secondary" sx={{ ...styles.button }} href="/reserve">
 								Book a Table
 							</Button>
-							<Button variant="text" color="white" sx={{ ...styles.button, marginLeft: "30px" }}>
+							<Button variant="text" color="white" sx={{ ...styles.button, marginLeft: "30px" }} href="/contact">
 								Get in Touch
 							</Button>
 						</Box>
