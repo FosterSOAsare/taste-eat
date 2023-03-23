@@ -32,6 +32,7 @@ const Newsletter = () => {
 		}
 		setWaiting(false);
 		setSuccess(true);
+		setEmail("");
 		setTimeout(() => setSuccess(false), 2000);
 	}
 	const theme = useTheme();

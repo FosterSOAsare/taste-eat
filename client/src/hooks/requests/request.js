@@ -133,8 +133,7 @@ export async function insertSubscription(email) {
 			url: `${baseUrl}/newsletter`,
 			data: { email },
 		});
-		console.log(res);
-		return res.data;
+		return res?.data;
 	} catch (e) {
 		return e.response.data;
 	}
