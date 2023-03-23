@@ -54,3 +54,11 @@
 .newsletter {
 	background: "green !important";
 }
+
+option {
+	color: white;
+}
+
+::-webkit-calendar-picker-indicator {
+	filter: invert(1);
+}

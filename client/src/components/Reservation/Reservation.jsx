@@ -40,6 +40,8 @@ const Reservation = () => {
 			email: data.email,
 			reservationType: data.reservation,
 		});
+
+		// Send data as email or store it on the DB
 	}
 	return (
 		<Box className="reservation" sx={styles.reservation}>
@@ -67,15 +69,31 @@ const Reservation = () => {
 							let lowercase = e.name.toLowerCase();
 							return (
 								<Grid item xs={3.8} sx={{ width: "100%", marginBottom: "10px" }} key={index}>
-									<input
-										type={lowercase === "date" ? "date" : lowercase === "timing" ? "time" : "text"}
-										className="w-[100%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
-										aria-label={e.name}
-										placeholder={e.name}
-										name={e.name.toLowerCase()}
-										{...register(e.name.toLowerCase())}
-										onFocus={() => setError(null)}
-									/>
+									{e.name !== "Reservation" && (
+										<input
+											type={lowercase === "date" ? "date" : lowercase === "timing" ? "time" : "text"}
+											className="w-[100%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
+											aria-label={e.name}
+											placeholder={e.name}
+											name={e.name.toLowerCase()}
+											{...register(e.name.toLowerCase())}
+											onFocus={() => setError(null)}
+										/>
+									)}
+									{e.name === "Reservation" && (
+										<select
+											className="w-[100%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
+											{...register("reservation")}>
+											<option value="Reservation Type" disabled style={{ background: theme.palette.primary.main, display: "block", marginTop: "10px" }}>
+												Reservation Type
+											</option>
+											{["Regular", "VIP", "Couple"].map((e, index) => (
+												<option value={e} key={index} style={{ background: theme.palette.primary.main, marginBottom: "5px" }}>
+													{e}
+												</option>
+											))}
+										</select>
+									)}
 								</Grid>
 							);
 						})}
