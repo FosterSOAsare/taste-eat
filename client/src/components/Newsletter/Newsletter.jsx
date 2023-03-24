@@ -7,30 +7,33 @@ import { insertSubscription } from "../../hooks/requests/request";
 import { useAuthContext } from "../../context/AuthContext";
 
 import Error from "../../components/Error/Error";
+import Snackbar from "../../components/Snackbar/Snackbar";
 
-const Newsletter = () => {
+const Newsletter = ({ setSnackbar }) => {
 	const [email, setEmail] = useState("");
 	const [success, setSuccess] = useState(false);
-	const { error, errorDispatchFunc, validations, clearError, waiting, setWaiting } = useAuthContext();
+	const [error, setError] = useState(null);
+	const [waiting, setWaiting] = useState(false);
+	const { validations } = useAuthContext();
 
 	async function registerNewsletter() {
 		// Validate email
 		if (!email) {
-			errorDispatchFunc({ type: "displayError", payload: "Please enter  your email address" });
+			setError("Please enter  your email address");
 			return;
 		}
 		if (!validations.validateEmail(email)) {
-			errorDispatchFunc({ type: "displayError", payload: "Please enter a valid email address" });
+			setError("Please enter a valid email address");
 			return;
 		}
 		setWaiting(true);
 		let res = await insertSubscription(email);
+		setWaiting(false);
 		if (res.error) {
-			errorDispatchFunc({ type: "displayError", payload: res.error });
-			setTimeout(() => clearError(), 2000);
+			setError(res.error);
+			setTimeout(() => setError(null), 2000);
 			return;
 		}
-		setWaiting(false);
 		setSuccess(true);
 		setEmail("");
 		setTimeout(() => setSuccess(false), 2000);
@@ -51,14 +54,14 @@ const Newsletter = () => {
 					onChange={(e) => {
 						setEmail(e.target.value);
 					}}
-					onFocus={() => clearError()}
+					onFocus={() => setError(null)}
 				/>
 				<Button color="white" sx={{ ...styles.button, width: "30%" }} variant="contained" onClick={registerNewsletter} disabled={waiting}>
 					{waiting ? "Waiting..." : "Subscribe"}
 				</Button>
 			</Box>
-			{error.display === "block" && <Error text={error.text} />}
-			{success && <p className="text-[green] mt-[5px]">Newsletter subscription was successful</p>}
+			{error && <Error text={error} />}
+			{success && <Snackbar text="Newsletter subscription was successful" />}
 		</>
 	);
 };
