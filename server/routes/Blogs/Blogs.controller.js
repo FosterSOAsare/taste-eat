@@ -1,7 +1,8 @@
 const { getBlogs, getABlog, deleteABlog, updateABlog, postABlog } = require("../../models/Blogs/Blogs.model");
 
 async function controllerGetBlogs(req, res) {
-	res.status(200).json(await getBlogs());
+	let { limit, skip } = req.query;
+	res.status(200).json(await getBlogs(limit, skip));
 }
 
 async function controllerGetABlog(req, res) {
@@ -30,6 +31,7 @@ async function controllerDeleteABlog(req, res) {
 
 async function controllerSaveBlog(req, res) {
 	let data = req.body;
+
 	// Validations
 	if (!data.title || !data.summary || !data.tag || !data.content) {
 		res.status(400).json({ error: "Please provide data for all fields" });

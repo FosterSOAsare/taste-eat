@@ -3,12 +3,16 @@ import { Box, Typography, Grid } from "@mui/material";
 import Title from "../Title/Title";
 import styles from "../../app.styles";
 
-const BlogItem = ({ image, desc, title, date, tag, id, index }) => {
+const BlogItem = ({ imageUrl, summary, title, date, tag, _id, index }) => {
+	// Formatting date
+	const options = { month: "short", day: "numeric", year: "numeric" };
+	date = new Intl.DateTimeFormat("en-US", options).format(new Date(date));
+
 	return (
 		<Grid item xxs={12} sm={6} sx={{ width: "100%", display: "flex", height: "auto", justifyContent: (index + 1) % 2 == 0 ? "flex-end" : "flex-start", marginBottom: "20px" }}>
 			<Box sx={{ width: "98%", border: "1px solid #D5D5D5", height: "100%" }}>
-				<a href={`/blog/${id}`}>
-					<img src={image} alt="" className="w-[100%] h-[50%] xs:h-[65%] sm:h-[50%] md:h-[60%]" />
+				<a href={`/blog/${_id}`}>
+					<img src={imageUrl} alt="" className="w-[100%] h-[50%] xs:h-[65%] sm:h-[50%] md:h-[60%]" />
 					<Box sx={{ height: { xxs: "45%", sm: "45%", md: "40%" }, width: "100%", padding: "20px" }}>
 						<Title text={tag} sx={{ marginRight: "20px", fontSize: "10px" }} />
 						<Title text={date} sx={{ fontSize: "10px" }} />
@@ -16,7 +20,7 @@ const BlogItem = ({ image, desc, title, date, tag, id, index }) => {
 							{title}
 						</Typography>
 						<Typography variant="p" sx={{ ...styles.desc, fontSize: "13px", lineHeight: "20px", width: { md: "85%" } }}>
-							{desc}
+							{summary}
 						</Typography>
 					</Box>
 				</a>

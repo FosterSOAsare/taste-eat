@@ -1,8 +1,12 @@
 const blogsCollection = require("./Blogs.mongo");
 
-async function getBlogs() {
-	let res = await blogsCollection.find({}, { __v: 0 });
-	if (res) return res;
+async function getBlogs(limit, skip) {
+	let totalCount = await blogsCollection.countDocuments();
+	console.log(totalCount);
+	let res = await blogsCollection.find({}, { __v: 0, content: 0 }).skip(skip).limit(limit);
+	if (res) {
+		return { blogs: res, nextpage: parseInt(limit) + parseInt(skip) < totalCount };
+	}
 	return { error: "An error occurred during get request" };
 }
 
