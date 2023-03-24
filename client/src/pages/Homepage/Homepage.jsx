@@ -10,12 +10,12 @@ import Testimonial from "../../components/Testimonial/Testimonial";
 import PopularDish from "./PopularDish";
 import BlogItem from "../../components/BlogItem/BlogItem";
 import Reservation from "../../components/Reservation/Reservation";
+import Loading from "../../components/Loading/Loading";
 
-import foodDishes from "../../data/dishesData";
 import testimonials from "../../data/testimonials";
 import popularDishes from "../../data/popularDishes";
 import blogs from "../../data/blogData";
-import { httpFetchDishes } from "../../hooks/requests/request";
+import { httpFetchDishes, httpFetchBlogs } from "../../hooks/requests/request";
 
 import HeroImage from "../../assets/hero-image.png";
 import LocationImage from "../../assets/Location.svg";
@@ -33,6 +33,14 @@ import Opened247 from "../../assets/opened.svg";
 
 const Homepage = () => {
 	const theme = useTheme();
+	const [blogsData, setBlogsData] = useState();
+
+	useEffect(() => {
+		(async function () {
+			let res = await httpFetchBlogs(2, blogsData?.blogs?.length || 0);
+			setBlogsData(res);
+		})();
+	}, []);
 
 	return (
 		<>
@@ -253,22 +261,27 @@ const Homepage = () => {
 
 			<Box className="blog" sx={styles.blog}>
 				<Container maxWidth="lg" sx={{ ...styles.blogs__container }}>
-					<Title text="blog" />
-					<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
-						Be First Who Read News
-					</Typography>
-					<Typography variant="p" sx={{ ...styles.desc, width: { sm: "40%" }, fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
-						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
-					</Typography>
+					{blogsData?.blogs && (
+						<>
+							<Title text="blog" />
+							<Typography variant="p" sx={{ ...styles.title, display: "block", fontWeight: "bold", fontSize: "20px", marginBottom: "10px" }}>
+								Be First Who Read News
+							</Typography>
+							<Typography variant="p" sx={{ ...styles.desc, width: { sm: "40%" }, fontWeight: "normal", fontSize: "12px", textAlign: "center" }}>
+								Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
+							</Typography>
 
-					<Grid container sx={{ marginTop: "20px" }}>
-						{blogs.map((blog, index) => {
-							if (index < 2) {
-								return <BlogItem {...blog} key={index} index={index} />;
-							}
-							return "";
-						})}
-					</Grid>
+							<Grid container sx={{ marginTop: "20px" }}>
+								{blogsData?.blogs?.map((blog, index) => {
+									if (index < 2) {
+										return <BlogItem {...blog} key={index} index={index} />;
+									}
+									return "";
+								})}
+							</Grid>
+						</>
+					)}
+					{!blogsData && <Loading />}
 				</Container>
 			</Box>
 
