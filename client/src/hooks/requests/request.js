@@ -1,8 +1,12 @@
 const baseUrl = "http://localhost:8000";
 import axios from "axios";
 
-export async function httpFetchBlogs() {
-	const { data } = await axios.get(`${baseUrl}/blogs`);
+export async function httpFetchBlogs(limit = 6, skip = 0) {
+	const { data } = await axios({
+		url: `${baseUrl}/blogs`,
+		method: "get",
+		params: { limit, skip },
+	});
 	return data;
 }
 

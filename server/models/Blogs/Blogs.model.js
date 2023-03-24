@@ -2,7 +2,6 @@ const blogsCollection = require("./Blogs.mongo");
 
 async function getBlogs(limit, skip) {
 	let totalCount = await blogsCollection.countDocuments();
-	console.log(totalCount);
 	let res = await blogsCollection.find({}, { __v: 0, content: 0 }).skip(skip).limit(limit);
 	if (res) {
 		return { blogs: res, nextpage: parseInt(limit) + parseInt(skip) < totalCount };
@@ -38,6 +37,7 @@ async function updateABlog(blogId, newData) {
 }
 
 async function postABlog(blogData) {
+	blogData = { ...blogData, date: new Date() };
 	let res = await blogsCollection.create(blogData);
 	if (res) return res;
 	return { error: "An error occurred during post request" };

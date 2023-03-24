@@ -1,6 +1,8 @@
 const express = require("express");
 const { controllerGetBlogs, controllerGetABlog, controllerDeleteABlog, controllerSaveBlog, controllerUpdateABlog } = require("./Blogs.controller");
-const { blogsUpload } = require("./Blogs.multer");
+const createUpload = require("../../multer");
+
+const blogsUpload = createUpload("blogs");
 
 const blogsRouter = express.Router();
 blogsRouter.get("/blogs", controllerGetBlogs);
