@@ -57,6 +57,13 @@ function App() {
 								</CheckAdmin>
 							}></Route>
 						<Route path="blog/:blogId" element={<BlogPage />}></Route>
+						<Route
+							path="blog/:blogId/edit"
+							element={
+								<CheckAdmin>
+									<NewBlogPage />
+								</CheckAdmin>
+							}></Route>
 					</Route>
 					<Route path="menu" element={<MenuPage />}></Route>
 					<Route path="faq" element={<FaqPage />}></Route>
