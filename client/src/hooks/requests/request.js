@@ -133,6 +133,7 @@ export async function httpUpdateChef(chefId, newData) {
 			url: `${baseUrl}/chef/${chefId}`,
 			data: newData,
 		});
+		return res?.data;
 	} catch (e) {
 		return e.response.data;
 	}

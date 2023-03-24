@@ -8,6 +8,7 @@ const snackbarStyles = {
 		right: "10px",
 		padding: "20px",
 		border: "1px solid red",
+		zIndex: 4,
 	},
 	snackbar__close: {
 		position: "absolute",
