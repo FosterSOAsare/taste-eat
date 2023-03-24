@@ -17,18 +17,19 @@ const BlogPage = ({ previewData }) => {
 	useEffect(() => {
 		(async function () {
 			let res = await httpFetchABlog(blogId);
-			setLoading(false);
+
 			if (res.error) {
 				navigate("/404");
 				return;
 			}
 			setBlogData(res);
+			setLoading(false);
 		})();
 	}, []);
 	return (
 		<Box>
 			{loading && <Loading />}
-			{!loading && <BlogPreview {...{ ...blogData }} />}
+			{!loading && <BlogPreview {...blogData} />}
 		</Box>
 	);
 };

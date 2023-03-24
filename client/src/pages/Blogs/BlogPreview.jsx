@@ -11,15 +11,15 @@ const BlogPreview = ({ title, imageUrl, summary, tag, content }) => {
 		<Container maxWidth="lg" sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingBlock: "40px" }}>
 			<Title text={tag} />
 			{/* <Title text={blogData.date} /> */}
-			<Typography variant="h1" sx={{ ...styles.title, fontSize: "42px", width: { sm: "50%" }, textAlign: "center", marginBottom: "10px" }}>
+			<Typography variant="h1" sx={{ ...styles.title, fontSize: "42px", width: { xxs: "100%", sm: "50%" }, textAlign: "center", marginBottom: "10px" }}>
 				{title}
 			</Typography>
-			<Typography variant="p" sx={{ ...styles.desc, width: { sm: "60%" }, textAlign: "center" }}>
+			<Typography variant="p" sx={{ ...styles.desc, width: { sm: "60%", xxs: "100%" }, textAlign: "center" }}>
 				{summary}
 			</Typography>
-			<img alt="name" src={imageUrl} className="w-full h-[500px] my-[20px]" image={blogData?.imageUrl} />
+			<img alt="name" src={imageUrl} className="w-full md:h-[500px] my-[20px]" image={imageUrl} />
 			<Container maxWidth="md">
-				<div dangerouslySetInnerHTML={{ __html: content }} className="ck-content"></div>
+				<div dangerouslySetInnerHTML={{ __html: content }} className="ck-content md:p-[20px 40px]"></div>
 			</Container>
 		</Container>
 	);

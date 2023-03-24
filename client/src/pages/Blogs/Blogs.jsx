@@ -28,7 +28,7 @@ const BlogsPage = () => {
 		formState: { errors },
 	} = useForm({ resolver: zodResolver(reservationSchema) });
 	const { error, clearError, errorDispatchFunc } = useAuthContext();
-	const [blogsData, setBlogs] = useState([]);
+	const [blogsData, setBlogsData] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -39,7 +39,7 @@ const BlogsPage = () => {
 	useEffect(() => {
 		(async function () {
 			let res = await httpFetchBlogs(4, blogsData?.blogs?.length || 0);
-			setBlogs(res);
+			setBlogsData(res);
 			setLoading(false);
 		})();
 	}, []);
