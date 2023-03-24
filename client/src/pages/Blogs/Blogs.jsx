@@ -28,7 +28,7 @@ const BlogsPage = () => {
 						Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content making.
 					</Typography>
 
-					<Grid container sx={{ marginTop: "20px", gap: "30px", justifyContent: "space-between" }}>
+					<Grid container sx={{ marginTop: "20px", justifyContent: "space-between" }}>
 						{blogs.map((blog, index) => {
 							return <BlogItem {...blog} key={index} />;
 						})}

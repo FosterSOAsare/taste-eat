@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Box, Container, Typography, TextField, Button, Grid } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import validator from "validator";
+
+const schema = z.object({
+	name: z.string().min(1, { message: "Please fill in all credentials" }),
+	email: z.string().min(1, { message: "Please fill in all credentials" }).email({ message: "Please enter a valid email address" }),
+	subject: z.string().min(25, { message: "Subject must be more than 25 characters" }),
+	phone: z
+		.string()
+		.min(1, { message: "Please fill in all credentials" })
+		.refine(validator.isMobilePhone, { message: "Please enter a valid phone number : Add country code and do not add special characters, leave no spaces either " }),
+	message: z.string().min(75, { message: "Message must be more than 75 characters" }),
+});
 
 import styles from "../../app.styles";
+import { useAuthContext } from "../../context/AuthContext";
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
+import Error from "../../components/Error/Error";
 
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
@@ -19,6 +36,24 @@ import SFRestaurantImage from "../../assets/sf-restaurant.png";
 
 const ContactUsPage = () => {
 	const theme = useTheme();
+
+	const {
+		register,
+		handleSubmit,
+		getValues,
+		formState: { errors },
+	} = useForm({ resolver: zodResolver(schema) });
+	const { error, errorDispatchFunc, clearError } = useAuthContext();
+
+	useEffect(() => {
+		let errorKeys = Array.from(Object.keys(errors));
+		errorKeys?.length && errorDispatchFunc({ type: "displayError", payload: errors[errorKeys[0]].message });
+	}, [errors]);
+
+	function saveReservation(data) {
+		console.log(data);
+		// Send data as email or store it on the DB
+	}
 	return (
 		<>
 			<PageDesc content="Contact Us"></PageDesc>
@@ -133,34 +168,59 @@ const ContactUsPage = () => {
 						<Typography variant="h3" sx={{ ...styles.title, marginBlock: "20px", fontSize: "24px" }}>
 							Have a Question?
 						</Typography>
-						<Grid container>
-							{[{ text: "Name" }, { text: "Email" }, { text: "Subject" }, { text: "Phone" }].map((e, index) => {
-								return (
-									<Grid
-										item
-										key={index}
-										xxs={12}
-										xs={12}
-										md={6}
-										sx={{ height: "auto", marginBottom: "20px", justifyContent: (index + 1) % 2 === 0 ? "flex-end" : "flex-start", display: "flex" }}>
-										<input style={styles.input__field} className="focus:outline-none w-full md:w-[97%] " placeholder={e.text} aria-label={e.text}></input>
-									</Grid>
-								);
-							})}
-							<Grid
-								item
-								xxs={12}
-								sx={{
-									height: "auto",
-									marginBottom: "20px",
-									"& .MuiInputBase-root": { minHeight: "120px", alignItems: "flex-start", borderRadius: 0, "&:hover": { outline: "none" } },
-								}}>
-								<TextField sx={{ width: "100%", borderRadius: 0 }} multiline className="focus:outline-none" placeholder="Message" aria-label="Enter message here"></TextField>
+						<form action="" onSubmit={handleSubmit(saveReservation)}>
+							<Grid container>
+								{[{ text: "Name" }, { text: "Email" }, { text: "Subject" }, { text: "Phone" }].map((e, index) => {
+									return (
+										<Grid
+											item
+											key={index}
+											xxs={12}
+											xs={12}
+											md={6}
+											sx={{ height: "auto", marginBottom: "20px", justifyContent: (index + 1) % 2 === 0 ? "flex-end" : "flex-start", display: "flex" }}>
+											<input
+												style={styles.input__field}
+												className="focus:outline-none w-full md:w-[97%] "
+												placeholder={e.text}
+												aria-label={e.text}
+												{...register(e.text.toLowerCase())}
+												onFocus={() => clearError()}></input>
+										</Grid>
+									);
+								})}
+								<Grid
+									item
+									xxs={12}
+									sx={{
+										height: "auto",
+										marginBottom: "20px",
+										"& .MuiInputBase-root": { minHeight: "120px", alignItems: "flex-start", borderRadius: 0, "&:hover": { outline: "none" } },
+									}}>
+									<TextField
+										sx={{ width: "100%", borderRadius: 0 }}
+										multiline
+										className="focus:outline-none"
+										placeholder="Message"
+										aria-label="Enter message here"
+										{...register("message")}
+										onFocus={() => clearError()}></TextField>
+								</Grid>
 							</Grid>
-						</Grid>
-						<Button variant="outlined" color="secondary" sx={{ ...styles.button, paddingInline: "30px" }}>
-							Send
-						</Button>
+							{error.display === "block" && <Error text={error.text} />}
+							<button
+								style={{
+									...styles.button,
+									paddingInline: "30px",
+									background: "transparent",
+									padding: "10px 40px",
+									border: `2px solid ${theme.palette.secondary.main}`,
+									color: theme.palette.secondary.main,
+								}}
+								type="submit">
+								Send
+							</button>
+						</form>
 					</Box>
 				</Container>
 			</Box>
