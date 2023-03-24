@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import styles from "../../app.styles";
 import { httpStoreBlog, httpFetchABlog, httpUpdateBlog } from "../../hooks/requests/request";
+import { statusFunc } from "../../components/Snackbar/status.service";
 
 import Title from "../../components/Title/Title";
 import PageDesc from "../../components/Header/PageDesc";
@@ -25,20 +26,6 @@ const NewBlogPage = () => {
 	const { blogId } = useParams();
 	const [loading, setLoading] = useState(blogId ? true : false);
 
-	function statusFunc(states, action) {
-		switch (action.type) {
-			case "setError":
-				return { success: null, waiting: null, error: action.payload };
-			case "setWaiting":
-				return { success: null, waiting: true, error: null };
-			case "setSuccess":
-				return { success: action.payload, waiting: null, error: null };
-			case "clearStatus":
-				return { success: null, waiting: null, error: null };
-			default:
-				return states;
-		}
-	}
 	const [blogData, setBlogData] = useState({});
 
 	useEffect(() => {
@@ -169,7 +156,7 @@ const NewBlogPage = () => {
 					{loading && <Loading />}
 				</Container>
 			</Box>
-			{status.success && <Snackbar text={status.success} link="/blogs" />}
+			{status.success && <Snackbar text={status.success} link="/blogs" close={() => statusDispatchFunc({ type: "clearStatus" })} />}
 		</>
 	);
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
@@ -8,6 +8,7 @@ import { useAuthContext } from "../../context/AuthContext";
 
 import Error from "../../components/Error/Error";
 import Snackbar from "../../components/Snackbar/Snackbar";
+import { statusFunc } from "../../components/Snackbar/status.service";
 
 const Newsletter = ({ setSnackbar }) => {
 	const [email, setEmail] = useState("");
@@ -15,28 +16,30 @@ const Newsletter = ({ setSnackbar }) => {
 	const [error, setError] = useState(null);
 	const [waiting, setWaiting] = useState(false);
 	const { validations } = useAuthContext();
+	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 
 	async function registerNewsletter() {
 		// Validate email
+		statusDispatchFunc({ type: "setWaiting" });
 		if (!email) {
-			setError("Please enter  your email address");
+			statusDispatchFunc({ type: "setError", payload: "Please enter  your email address" });
 			return;
 		}
 		if (!validations.validateEmail(email)) {
-			setError("Please enter a valid email address");
+			statusDispatchFunc({ type: "setError", payload: "Please enter a valid email address" });
 			return;
 		}
-		setWaiting(true);
 		let res = await insertSubscription(email);
-		setWaiting(false);
+		console.log(res);
+
 		if (res.error) {
-			setError(res.error);
-			setTimeout(() => setError(null), 2000);
+			statusDispatchFunc({ type: "setError", payload: res.error });
 			return;
 		}
-		setSuccess(true);
+		// setSuccess(true);
+		statusDispatchFunc({ type: "setSuccess", payload: res.success });
 		setEmail("");
-		setTimeout(() => setSuccess(false), 2000);
+		setTimeout(() => statusDispatchFunc({ type: "clearStatus" }), 2000);
 	}
 	const theme = useTheme();
 	return (
@@ -54,14 +57,14 @@ const Newsletter = ({ setSnackbar }) => {
 					onChange={(e) => {
 						setEmail(e.target.value);
 					}}
-					onFocus={() => setError(null)}
+					onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 				/>
 				<Button color="white" sx={{ ...styles.button, width: "30%" }} variant="contained" onClick={registerNewsletter} disabled={waiting}>
 					{waiting ? "Waiting..." : "Subscribe"}
 				</Button>
 			</Box>
-			{error && <Error text={error} />}
-			{success && <Snackbar text="Newsletter subscription was successful" />}
+			{status.error && <Error text={status.error} />}
+			{status.success && <Snackbar text={status.success} close={() => statusDispatchFunc({ type: "clearStatus" })} />}
 		</>
 	);
 };
