@@ -8,7 +8,7 @@ const chefsRouter = express.Router();
 chefsRouter.get("/chefs", controllerGetChefs);
 chefsRouter.post("/chefs", chefUpload.array("image"), controllerSaveChef);
 chefsRouter.get("/chef/:chefId", controllerGetAChef);
-chefsRouter.put("/chefs/:chefId", chefUpload.array("image"), controllerUpdateAChef);
-chefsRouter.delete("/chefs/:chefId", controllerDeleteAChef);
+chefsRouter.put("/chef/:chefId", chefUpload.array("image"), controllerUpdateAChef);
+chefsRouter.delete("/chef/:chefId", controllerDeleteAChef);
 
 module.exports = chefsRouter;

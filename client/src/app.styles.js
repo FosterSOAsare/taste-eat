@@ -43,6 +43,7 @@ const styles = {
 	},
 	desc: {
 		display: "block",
+		opacity: "0.7",
 	},
 	title: {
 		fontFamily: "'Cormorant Infant', serif !important",

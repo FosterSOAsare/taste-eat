@@ -27,7 +27,7 @@ const DishesPage = () => {
 					{!loading && (
 						<>
 							<Title text="Our Dishes" />
-							<Typography variant="p" sx={{ ...styles.desc, textAlign: "center", width: "60%", opacity: "0.7" }}>
+							<Typography variant="p" sx={{ ...styles.desc, textAlign: "center", width: "60%" }}>
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae non illum eligendi, molestiae nemo unde ratione similique repellat placeat labore?
 							</Typography>
 							<Grid container sx={{ marginBlock: "30px", justifyContent: "center" }}>
