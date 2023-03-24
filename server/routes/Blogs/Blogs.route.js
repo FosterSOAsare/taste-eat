@@ -7,6 +7,6 @@ blogsRouter.get("/blogs", controllerGetBlogs);
 blogsRouter.post("/blogs", blogsUpload.array("image"), controllerSaveBlog);
 blogsRouter.get("/blog/:blogId", controllerGetABlog);
 blogsRouter.delete("/blog:blogId", controllerDeleteABlog);
-blogsRouter.put("/blog:blogId", controllerUpdateABlog);
+blogsRouter.put("/blog/:blogId", blogsUpload.array("image"), controllerUpdateABlog);
 
 module.exports = blogsRouter;

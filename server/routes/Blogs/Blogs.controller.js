@@ -4,9 +4,29 @@ async function controllerGetBlogs(req, res) {
 	res.status(200).json(await getBlogs());
 }
 
-async function controllerGetABlog(req, res) {}
+async function controllerGetABlog(req, res) {
+	let { blogId } = req.params;
+	try {
+		let chef = await getABlog(blogId);
+		res.status(200).json(chef);
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
+	}
+}
 
-async function controllerDeleteABlog(req, res) {}
+async function controllerDeleteABlog(req, res) {
+	let { blogId } = req.params;
+	try {
+		let response = await deleteABlog(blogId);
+		res.status(201).json({ success: `Blog of id ${blogId} has been deleted ` });
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
+	}
+}
 
 async function controllerSaveBlog(req, res) {
 	let data = req.body;
@@ -34,7 +54,22 @@ async function controllerSaveBlog(req, res) {
 	res.status(201).json(response);
 }
 
-async function controllerUpdateABlog(req, res) {}
+async function controllerUpdateABlog(req, res) {
+	let data = req.body;
+	if (req.files?.length) {
+		data.image = `http://localhost:8000/photos/blogs/${req.files[0].filename}`;
+	}
+	console.log(data);
+	// Updating data in database
+	try {
+		await updateABlog(data._id, data);
+		res.status(201).json(data);
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
+	}
+}
 
 module.exports = {
 	controllerGetBlogs,
