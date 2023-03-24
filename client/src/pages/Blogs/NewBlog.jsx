@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { Box, Container, Typography, useTheme, TextField, Button } from "@mui/material";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -14,20 +14,32 @@ import ImageInput from "../../components/ImageInput/ImageInput";
 import Error from "../../components/Error/Error";
 import loading from "../../components/Loading/Loading";
 import Loading from "../../components/Loading/Loading";
+import Snackbar from "../../components/Snackbar/Snackbar";
 
 const NewBlogPage = () => {
 	const theme = useTheme();
-	const { error, errorDispatchFunc, validations, clearError, waiting, setWaiting } = useAuthContext();
+	const { validations } = useAuthContext();
+	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
+
 	const navigate = useNavigate();
 	const { blogId } = useParams();
 	const [loading, setLoading] = useState(blogId ? true : false);
 
-	const [blogData, setBlogData] = useState({
-		// title: "This is a test title",
-		// summary: "This is a test summary",
-		// content: "This is a test content",
-		// tag: "Recipes",
-	});
+	function statusFunc(states, action) {
+		switch (action.type) {
+			case "setError":
+				return { success: null, waiting: null, error: action.payload };
+			case "setWaiting":
+				return { success: null, waiting: true, error: null };
+			case "setSuccess":
+				return { success: action.payload, waiting: null, error: null };
+			case "clearStatus":
+				return { success: null, waiting: null, error: null };
+			default:
+				return states;
+		}
+	}
+	const [blogData, setBlogData] = useState({});
 
 	useEffect(() => {
 		(async function () {
@@ -59,42 +71,24 @@ const NewBlogPage = () => {
 			resolve();
 		});
 	}
-	async function storeBlog() {
-		try {
-			setWaiting(true);
-			await validateBlogData();
-			// Form validation
-			let formData = new FormData();
-			let keys = Object.keys(blogData);
-			keys.forEach((e) => {
-				formData.append(e, blogData[e]);
-			});
-			let res = await httpStoreBlog(formData);
-			setWaiting(false);
-		} catch (e) {
-			console.log(e);
-		}
-	}
-	async function updateBlog() {
-		console.log("upda");
-		try {
-			setWaiting(true);
-			await validateBlogData();
-			// Form validation
-			let formData = new FormData();
-			let keys = Object.keys(blogData);
-			keys.forEach((e) => {
-				formData.append(e, blogData[e]);
-			});
-			console.log(keys);
 
-			let res = await httpUpdateBlog(blogId, formData);
-			setWaiting(false);
-			console.log(res);
-			// setBlogData({});
-			// navigate("/");
+	async function PostOrUpdateBlog(callback, successMessage) {
+		try {
+			statusDispatchFunc({ type: "setWaiting" });
+			// Form validation
+			await validateBlogData();
+			// Create a new formData because of the images and append the blogData to the newly created formData
+			let formData = new FormData();
+			let keys = Object.keys(blogData);
+			keys.forEach((e) => {
+				formData.append(e, blogData[e]);
+			});
+
+			// Call the needed callback and set success as well as  snackbar
+			let res = await callback(blogId, formData);
+			statusDispatchFunc({ type: "setSuccess", payload: successMessage });
 		} catch (e) {
-			console.log(e);
+			statusDispatchFunc({ type: "setError", payload: e });
 		}
 	}
 	function handleChange(name, value) {
@@ -121,7 +115,7 @@ const NewBlogPage = () => {
 								sx={styles.new__blog__text__field}
 								onChange={(event) => handleChange("title", event.target.value)}
 								value={blogData.title || ""}
-								onFocus={() => clearError()}
+								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 							/>
 							<CKEditor
 								editor={ClassicEditor}
@@ -130,7 +124,7 @@ const NewBlogPage = () => {
 									const data = editor.getData();
 									handleChange("content", data);
 								}}
-								onFocus={() => clearError()}
+								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 								config={{
 									placeholder: "Enter detailed blog content here",
 								}}
@@ -144,28 +138,30 @@ const NewBlogPage = () => {
 									sx={{ ...styles.new__blog__text__field }}
 									value={blogData.summary || ""}
 									onChange={(event) => handleChange("summary", event.target.value)}
-									onFocus={() => clearError()}
+									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 								/>
 							</Box>
 							<TextField
 								placeholder="Tag"
 								sx={styles.new__blog__text__field}
 								onChange={(event) => handleChange("tag", event.target.value)}
-								onFocus={() => clearError()}
+								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 								value={blogData.tag || ""}
 							/>
 
 							<ImageInput label="Lead Image" handleChange={handleChange} sx={{ marginTop: "20px" }} image={blogData.imageUrl} />
-							{error.display === "block" && <Error text={error.text} />}
+							{status.error && <Error text={status.error} />}
 
 							<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
 								<Button
 									variant="contained"
 									sx={{ color: theme.palette.white.main, ...styles.button, padding: "10px 40px" }}
 									color="secondary"
-									onClick={() => (blogId ? updateBlog() : storeBlog())}
-									disabled={waiting}>
-									{!waiting ? (blogId ? "Update" : "Publish") + " Blog" : "Waiting..."}
+									onClick={() =>
+										blogId ? PostOrUpdateBlog(httpUpdateBlog, `Blog of id ${blogId} has been updated`) : PostOrUpdateBlog(httpStoreBlog, "A new blog post has been created")
+									}
+									disabled={status.waiting}>
+									{!status.waiting ? (blogId ? "Update" : "Publish") + " Blog" : "Waiting..."}
 								</Button>
 							</Box>
 						</>
@@ -173,6 +169,7 @@ const NewBlogPage = () => {
 					{loading && <Loading />}
 				</Container>
 			</Box>
+			{status.success && <Snackbar text={status.success} link="/blogs" />}
 		</>
 	);
 };
