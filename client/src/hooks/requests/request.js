@@ -18,6 +18,29 @@ export async function httpStoreBlog(data) {
 		return e.response.data;
 	}
 }
+export async function httpFetchABlog(blogId) {
+	try {
+		let res = await axios({
+			method: "get",
+			url: `${baseUrl}/blog/${blogId}`,
+		});
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
+export async function httpUpdateBlog(blogId, newData) {
+	try {
+		let res = await axios({
+			method: "put",
+			url: `${baseUrl}/blog/${blogId}`,
+			data: newData,
+		});
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
 
 export async function httpFetchDishes(type, limit = 6, skip = 0) {
 	try {
@@ -107,7 +130,7 @@ export async function httpUpdateChef(chefId, newData) {
 	try {
 		let res = await axios({
 			method: "put",
-			url: `${baseUrl}/chefs/${chefId}`,
+			url: `${baseUrl}/chef/${chefId}`,
 			data: newData,
 		});
 		return res.data;
@@ -119,7 +142,7 @@ export async function httpDeleteChef(chefId) {
 	try {
 		let res = await axios({
 			method: "delete",
-			url: `${baseUrl}/chefs/${chefId}`,
+			url: `${baseUrl}/chef/${chefId}`,
 		});
 
 		return res.data;

@@ -3,37 +3,32 @@ import { Box, Container, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
 import blogs from "../../data/blogData";
-import Title from "../../components/Title/Title";
-import Loading from "../../components/Loading/Loading";
+import { httpFetchABlog } from "../../hooks/requests/request";
 
-const BlogPage = () => {
-	const [blogData, setBlogData] = useState({});
+import Loading from "../../components/Loading/Loading";
+import BlogPreview from "./BlogPreview";
+
+const BlogPage = ({ previewData }) => {
+	const [blogData, setBlogData] = useState(previewData || {});
 	const [loading, setLoading] = useState(true);
 	const { blogId } = useParams();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		let blog = blogs.find((e) => e.id == blogId);
-		setLoading(false);
-		if (!blog) {
-			navigate("/404");
-			return;
-		}
-
-		setBlogData(blog);
-	}, [blogId]);
+		(async function () {
+			let res = await httpFetchABlog(blogId);
+			setLoading(false);
+			if (res.error) {
+				navigate("/404");
+				return;
+			}
+			setBlogData(res);
+		})();
+	}, []);
 	return (
 		<Box>
 			{loading && <Loading />}
-			{!loading && (
-				<Container maxWidth="lg">
-					<Title text={blogData.tag} />
-					<Title text={blogData.date} />
-					<Typography variant="h1">{blogData.title}</Typography>
-					<Typography variant="p">{blogData.desc}</Typography>
-					<img alt="name" src={blogData.image} />
-				</Container>
-			)}
+			{!loading && <BlogPreview {...{ ...blogData }} />}
 		</Box>
 	);
 };
