@@ -961,6 +961,10 @@ video {
     height: 60%;
   }
 
+  .md\:h-\[500px\] {
+    height: 500px;
+  }
+
   .md\:w-\[180px\] {
     width: 180px;
   }

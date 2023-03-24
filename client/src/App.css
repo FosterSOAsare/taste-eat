@@ -37,7 +37,6 @@
 
 .ck-content {
 	min-height: 400px;
-	padding: 20px 40px;
 }
 
 .ck-content ol,
@@ -57,9 +56,12 @@
 	padding: 50px;
 	background-color: #fff8f5;
 	text-align: center;
-	font-weight: normal;
-	font-style: normal !important;
+}
+.ck-content blockquote p {
 	font-family: "Cormorant Infant", serif !important;
+	font-weight: bold;
+	font-style: normal !important;
+
 	font-size: 18px;
 }
 .ck-content ul li:before {

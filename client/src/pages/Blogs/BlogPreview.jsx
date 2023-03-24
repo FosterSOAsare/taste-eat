@@ -5,12 +5,15 @@ import styles from "../../app.styles";
 
 import Title from "../../components/Title/Title";
 
-const BlogPreview = ({ title, imageUrl, summary, tag, content }) => {
-	// let { tag, imageUrl, content, summary } = props;
+const BlogPreview = ({ title, imageUrl, summary, tag, content, date }) => {
+	const options = { month: "short", day: "numeric", year: "numeric" };
+	date = new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 	return (
 		<Container maxWidth="lg" sx={{ display: "flex", flexDirection: "column", alignItems: "center", paddingBlock: "40px" }}>
-			<Title text={tag} />
-			{/* <Title text={blogData.date} /> */}
+			<Box sx={{ display: "flex", gap: "25px" }}>
+				<Title text={tag} />
+				<Title text={date} />
+			</Box>
 			<Typography variant="h1" sx={{ ...styles.title, fontSize: "42px", width: { xxs: "100%", sm: "50%" }, textAlign: "center", marginBottom: "10px" }}>
 				{title}
 			</Typography>
