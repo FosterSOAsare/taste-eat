@@ -3,22 +3,11 @@ import { useTheme } from "@mui/material/styles";
 import { Box, Container, Typography, TextField, Button, Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import validator from "validator";
 
-const schema = z.object({
-	name: z.string().min(1, { message: "Please fill in all credentials" }),
-	email: z.string().min(1, { message: "Please fill in all credentials" }).email({ message: "Please enter a valid email address" }),
-	subject: z.string().min(25, { message: "Subject must be more than 25 characters" }),
-	phone: z
-		.string()
-		.min(1, { message: "Please fill in all credentials" })
-		.refine(validator.isMobilePhone, { message: "Please enter a valid phone number : Add country code and do not add special characters, leave no spaces either " }),
-	message: z.string().min(75, { message: "Message must be more than 75 characters" }),
-});
-
+import { contactSchema } from "../../hooks/validations/react-hook-form";
 import styles from "../../app.styles";
 import { useAuthContext } from "../../context/AuthContext";
+
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
 import Error from "../../components/Error/Error";
@@ -42,7 +31,7 @@ const ContactUsPage = () => {
 		handleSubmit,
 		getValues,
 		formState: { errors },
-	} = useForm({ resolver: zodResolver(schema) });
+	} = useForm({ resolver: zodResolver(contactSchema) });
 	const { error, errorDispatchFunc, clearError } = useAuthContext();
 
 	useEffect(() => {

@@ -19,10 +19,10 @@ const NewBlogPage = () => {
 	const navigate = useNavigate();
 
 	const [blogData, setBlogData] = useState({
-		title: "This is a test title",
-		summary: "This is a test summary",
-		content: "This is a test content",
-		tag: "Recipes",
+		// title: "This is a test title",
+		// summary: "This is a test summary",
+		// content: "This is a test content",
+		// tag: "Recipes",
 	});
 
 	async function storeBlog() {

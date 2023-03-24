@@ -10,13 +10,15 @@ const blogStyles = {
 	},
 	blogpage__reservation: {
 		width: "100%",
-		height: "400px",
+		height: { xxs: "auto" },
 		...flex("center", "center", "column"),
+		paddingBlock: "40px",
 	},
 	blogpage__reservation__container: {
 		height: "80%",
 		...flex("center", "center", "column"),
 		border: "1px solid transparent",
+		paddingBlock: "40px",
 	},
 	blogpage__stories: {
 		width: "100%",

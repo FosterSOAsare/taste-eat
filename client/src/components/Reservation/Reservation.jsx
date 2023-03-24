@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Grid, Button } from "@mui/material";
-import Title from "../Title/Title";
-import styles from "../../app.styles";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "@emotion/react";
 import { useForm } from "react-hook-form";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { reservationSchema } from "../../hooks/validations/react-hook-form";
+import { useAuthContext } from "../../context/AuthContext";
+import styles from "../../app.styles";
 
-const schema = z.object({
-	name: z.string().min(1, { message: "Please fill in all credentials" }),
-	email: z.string().min(1, { message: "Please fill in all credentials" }),
-	date: z.string().min(1, { message: "Please fill in all credentials" }),
-	timing: z.string().min(1, { message: "Please fill in all credentials" }),
-	reservation: z.string().min(1, { message: "Please fill in all credentials" }),
-});
+import Error from "../Error/Error";
+import Title from "../Title/Title";
 
 const Reservation = () => {
 	const theme = useTheme();
@@ -23,12 +18,12 @@ const Reservation = () => {
 		handleSubmit,
 		getValues,
 		formState: { errors },
-	} = useForm({ resolver: zodResolver(schema) });
-	const [error, setError] = useState(null);
+	} = useForm({ resolver: zodResolver(reservationSchema) });
+	const { error, clearError, errorDispatchFunc } = useAuthContext();
 
 	useEffect(() => {
 		let errorKeys = Array.from(Object.keys(errors));
-		errorKeys?.length && setError(errors[errorKeys[0]].message);
+		errorKeys?.length && errorDispatchFunc({ type: "displayError", payload: errors[errorKeys[0]].message });
 	}, [errors]);
 
 	function saveReservation(data) {
@@ -60,7 +55,7 @@ const Reservation = () => {
 									aria-label={e.name}
 									placeholder={e.name}
 									{...register(e.name.toLowerCase())}
-									onFocus={() => setError(null)}
+									onFocus={() => clearError()}
 								/>
 							</Grid>
 						))}
@@ -77,7 +72,7 @@ const Reservation = () => {
 											placeholder={e.name}
 											name={e.name.toLowerCase()}
 											{...register(e.name.toLowerCase())}
-											onFocus={() => setError(null)}
+											onFocus={() => clearError()}
 										/>
 									)}
 									{e.name === "Reservation" && (
@@ -102,7 +97,7 @@ const Reservation = () => {
 					<Button variant="contained" color="white" sx={{ ...styles.button, marginInline: "auto", display: "block" }} type="submit">
 						Book a Table
 					</Button>
-					{error && <p className=" ml-[auto] text-[red] mx-[auto] text-[12px] block my-[20px] text-center"> {error}</p>}
+					{error.display === "block" && <Error text={error.text} />}
 				</form>
 			</Box>
 		</Box>
