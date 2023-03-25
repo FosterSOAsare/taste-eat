@@ -28,7 +28,7 @@ async function updateADish(dishId, newData) {
 	try {
 		await dishesCollection.updateOne({ _id: dishId }, newData);
 	} catch (e) {
-		throw new Error("No chef exists with the specified id");
+		throw new Error("No dish exists with the specified id");
 	}
 }
 

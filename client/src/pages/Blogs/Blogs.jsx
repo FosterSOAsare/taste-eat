@@ -8,6 +8,8 @@ import styles from "../../app.styles";
 // import blogs from "../../data/blogData";
 import { reservationSchema } from "../../hooks/validations/react-hook-form";
 import { httpFetchBlogs } from "../../hooks/requests/request";
+import { useAuthContext } from "../../context/AuthContext";
+import { useAdminContext } from "../../context/AdminContext";
 
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
@@ -17,7 +19,6 @@ import Error from "../../components/Error/Error";
 import Loading from "../../components/Loading/Loading";
 
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { useAuthContext } from "../../context/AuthContext";
 
 const BlogsPage = () => {
 	const theme = useTheme();
@@ -30,6 +31,7 @@ const BlogsPage = () => {
 	const { error, clearError, errorDispatchFunc } = useAuthContext();
 	const [blogsData, setBlogsData] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const { isAdmin } = useAdminContext();
 
 	useEffect(() => {
 		let errorKeys = Array.from(Object.keys(errors));
@@ -86,11 +88,18 @@ const BlogsPage = () => {
 								})}
 							</Grid>
 
-							{blogsData.nextpage && (
-								<Button variant="outlined" color="secondary" endIcon={<KeyboardArrowRightIcon />} sx={{ ...styles.button, marginTop: "30px" }} onClick={() => fetchMoreBlogs()}>
-									Next
-								</Button>
-							)}
+							<Box sx={{ display: "flex", alignItems: "center", marginTop: "30px", gap: "20px" }}>
+								{blogsData.nextpage && (
+									<Button variant="outlined" color="secondary" endIcon={<KeyboardArrowRightIcon />} sx={{ ...styles.button }} onClick={() => fetchMoreBlogs()}>
+										Next
+									</Button>
+								)}
+								{isAdmin && (
+									<Button variant="contained" color="secondary" href="/blogs/new" sx={{ ...styles.button }}>
+										Add A Blog
+									</Button>
+								)}
+							</Box>
 						</>
 					)}
 					{loading && <Loading />}

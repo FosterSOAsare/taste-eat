@@ -4,6 +4,7 @@ import { useTheme } from "@emotion/react";
 
 import styles from "../../app.styles";
 import { httpFetchChefs } from "../../hooks/requests/request";
+import { useAdminContext } from "../../context/AdminContext";
 
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
@@ -21,6 +22,7 @@ const ChefsPage = () => {
 	const theme = useTheme();
 	const [chefsData, setChefsData] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const { isAdmin } = useAdminContext();
 	useEffect(() => {
 		(async function () {
 			let result = await httpFetchChefs();
@@ -45,6 +47,11 @@ const ChefsPage = () => {
 									<Chef key={chef._id} {...chef} />
 								))}
 							</Box>
+							{isAdmin && (
+								<Button variant="contained" color="secondary" href="/chefs/new" sx={{ marginTop: "30px", ...styles.button }}>
+									Add A Dish
+								</Button>
+							)}
 						</>
 					)}
 					{loading && <Loading />}

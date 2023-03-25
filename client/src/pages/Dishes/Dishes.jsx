@@ -3,6 +3,7 @@ import { Box, Container, Grid, Typography, Card, CardContent, Button } from "@mu
 import { httpFetchAllDishes } from "../../hooks/requests/request";
 
 import styles from "../../app.styles";
+import { useAdminContext } from "../../context/AdminContext";
 
 import Loading from "../../components/Loading/Loading";
 import PageDesc from "../../components/Header/PageDesc";
@@ -11,7 +12,7 @@ import Title from "../../components/Title/Title";
 const DishesPage = () => {
 	const [dishesData, setDishesData] = useState({});
 	const [loading, setLoading] = useState(true);
-	// console.log(dishesData);
+	const { isAdmin } = useAdminContext();
 	useEffect(() => {
 		(async function () {
 			let res = await httpFetchAllDishes(20, dishesData?.dishes?.length || 0);
@@ -61,11 +62,18 @@ const DishesPage = () => {
 									</Grid>
 								))}
 							</Grid>
-							{dishesData.nextpage && (
-								<Button variant="outlined" color="secondary" sx={{ ...styles.button, paddingInline: "40px" }} onClick={() => fetchMoreDishes()}>
-									Load More
-								</Button>
-							)}
+							<Box sx={{ display: "flex", alignItems: "center", marginTop: "30px", gap: "20px" }}>
+								{dishesData.nextpage && (
+									<Button variant="outlined" color="secondary" sx={{ ...styles.button, paddingInline: "40px" }} onClick={() => fetchMoreDishes()}>
+										Load More
+									</Button>
+								)}
+								{isAdmin && (
+									<Button variant="contained" color="secondary" href="/dishes/new">
+										Add A Dish
+									</Button>
+								)}
+							</Box>
 						</>
 					)}
 					{loading && <Loading />}

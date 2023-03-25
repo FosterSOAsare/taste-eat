@@ -21,9 +21,9 @@ const NewDishPage = () => {
 	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 	const { dishId } = useParams();
 	const [dishData, setDishData] = useState({
-		price: 40,
-		summary: "Candied Jerusalem dummy texts",
-		type: "Dessert",
+		// price: 40,
+		// summary: "Candied Jerusalem dummy texts",
+		// type: "Dessert",
 	});
 	const [loading, setLoading] = useState(dishId ? true : false);
 
@@ -89,10 +89,9 @@ const NewDishPage = () => {
 			});
 
 			let res = dishId ? await httpUpdateDish(dishId, formData) : await httpStoreDish(formData);
-			console.log(res);
 
 			if (res?.error) {
-				statusDispatchFunc({ type: "displayError", payload: res.error });
+				statusDispatchFunc({ type: "setError", payload: res.error });
 				return;
 			}
 			statusDispatchFunc({ type: "setSuccess", payload: dishId ? `Dish of id ${dishId} has been updated` : "New dish has been created" });
