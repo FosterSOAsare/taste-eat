@@ -30,7 +30,6 @@ const Newsletter = ({ setSnackbar }) => {
 			return;
 		}
 		let res = await insertSubscription(email);
-		console.log(res);
 
 		if (res.error) {
 			statusDispatchFunc({ type: "setError", payload: res.error });

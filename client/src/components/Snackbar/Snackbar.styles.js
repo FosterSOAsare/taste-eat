@@ -1,6 +1,6 @@
 const snackbarStyles = {
 	snackbar: {
-		width: "450px",
+		width: { xxs: "95%", md: "450px" },
 		height: "auto",
 		minHeigh: "70px",
 		position: "fixed",
