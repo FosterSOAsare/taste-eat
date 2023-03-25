@@ -105,7 +105,7 @@ export async function httpStoreChef(data) {
 	}
 }
 
-export async function httpFetchChefs(limit = 6) {
+export async function httpFetchChefs(limit = "all") {
 	try {
 		let res = await axios({
 			method: "get",

@@ -1,6 +1,6 @@
 const chefsCollection = require("./Chefs.mongo");
 async function getChefs(limit) {
-	let res = await chefsCollection.find({}, { name: 1, image: 1, position: 1 }).limit(limit);
+	let res = limit === "all" ? await chefsCollection.find({}, { name: 1, image: 1, position: 1 }) : await chefsCollection.find({}, { name: 1, image: 1, position: 1 }).limit(limit);
 	if (res) return res;
 	throw new Error("An error occurred while retrieving chefs");
 }

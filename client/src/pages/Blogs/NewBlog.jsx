@@ -26,18 +26,26 @@ const NewBlogPage = () => {
 	const { blogId } = useParams();
 	const [loading, setLoading] = useState(blogId ? true : false);
 
-	const [blogData, setBlogData] = useState({});
+	const [blogData, setBlogData] = useState({
+		// summary:
+		// 	"Enthusiastically mesh long-term high-impact infrastructures vis efficient customer service professionally fashion wireless rather than prospective experiences nergistically myocardinate clicks procedures whereas manufactured products.",
+		// tag: "Recipes",
+		// title: "Elegant Dessert: 10 Tips How to Make It at Home",
+		// content:
+		// 	"<p>Uniquely matrix economically sound value through cooperative technology. Competently parallel task fully researched data and enterprise process improvements. Collaboratively expedite quality manufactured products via client-focused results quickly communicate enabled technology and turnkey leadership skills. Uniquely enable accurate supply chains rather than friction technology.</p><p>&nbsp;</p><h3>Perfect Food for all Hungry Livings</h3><p>Objectively integrate enterprise-wide strategic theme areas with functionalized infrastructures ipsum Interactively productized premium technologies where as interdependent quality vectors rapaciously utilize enterprise experiences via 24/7 markets.</p><ul><li>Neque sodales ut etiam sit amet nisl purus non tellus orci ac auctor&nbsp;</li><li>Adipiscing elit ut aliquam purus sit amet viverra suspendisse potent&nbsp;</li><li>Mauris commodo quis imperdiet massa tincidunt nunc pulvinar</li></ul><blockquote><p>The ultimate learn-how-to-cook book filled with 100+ amazing,<br>easy-to-follow recipes for every occasion plus helpful<br>kitchen tricks to inspire young cooks</p></blockquote><p>&nbsp;</p><h3>What burger recipes exist you can follow?</h3><p>At risus viverra adipiscing at tellus integer feugiat pretium fusce id velit ut tortor sagittis scelerisque purus semper eget lectus urna duis convallis porta nibh venenatis crase sed felis egets neque laoreet aliquam nunc lobortis mattis aliquam faucibus purus in.</p><p>&nbsp;</p><ol><li>Neque sodales ut etiam sit amet nisl purus non tellus orci ac auctor&nbsp;</li><li>Adipiscing elit ut aliquam purus sit amet viverra suspendisse potent</li><li>Mauris commodo quis imperdiet massa tincidunt nunc pulvinar&nbsp;</li></ol>",
+	});
 
 	useEffect(() => {
-		(async function () {
-			let res = await httpFetchABlog(blogId);
-			setLoading(false);
-			if (res.error) {
-				navigate("/404");
-				return;
-			}
-			setBlogData(res);
-		})();
+		blogId &&
+			(async function () {
+				let res = await httpFetchABlog(blogId);
+				setLoading(false);
+				if (res.error) {
+					navigate("/404");
+					return;
+				}
+				setBlogData(res);
+			})();
 	}, []);
 
 	async function validateBlogData() {
@@ -59,7 +67,7 @@ const NewBlogPage = () => {
 		});
 	}
 
-	async function PostOrUpdateBlog(callback, successMessage) {
+	async function PostOrUpdateBlog() {
 		try {
 			statusDispatchFunc({ type: "setWaiting" });
 			// Form validation
@@ -72,8 +80,14 @@ const NewBlogPage = () => {
 			});
 
 			// Call the needed callback and set success as well as  snackbar
-			let res = await callback(blogId, formData);
-			statusDispatchFunc({ type: "setSuccess", payload: successMessage });
+
+			let res = blogId ? await httpUpdateBlog(blogId, formData) : await httpStoreBlog(formData);
+			if (res?.error) {
+				statusDispatchFunc({ type: "displayError", payload: res.error });
+				return;
+			}
+
+			statusDispatchFunc({ type: "setSuccess", payload: blogId ? `Blog of id ${blogId} has been updated` : "New blog created" });
 		} catch (e) {
 			statusDispatchFunc({ type: "setError", payload: e });
 		}
@@ -144,9 +158,7 @@ const NewBlogPage = () => {
 									variant="contained"
 									sx={{ color: theme.palette.white.main, ...styles.button, padding: "10px 40px" }}
 									color="secondary"
-									onClick={() =>
-										blogId ? PostOrUpdateBlog(httpUpdateBlog, `Blog of id ${blogId} has been updated`) : PostOrUpdateBlog(httpStoreBlog, "A new blog post has been created")
-									}
+									onClick={() => PostOrUpdateBlog()}
 									disabled={status.waiting}>
 									{!status.waiting ? (blogId ? "Update" : "Publish") + " Blog" : "Waiting..."}
 								</Button>

@@ -47,7 +47,7 @@ const BlogsPage = () => {
 	async function fetchMoreBlogs() {
 		let res = await httpFetchBlogs(4, blogsData?.blogs?.length || 0);
 
-		setBlogs((prev) => {
+		setBlogsData((prev) => {
 			return { nextpage: res.nextpage, blogs: [...prev.blogs, ...res.blogs] };
 		});
 		setLoading(false);

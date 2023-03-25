@@ -11,6 +11,9 @@ class Validations {
 	validateEmail(email) {
 		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 	}
+	validateUrl(url) {
+		return /^(?:(?:https?|ftp):\/\/)?(?:www\.)?[^\s/$?]+\.[^\s]+$/i.test(url);
+	}
 }
 
 export default Validations;
