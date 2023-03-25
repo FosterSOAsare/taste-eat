@@ -1,11 +1,22 @@
 import { Box, Container, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "../../app.styles";
+import readImage from "../../hooks/readImage";
 
 import Title from "../../components/Title/Title";
 
-const BlogPreview = ({ title, imageUrl, summary, tag, content, date }) => {
+const BlogPreview = ({ title, imageUrl, summary, tag, content, date, image }) => {
+	let [imageData, setImageData] = useState(imageUrl || null);
+
+	useEffect(() => {
+		image &&
+			(async function () {
+				setImageData(await readImage(image));
+			})();
+	}, [image]);
+	if (!date) date = new Date();
+
 	const options = { month: "short", day: "numeric", year: "numeric" };
 	date = new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 	return (
@@ -20,7 +31,12 @@ const BlogPreview = ({ title, imageUrl, summary, tag, content, date }) => {
 			<Typography variant="p" sx={{ ...styles.desc, width: { sm: "60%", xxs: "100%" }, textAlign: { md: "center" } }}>
 				{summary}
 			</Typography>
-			<img alt="name" src={imageUrl} className="w-full md:h-[500px] my-[20px]" image={imageUrl} />
+			{imageData && <img alt="name" src={imageData} className="w-full md:h-[500px] my-[20px]" image={imageUrl} />}
+			{!imageData && (
+				<Box sx={{ width: "100%", height: "200px", display: "flex", alignItems: "center", justifyContent: "center", border: "1px dashed grey", marginBlock: "30px" }}>
+					<Typography variant="h4">No Lead Image Yet...</Typography>
+				</Box>
+			)}
 			<Container maxWidth="md">
 				<div dangerouslySetInnerHTML={{ __html: content }} className="ck-content md:p-[20px 40px]"></div>
 			</Container>

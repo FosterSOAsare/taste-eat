@@ -3,18 +3,14 @@ import { Box, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "@mui/material/styles";
 
-const ImageInput = ({ name = "image", label, handleChange, sx, image }) => {
+import readImage from "../../hooks/readImage";
 
+const ImageInput = ({ name = "image", label, handleChange, sx, image }) => {
 	const [imageData, setImageData] = useState(image);
 	const theme = useTheme();
 
-	function readImage(image) {
-		const reader = new FileReader();
-		reader.readAsDataURL(image);
-		reader.onloadend = () => {
-			setImageData(reader.result);
-		};
-	}
+	useEffect(() => {});
+
 	return (
 		<Box className="addImage" sx={sx}>
 			<label htmlFor={name} className="flex items-center justify-start gap-[10px]">
@@ -29,10 +25,11 @@ const ImageInput = ({ name = "image", label, handleChange, sx, image }) => {
 				type="file"
 				accept="image/png, image/gif, image/jpeg"
 				aria-label={label}
-				onChange={(e) => {
+				onChange={async (e) => {
 					handleChange(name, e.currentTarget.files[0]);
 					if (e.target.files[0]) {
-						readImage(e.target.files[0]);
+						let imageData = await readImage(e.target.files[0]);
+						setImageData(imageData);
 					}
 				}}
 				id={name}

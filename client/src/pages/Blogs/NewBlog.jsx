@@ -16,6 +16,8 @@ import Error from "../../components/Error/Error";
 import loading from "../../components/Loading/Loading";
 import Loading from "../../components/Loading/Loading";
 import Snackbar from "../../components/Snackbar/Snackbar";
+import BlogPreview from "./BlogPreview";
+import readImage from "../../hooks/readImage";
 
 const NewBlogPage = () => {
 	const theme = useTheme();
@@ -25,6 +27,7 @@ const NewBlogPage = () => {
 	const navigate = useNavigate();
 	const { blogId } = useParams();
 	const [loading, setLoading] = useState(blogId ? true : false);
+	const [preview, setPreview] = useState(false);
 
 	const [blogData, setBlogData] = useState({
 		summary:
@@ -101,74 +104,89 @@ const NewBlogPage = () => {
 	return (
 		<>
 			<PageDesc content="Create Blog" />
-			<Box sx={styles.new__blog}>
-				<Container maxWidth="md" sx={styles.new__blog__container}>
-					{!loading && (
-						<>
-							<Title text="create blog"></Title>
-							<Typography variant="h1" sx={{ ...styles.title, fontSize: "28px", marginBlock: "10px" }}>
-								Write A New Blog
-							</Typography>
-							<TextField
-								placeholder="Blog title"
-								multiline
-								maxRows={4}
-								sx={styles.new__blog__text__field}
-								onChange={(event) => handleChange("title", event.target.value)}
-								value={blogData.title || ""}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-							/>
-							<CKEditor
-								editor={ClassicEditor}
-								data={blogData.content || ""}
-								onChange={(event, editor) => {
-									const data = editor.getData();
-									handleChange("content", data);
-								}}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-								config={{
-									placeholder: "Enter detailed blog content here",
-								}}
-							/>
 
-							<Box sx={styles.blog__summary__container}>
+			<Box sx={{ position: "relative", overflowY: "auto" }}>
+				<Box sx={styles.new__blog}>
+					<Container maxWidth="md" sx={styles.new__blog__container}>
+						{!loading && (
+							<>
+								<Title text="create blog"></Title>
+								<Typography variant="h1" sx={{ ...styles.title, fontSize: "28px", marginBlock: "10px" }}>
+									Write A New Blog
+								</Typography>
 								<TextField
-									placeholder="Blog summary"
+									placeholder="Blog title"
 									multiline
 									maxRows={4}
-									sx={{ ...styles.new__blog__text__field }}
-									value={blogData.summary || ""}
-									onChange={(event) => handleChange("summary", event.target.value)}
+									sx={styles.new__blog__text__field}
+									onChange={(event) => handleChange("title", event.target.value)}
+									value={blogData.title || ""}
 									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 								/>
-							</Box>
-							<TextField
-								placeholder="Tag"
-								sx={styles.new__blog__text__field}
-								onChange={(event) => handleChange("tag", event.target.value)}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-								value={blogData.tag || ""}
-							/>
+								<CKEditor
+									editor={ClassicEditor}
+									data={blogData.content || ""}
+									onChange={(event, editor) => {
+										const data = editor.getData();
+										handleChange("content", data);
+									}}
+									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									config={{
+										placeholder: "Enter detailed blog content here",
+									}}
+								/>
 
-							<ImageInput label="Lead Image" handleChange={handleChange} sx={{ marginTop: "20px" }} image={blogData.imageUrl} />
-							{status.error && <Error text={status.error} />}
+								<Box sx={styles.blog__summary__container}>
+									<TextField
+										placeholder="Blog summary"
+										multiline
+										maxRows={4}
+										sx={{ ...styles.new__blog__text__field }}
+										value={blogData.summary || ""}
+										onChange={(event) => handleChange("summary", event.target.value)}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									/>
+								</Box>
+								<TextField
+									placeholder="Tag"
+									sx={styles.new__blog__text__field}
+									onChange={(event) => handleChange("tag", event.target.value)}
+									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									value={blogData.tag || ""}
+								/>
 
-							<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-								<Button
-									variant="contained"
-									sx={{ color: theme.palette.white.main, ...styles.button, padding: "10px 40px" }}
-									color="secondary"
-									onClick={() => PostOrUpdateBlog()}
-									disabled={status.waiting}>
-									{!status.waiting ? (blogId ? "Update" : "Publish") + " Blog" : "Waiting..."}
-								</Button>
-							</Box>
-						</>
-					)}
-					{loading && <Loading />}
-				</Container>
+								<ImageInput label="Lead Image" handleChange={handleChange} sx={{ marginTop: "20px" }} image={blogData.imageUrl} />
+								{status.error && <Error text={status.error} />}
+
+								<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
+									<Button
+										variant="contained"
+										sx={{ color: theme.palette.white.main, ...styles.button, padding: "10px 40px" }}
+										color="secondary"
+										onClick={() => PostOrUpdateBlog()}
+										disabled={status.waiting}>
+										{!status.waiting ? (blogId ? "Update" : "Publish") + " Blog" : "Waiting..."}
+									</Button>
+									<Button variant="outlined" sx={{ color: theme.palette.primary.main, ...styles.button, padding: "10px 40px" }} onClick={() => setPreview(true)}>
+										Preview Blog
+									</Button>
+								</Box>
+							</>
+						)}
+						{loading && <Loading />}
+					</Container>
+				</Box>
+
+				{status.success && <Snackbar text={status.success} link="/blogs" close={() => statusDispatchFunc({ type: "clearStatus" })} />}
+				{preview && (
+					<Box sx={{ position: "absolute", height: "auto", minHeight: "100%", width: "100%", top: "0", left: "0", background: theme.palette.white.main, zIndex: 3, paddingBottom: "40px" }}>
+						<BlogPreview {...{ ...blogData }} />
+						<Button variant="outlined" onClick={() => setPreview(false)} sx={{ ...styles.button, marginInline: "auto", display: "block" }}>
+							Exit Preview
+						</Button>
+					</Box>
+				)}
 			</Box>
-			{status.success && <Snackbar text={status.success} link="/blogs" close={() => statusDispatchFunc({ type: "clearStatus" })} />}
 		</>
 	);
 };
