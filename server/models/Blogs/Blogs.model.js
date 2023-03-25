@@ -12,7 +12,8 @@ async function getBlogs(limit, skip) {
 async function getABlog(blogId) {
 	try {
 		let res = await blogsCollection.findOne({ _id: blogId }, { __v: 0 });
-		return res;
+		if (res) return res;
+		throw new Error("No blog exists with the specified id");
 	} catch (error) {
 		throw new Error("No blog exists with the specified id");
 	}
@@ -20,7 +21,6 @@ async function getABlog(blogId) {
 
 async function deleteABlog(blogId) {
 	try {
-		await blogsCollection.findOne({ _id: blogId }, { name: 1 });
 		await chefsCollection.deleteOne({ _id: blogId });
 	} catch (e) {
 		throw new Error("No blog exists with the specified id");
@@ -29,7 +29,6 @@ async function deleteABlog(blogId) {
 
 async function updateABlog(blogId, newData) {
 	try {
-		await blogsCollection.findOne({ _id: blogId }, { name: 1 });
 		await blogsCollection.updateOne({ _id: blogId }, newData);
 	} catch (e) {
 		throw new Error("No chef exists with the specified id");

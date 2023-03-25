@@ -8,8 +8,8 @@ async function controllerGetBlogs(req, res) {
 async function controllerGetABlog(req, res) {
 	let { blogId } = req.params;
 	try {
-		let chef = await getABlog(blogId);
-		res.status(200).json(chef);
+		let blog = await getABlog(blogId);
+		res.status(200).json(blog);
 	} catch (e) {
 		res.status(404).json({
 			error: e.message,
