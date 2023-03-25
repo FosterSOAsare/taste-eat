@@ -79,6 +79,7 @@ function App() {
 									<NewChefPage />
 								</CheckAdmin>
 							}></Route>
+
 						<Route path="chef/:chefId" element={<Chef />}></Route>
 						<Route
 							path="chef/:chefId/edit"
@@ -92,7 +93,20 @@ function App() {
 					<Route path="reserve" element={<ReservationPage />}></Route>
 					<Route>
 						<Route path="dishes" element={<DishesPage />}></Route>
-						<Route path="dishes/new" element={<NewDishPage />}></Route>
+						<Route
+							path="dishes/new"
+							element={
+								<CheckAdmin>
+									<NewDishPage />
+								</CheckAdmin>
+							}></Route>
+						<Route
+							path="dish/:dishId/edit"
+							element={
+								<CheckAdmin>
+									<NewDishPage />
+								</CheckAdmin>
+							}></Route>
 					</Route>
 					<Route path="*" element={<NotFoundPage />}></Route>
 				</Route>

@@ -5,14 +5,28 @@ async function getDishes(type, limit, skip) {
 	return { dishes: response, nextpage: parseInt(limit) + parseInt(skip) < totalCount };
 }
 
-async function getADish(blogId) {}
+async function getADish(dishId) {
+	try {
+		let res = await dishesCollection.findOne({ _id: dishId }, { __v: 0 });
+		return res;
+	} catch (error) {
+		throw new Error("No chef exists with the specified id");
+	}
+}
 
-async function deleteADish(blogId) {}
+async function deleteADish(dishId) {}
 
-async function updateADish(blogId) {}
+async function updateADish(dishId, newData) {
+	try {
+		await dishesCollection.findOne({ _id: dishId }, { name: 1 });
+		await dishesCollection.updateOne({ _id: dishId }, newData);
+	} catch (e) {
+		throw new Error("No chef exists with the specified id");
+	}
+}
 
-async function postADish(blogData) {
-	let res = await dishesCollection.create(blogData);
+async function postADish(dishData) {
+	let res = await dishesCollection.create(dishData);
 	if (res) return res;
 	return { error: "An error occurred during post request" };
 }

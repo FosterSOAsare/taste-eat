@@ -22,21 +22,20 @@ const NewChefPage = () => {
 	const { chefId } = useParams();
 	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 	const [chefData, setChefData] = useState({
-		// name: "Asare Foster",
-		// position: "Senior chef",
-		// email: "evanmattew@mail.com",
-		// experience: "10",
-		// contact: "+1 (800)-234-5675",
-		// location: "Riverside 25, San Francisco, California",
-		// summary:
-		// 	"Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divid with additional clickthroughs from Nanotechnology immersion along the information highway will close the loop on focusing solely the bottom line.",
-		// facebook: "http://facebook.com",
-		// twitter: "http://twitter.com",
-		// instagram: "http://instagram.com",
-		// pinterest: "http://pinterest.com",
+		name: "Asare Foster",
+		position: "Senior chef",
+		email: "evanmattew@mail.com",
+		experience: "10",
+		contact: "+1 (800)-234-5675",
+		location: "Riverside 25, San Francisco, California",
+		summary:
+			"Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divid with additional clickthroughs from Nanotechnology immersion along the information highway will close the loop on focusing solely the bottom line.",
+		facebook: "http://facebook.com",
+		twitter: "http://twitter.com",
+		instagram: "http://instagram.com",
+		pinterest: "http://pinterest.com",
 	});
 	const [loading, setLoading] = useState(true);
-	console.log(status);
 
 	useEffect(() => {
 		(async function () {
@@ -82,6 +81,22 @@ const NewChefPage = () => {
 				reject("Enter a valid email address");
 				return;
 			}
+			if (facebook && !validations.validateUrl(facebook)) {
+				reject("Enter a valid facebook profile link");
+				return;
+			}
+			if (twitter && !validations.validateUrl(twitter)) {
+				reject("Enter a valid twitter profile link");
+				return;
+			}
+			if (instagram && !validations.validateUrl(instagram)) {
+				reject("Enter a valid instagram profile link");
+				return;
+			}
+			if (pinterest && !validations.validateUrl(pinterest)) {
+				reject("Enter a valid pinterest profile link");
+				return;
+			}
 			resolve({ success: true });
 		});
 	}
@@ -98,17 +113,12 @@ const NewChefPage = () => {
 				formData.append(e, chefData[e]);
 			});
 
-			try {
-				let res = chefId ? await httpUpdateChef(chefData._id, formData) : await httpStoreChef(formData);
-				if (res?.error) {
-					statusDispatchFunc({ type: "displayError", payload: res.error });
-					return;
-				}
-				// navigate("/chefs");
-				statusDispatchFunc({ type: "setSuccess", payload: `Chef of id ${chefId} has been updated` });
-			} catch (e) {
-				console.log(e);
+			let res = chefId ? await httpUpdateChef(chefData._id, formData) : await httpStoreChef(formData);
+			if (res?.error) {
+				statusDispatchFunc({ type: "displayError", payload: res.error });
+				return;
 			}
+			statusDispatchFunc({ type: "setSuccess", payload: chefId ? `Chef of id ${chefId} has been updated` : "New chef has been registered" });
 		} catch (err) {
 			console.log(err);
 			// Handles the form validation

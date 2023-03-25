@@ -78,7 +78,17 @@ export async function httpFetchAllDishes(limit = 20, skip = 0) {
 		return e.response.data;
 	}
 }
-
+export async function httpFetchADish(dishId) {
+	try {
+		let res = await axios({
+			method: "get",
+			url: `${baseUrl}/dish/${dishId}`,
+		});
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
 export async function httpStoreDish(data) {
 	try {
 		let res = await axios({
@@ -91,7 +101,19 @@ export async function httpStoreDish(data) {
 		return e.response.data;
 	}
 }
-
+export async function httpUpdateDish(dishId, newData) {
+	console.log(dishId);
+	try {
+		let res = await axios({
+			method: "put",
+			url: `${baseUrl}/dish/${dishId}`,
+			data: newData,
+		});
+		return res?.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
 export async function httpStoreChef(data) {
 	try {
 		let res = await axios({

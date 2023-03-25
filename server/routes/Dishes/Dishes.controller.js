@@ -12,7 +12,17 @@ async function controllerGetDishes(req, res) {
 	res.status(200).json(response);
 }
 
-async function controllerGetADish(req, res) {}
+async function controllerGetADish(req, res) {
+	let { dishId } = req.params;
+	try {
+		let dish = await getADish(dishId);
+		res.status(200).json(dish);
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
+	}
+}
 
 async function controllerDeleteADish(req, res) {}
 
@@ -37,7 +47,22 @@ async function controllerSaveDish(req, res) {
 	res.status(201).json(response);
 }
 
-async function controllerUpdateADish(req, res) {}
+async function controllerUpdateADish(req, res) {
+	let data = req.body;
+	if (req.files?.length) {
+		data.imageUrl = `http://localhost:8000/photos/dishes/${req.files[0].filename}`;
+	}
+
+	// Updating data in database
+	try {
+		await updateADish(data._id, data);
+		res.status(201).json(data);
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
+	}
+}
 
 module.exports = {
 	controllerGetDishes,
