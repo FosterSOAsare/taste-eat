@@ -45,6 +45,18 @@ export async function httpUpdateBlog(blogId, newData) {
 		return e.response.data;
 	}
 }
+export async function httpDeleteABlog(blogId) {
+	try {
+		let res = await axios({
+			method: "delete",
+			url: `${baseUrl}/blog/${blogId}`,
+		});
+
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
 
 export async function httpFetchDishes(type, limit = 6, skip = 0) {
 	try {

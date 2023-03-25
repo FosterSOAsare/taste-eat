@@ -6,7 +6,7 @@ import styles from "../../app.styles";
 import { statusFunc } from "../Snackbar/status.service";
 
 import Snackbar from "../Snackbar/Snackbar";
-function ConfirmationPopper({ anchor, question, confirm, proceedLink, anchorType, successMessage }) {
+function ConfirmationPopper({ anchor, question, confirm, proceedLink, anchorType, successMessage, sx }) {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [open, setOpen] = useState(false);
 	const theme = useTheme();
@@ -36,7 +36,7 @@ function ConfirmationPopper({ anchor, question, confirm, proceedLink, anchorType
 			<Box sx={{ position: "relative" }}>
 				{anchorType === "button" && <Box onClick={handleButtonClick}>{anchor}</Box>}
 				{anchorType !== "button" && <Button onClick={handleButtonClick}>{anchor}</Button>}
-				<Popper open={open} anchorEl={anchorEl} sx={{ ...styles.popper__container, backgroundColor: theme.palette.footerBg.main }}>
+				<Popper open={open} anchorEl={anchorEl} sx={{ ...styles.popper__container, backgroundColor: theme.palette.footerBg.main, ...sx }}>
 					<Box sx={{}}>
 						<Typography variant="p" sx={{ color: theme.palette.white.main, textAlign: "center", display: "block" }}>
 							{question}

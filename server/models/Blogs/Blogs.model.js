@@ -21,7 +21,7 @@ async function getABlog(blogId) {
 
 async function deleteABlog(blogId) {
 	try {
-		await chefsCollection.deleteOne({ _id: blogId });
+		await blogsCollection.deleteOne({ _id: blogId });
 	} catch (e) {
 		throw new Error("No blog exists with the specified id");
 	}

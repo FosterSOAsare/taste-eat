@@ -59,7 +59,7 @@ async function controllerSaveBlog(req, res) {
 async function controllerUpdateABlog(req, res) {
 	let data = req.body;
 	if (req.files?.length) {
-		data.image = `http://localhost:8000/photos/blogs/${req.files[0].filename}`;
+		data.imageUrl = `http://localhost:8000/photos/blogs/${req.files[0].filename}`;
 	}
 	console.log(data);
 	// Updating data in database
