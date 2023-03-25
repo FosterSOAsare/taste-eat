@@ -37,6 +37,7 @@ const chefpageStyles = {
 		width: "80%",
 		height: "auto",
 		...flex("center", "flex-start"),
+		flexDirection: { xxs: "column", sm: "row" },
 		gap: "40px",
 		position: "relative",
 	},

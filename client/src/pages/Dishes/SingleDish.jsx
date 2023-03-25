@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 
 import styles from "../../app.styles";
 import { useAdminContext } from "../../context/AdminContext";
-import { httpFetchADish } from "../../hooks/requests/request";
+import { httpDeleteADish, httpFetchADish } from "../../hooks/requests/request";
 
 import Loading from "../../components/Loading/Loading";
 import PageDesc from "../../components/Header/PageDesc";
 import Socials from "../../components/Socials/Socials";
+import ConfirmationPopper from "../../components/ConfirmPopup/Popper";
 
 import DishRatingImage from "../../assets/dish-rating.png";
 
@@ -28,15 +29,30 @@ const SingleDishPage = () => {
 	const { dishId } = useParams();
 	const { isAdmin } = useAdminContext();
 	const [active, setActive] = useState("description");
+	let navigate = useNavigate();
 
-	const isMobileScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+	const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 	useEffect(() => {
 		(async function () {
 			let res = await httpFetchADish(dishId);
+			if (res.error) {
+				navigate("/404");
+				return;
+			}
 			setDishData(res);
 			setLoading(false);
 		})();
 	}, []);
+
+	function deleteDish() {
+		return new Promise(async (resolve, reject) => {
+			let res = await httpDeleteADish(dishId);
+			if (res.error) {
+				reject(res.error);
+			}
+			resolve();
+		});
+	}
 	return (
 		<>
 			<PageDesc content="Single Dish" />
@@ -92,11 +108,31 @@ const SingleDishPage = () => {
 											</Typography>
 											<Socials links={shareLinks} sx={{ color: theme.palette.secondary.main, fontSize: "16px" }} />
 										</Box>
+										{isAdmin && (
+											<Box sx={{ marginTop: "20px", display: "flex", alignItems: "center", marginBottom: { xxs: "20px", sm: 0 } }}>
+												<Button href={`/dish/${dishData._id}/edit`} variant="outlined" sx={{ marginRight: "20px" }}>
+													Edit
+												</Button>
+
+												<ConfirmationPopper
+													anchor={
+														<Button variant="contained" color="secondary">
+															Delete
+														</Button>
+													}
+													question={`Are you sure you want to delete this dish?`}
+													confirm={deleteDish}
+													proceedLink="/dishes"
+													anchorType="button"
+													successMessage={`Dish of id ${dishId} has been deleted`}
+												/>
+											</Box>
+										)}
 									</Box>
 								</Box>
 							</Box>
 							<Box sx={{ width: "100%" }}>
-								{isMobileScreen && <Box sx={{ ...styles.divider }}></Box>}
+								{isSmallScreen && <Box sx={{ ...styles.divider }}></Box>}
 								<Box>
 									<Button variant="text" color="primary" onClick={() => setActive("description")} sx={{ opacity: active === "description" ? 1 : 0.2 }}>
 										Description
@@ -143,5 +179,5 @@ const SingleDishPage = () => {
 		</>
 	);
 };
-
+// ;
 export default SingleDishPage;
