@@ -31,6 +31,10 @@ const NewDishPage = () => {
 		dishId &&
 			(async function () {
 				let res = await httpFetchADish(dishId);
+				if (res.error) {
+					navigate("/404");
+					return;
+				}
 				setDishData(res);
 				setLoading(false);
 			})();

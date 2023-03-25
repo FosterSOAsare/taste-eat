@@ -7,17 +7,21 @@ import { statusFunc } from "../Snackbar/status.service";
 
 import Snackbar from "../Snackbar/Snackbar";
 function ConfirmationPopper({ anchor, question, confirm, proceedLink, anchorType, successMessage }) {
-	console.log(anchor);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [open, setOpen] = useState(false);
 	const theme = useTheme();
 	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 
 	const handleConfirm = async () => {
-		// Handle confirmation logic here
-		await confirm();
-		setOpen(false);
-		statusDispatchFunc({ type: "setSuccess", payload: successMessage });
+		try {
+			// Handle confirmation logic here
+			await confirm();
+			setOpen(false);
+			statusDispatchFunc({ type: "setSuccess", payload: successMessage });
+		} catch (error) {
+			console.error(error);
+			setOpen(false);
+		}
 	};
 	const handleButtonClick = (event) => {
 		setAnchorEl(event.currentTarget);

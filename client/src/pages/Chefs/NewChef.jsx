@@ -35,25 +35,25 @@ const NewChefPage = () => {
 		instagram: "http://instagram.com",
 		pinterest: "http://pinterest.com",
 	});
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(chefId ? true : false);
 
 	useEffect(() => {
 		(async function () {
 			if (chefId) {
 				try {
-					setLoading(true);
 					let chefData = await httpFetchAChef(chefId);
-					if (chefData) {
-						setChefData(chefData);
-						setLoading(false);
+					setLoading(false);
+					if (chefData?.error) {
+						navigate("/404");
 						return;
 					}
+					setChefData(chefData);
 				} catch (err) {
+					setLoading(false);
 					navigate("/404");
 				}
 				return;
 			}
-			setLoading(false);
 		})();
 	}, [chefId]);
 	function handleChange(name, value) {
@@ -114,8 +114,9 @@ const NewChefPage = () => {
 			});
 
 			let res = chefId ? await httpUpdateChef(chefData._id, formData) : await httpStoreChef(formData);
+
 			if (res?.error) {
-				statusDispatchFunc({ type: "displayError", payload: res.error });
+				statusDispatchFunc({ type: "setError", payload: res.error });
 				return;
 			}
 			statusDispatchFunc({ type: "setSuccess", payload: chefId ? `Chef of id ${chefId} has been updated` : "New chef has been registered" });

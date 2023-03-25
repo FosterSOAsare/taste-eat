@@ -57,10 +57,10 @@ const Chef = () => {
 		return new Promise(async (resolve, reject) => {
 			try {
 				let res = await httpDeleteChef(chefData._id);
-				if (res) {
-					resolve(res);
+				if (res.error) {
+					reject(res.error);
 				} else {
-					reject(res);
+					resolve();
 				}
 			} catch (e) {
 				reject(e);
