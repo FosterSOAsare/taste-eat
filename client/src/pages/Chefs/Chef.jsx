@@ -76,7 +76,7 @@ const Chef = () => {
 				<Container maxWidth="lg" sx={styles.chef__info__container}>
 					{!loading && (
 						<>
-							<Box sx={{ width: "40%", height: "450px" }}>
+							<Box sx={{ width: { xxs: "100%", sm: "40%" }, height: "450px" }}>
 								<img src={chefData.image} alt="" className="w-[100%] h-[100%]" />
 							</Box>
 
@@ -99,7 +99,7 @@ const Chef = () => {
 										{ topic: "Locate Us", details: chefData["location"], icon: PlaceOutlinedIcon },
 									].map((e, index) => {
 										return (
-											<Grid item md={6} sx={{ marginBottom: "20px" }} key={index}>
+											<Grid item xxs={6} sx={{ marginBottom: "20px" }} key={index}>
 												<SkillIcon subject={e.topic} details={e.details}>
 													{<e.icon sx={{ ...styles.icon__style, color: theme.palette.white.main }} />}
 												</SkillIcon>
@@ -146,6 +146,7 @@ const Chef = () => {
 											question={`Are you sure you want to delete this chef?`}
 											confirm={deleteChef}
 											proceedLink="/chefs"
+											successMessage={`Chef of id ${chefId} has been deleted`}
 										/>
 									</Box>
 								)}

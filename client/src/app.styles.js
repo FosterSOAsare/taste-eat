@@ -12,6 +12,7 @@ import reservationPageStyles from "./pages/Reservation/Reservation.styles";
 import loadingStyles from "./components/Loading/Loading.styles";
 import dishPageStyles from "./pages/Dishes/Dish.styles";
 import passwordProtectedPageStyles from "./pages/PasswordProtected/PasswordProtected.styles";
+import popperStyles from "./components/ConfirmPopup/Popper.styles";
 import snackbarStyles from "./components/Snackbar/Snackbar.styles";
 export function flex(justify, align, direction = "row") {
 	return {
@@ -55,15 +56,7 @@ const styles = {
 		height: "auto",
 		...flex("center", "center", "column"),
 	},
-	popper__container: {
-		// width: "90%",
-		height: "auto",
-		// // position: "absolute",
-		// // top: "0",
-		// // left: "0",
-		backgroundColor: "white",
-		padding: "20px",
-	},
+
 	divider: {
 		border: "1px dashed #C4C4C4",
 		height: "2px",
@@ -110,6 +103,7 @@ const styles = {
 	...dishPageStyles,
 	...passwordProtectedPageStyles,
 	...snackbarStyles,
+	...popperStyles,
 };
 
 export default styles;
