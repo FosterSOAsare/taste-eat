@@ -14,7 +14,15 @@ async function getADish(dishId) {
 	}
 }
 
-async function deleteADish(dishId) {}
+async function deleteADish(dishId) {
+	console.log(dishId);
+	try {
+		await dishesCollection.findOne({ _id: dishId }, { name: 1 });
+		await dishesCollection.deleteOne({ _id: dishId });
+	} catch (e) {
+		throw new Error("No dish exists with the specified id");
+	}
+}
 
 async function updateADish(dishId, newData) {
 	try {

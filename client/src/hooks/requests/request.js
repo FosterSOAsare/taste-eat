@@ -114,6 +114,18 @@ export async function httpUpdateDish(dishId, newData) {
 		return e.response.data;
 	}
 }
+export async function httpDeleteADish(dishId) {
+	try {
+		let res = await axios({
+			method: "delete",
+			url: `${baseUrl}/dish/${dishId}`,
+		});
+
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
 export async function httpStoreChef(data) {
 	try {
 		let res = await axios({

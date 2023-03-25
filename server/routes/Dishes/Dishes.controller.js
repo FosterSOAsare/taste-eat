@@ -24,7 +24,18 @@ async function controllerGetADish(req, res) {
 	}
 }
 
-async function controllerDeleteADish(req, res) {}
+async function controllerDeleteADish(req, res) {
+	let { dishId } = req.params;
+	console.log(dishId);
+	try {
+		let response = await deleteADish(dishId);
+		res.status(201).json({ success: `Dish of id ${dishId} has been deleted ` });
+	} catch (e) {
+		res.status(404).json({
+			error: e.message,
+		});
+	}
+}
 
 async function controllerSaveDish(req, res) {
 	let data = req.body;
