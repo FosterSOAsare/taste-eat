@@ -1,3 +1,4 @@
+import { flex } from "../../app.styles";
 const dishPageStyles = {
 	new__dish: {
 		width: "100%",
@@ -27,6 +28,13 @@ const dishPageStyles = {
 				outline: "none",
 			},
 		},
+	},
+	single__dish__detail: {
+		...flex("flex-start", "flex-start"),
+		flexDirection: { xxs: "column", sm: "row" },
+		height: { sm: "470px" },
+		width: "100%",
+		gap: "20px",
 	},
 };
 

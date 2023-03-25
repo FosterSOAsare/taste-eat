@@ -27,6 +27,7 @@ import LicensesPage from "./pages/Licenses/Licenses";
 import PasswordProtectedPage from "./pages/PasswordProtected/PasswordProtected";
 import FaqPage from "./pages/Faq/Faq";
 import ContactUsPage from "./pages/Contact/Contact";
+import SingleDishPage from "./pages/Dishes/SingleDish";
 
 function CheckAdmin({ children }) {
 	const { loading, isAdmin } = useAdminContext();
@@ -107,6 +108,7 @@ function App() {
 									<NewDishPage />
 								</CheckAdmin>
 							}></Route>
+						<Route path="dish/:dishId" element={<SingleDishPage />}></Route>
 					</Route>
 					<Route path="*" element={<NotFoundPage />}></Route>
 				</Route>

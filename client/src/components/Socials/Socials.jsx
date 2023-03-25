@@ -8,32 +8,32 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 
-const Socials = ({ color, links }) => {
+const Socials = ({ links, sx }) => {
 	return (
 		<Box>
 			<a href={links?.instagram}>
 				<span className="hidden" hidden>
 					Instagram profile link
 				</span>
-				<InstagramIcon sx={{ ...styles.menu__icon, color }} />
+				<InstagramIcon sx={{ ...styles.menu__icon, ...sx }} />
 			</a>
 			<a href={links?.facebok}>
 				<span className="hidden" hidden>
 					Instagram profile link
 				</span>
-				<FacebookOutlinedIcon sx={{ ...styles.menu__icon, color }} />
+				<FacebookOutlinedIcon sx={{ ...styles.menu__icon, ...sx }} />
 			</a>
 			<a href={links?.twitter}>
 				<span className="hidden" hidden>
 					Instagram profile link
 				</span>
-				<TwitterIcon sx={{ ...styles.menu__icon, color }} />
+				<TwitterIcon sx={{ ...styles.menu__icon, ...sx }} />
 			</a>
 			<a href={links?.pinterest}>
 				<span className="hidden" hidden>
 					Instagram profile link
 				</span>
-				<PinterestIcon sx={{ ...styles.menu__icon, color }} />
+				<PinterestIcon sx={{ ...styles.menu__icon, ...sx }} />
 			</a>
 		</Box>
 	);

@@ -38,7 +38,7 @@ const Footer = () => {
 							<img src={Logo} alt="" className="w-[120px] sm:w-[210px]" />
 						</Grid>
 						<Grid item sm={3} xxs={6} sx={styles.footer__socials}>
-							<Socials color={theme.palette.white.main} links={socialLinks} />
+							<Socials sx={{ color: theme.palette.white.main }} links={socialLinks} />
 						</Grid>
 						<Grid item sm={3} xxs={6} sx={{ display: "flex", alignItems: "flex-start", flexDirection: "column", order: 1 }}>
 							<Title text="Contact" sx={{ color: theme.palette.white.main }} />

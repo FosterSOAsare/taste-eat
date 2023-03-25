@@ -7,12 +7,12 @@ import { useMediaQuery } from "@mui/material";
 import styles from "../../app.styles";
 import Links from "../../data/links";
 import Socials from "../Socials/Socials";
+import socialLinks from "../../data/socialLinks";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
 import Logo from "../../assets/Logo.svg";
 import PhoneMenu from "./PhoneMenu";
-import socialLinks from "../../data/socialLinks";
 const Header = () => {
 	const theme = useTheme();
 	const [showMenu, setShowMenu] = useState(false);
@@ -55,7 +55,7 @@ const Header = () => {
 							))}
 						</Box>
 
-						{!isSmallScreen && <Socials color={theme.palette.white.main} links={socialLinks} />}
+						{!isSmallScreen && <Socials sx={{ color: theme.palette.white.main }} links={socialLinks} />}
 					</Container>
 				</Box>
 			)}
