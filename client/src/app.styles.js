@@ -69,7 +69,7 @@ const styles = {
 		height: "2px",
 		marginBlock: "20px",
 		position: "relative",
-		width: "97%",
+		width: "99%",
 		marginInline: "auto",
 		"&::before": {
 			content: "''",

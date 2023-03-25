@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 import styles from "../../app.styles";
 import { useAdminContext } from "../../context/AdminContext";
@@ -27,7 +28,8 @@ const SingleDishPage = () => {
 	const { dishId } = useParams();
 	const { isAdmin } = useAdminContext();
 	const [active, setActive] = useState("description");
-	console.log(dishData);
+
+	const isMobileScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 	useEffect(() => {
 		(async function () {
 			let res = await httpFetchADish(dishId);
@@ -94,6 +96,7 @@ const SingleDishPage = () => {
 								</Box>
 							</Box>
 							<Box sx={{ width: "100%" }}>
+								{isMobileScreen && <Box sx={{ ...styles.divider }}></Box>}
 								<Box>
 									<Button variant="text" color="primary" onClick={() => setActive("description")} sx={{ opacity: active === "description" ? 1 : 0.2 }}>
 										Description
