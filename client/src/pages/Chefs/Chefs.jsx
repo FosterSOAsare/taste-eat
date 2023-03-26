@@ -26,7 +26,7 @@ const ChefsPage = () => {
 	useEffect(() => {
 		(async function () {
 			let result = await httpFetchChefs();
-			setChefsData(result);
+			setChefsData(result.chefs);
 			setLoading(false);
 		})();
 	}, []);

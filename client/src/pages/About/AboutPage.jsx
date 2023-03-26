@@ -35,7 +35,7 @@ const AboutPage = () => {
 		(async function () {
 			try {
 				let chefs = await httpFetchChefs(4);
-				setChefsData(chefs);
+				setChefsData(chefs.chefs);
 				setLoading(false);
 			} catch (e) {
 				console.error(e);
