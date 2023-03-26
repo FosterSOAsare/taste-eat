@@ -10,7 +10,8 @@
 		"nodemon": "^2.0.21"
 	},
 	"scripts": {
-		"start": "nodemon server.js"
+		"start": "nodemon server.js",
+		"test": "jest --watch"
 	},
 	"name": "server",
 	"version": "1.0.0",
@@ -18,5 +19,9 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"description": ""
+	"description": "",
+	"devDependencies": {
+		"jest": "^29.5.0",
+		"supertest": "^6.3.3"
+	}
 }

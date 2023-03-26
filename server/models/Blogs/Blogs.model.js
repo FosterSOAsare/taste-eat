@@ -1,7 +1,10 @@
 const blogsCollection = require("./Blogs.mongo");
+const mongoose = require("mongoose");
 
 async function getBlogs(limit, skip) {
 	let totalCount = await blogsCollection.countDocuments();
+	limit = limit || totalCount;
+	skip = skip || 0;
 	let res = await blogsCollection.find({}, { __v: 0, content: 0 }).skip(skip).limit(limit);
 	if (res) {
 		return { blogs: res, nextpage: parseInt(limit) + parseInt(skip) < totalCount };
@@ -21,6 +24,9 @@ async function getABlog(blogId) {
 
 async function deleteABlog(blogId) {
 	try {
+		// Check to see if the blog  exists
+		const exists = await blogsCollection.findOne({ _id: blogId });
+		if (!exists) throw new Error("No blog exists with the specified id");
 		await blogsCollection.deleteOne({ _id: blogId });
 	} catch (e) {
 		throw new Error("No blog exists with the specified id");
@@ -29,9 +35,13 @@ async function deleteABlog(blogId) {
 
 async function updateABlog(blogId, newData) {
 	try {
-		await blogsCollection.updateOne({ _id: blogId }, newData);
+		// Check to see if the blog  exists
+		const exists = await blogsCollection.findOne({ _id: blogId });
+		if (!exists) throw new Error("No blog exists with the specified id");
+
+		let res = await blogsCollection.updateOne({ blogId }, newData);
 	} catch (e) {
-		throw new Error("No chef exists with the specified id");
+		throw new Error("No blog exists with the specified id");
 	}
 }
 

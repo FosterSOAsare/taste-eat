@@ -1,4 +1,6 @@
 const { getBlogs, getABlog, deleteABlog, updateABlog, postABlog } = require("../../models/Blogs/Blogs.model");
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Types;
 
 async function controllerGetBlogs(req, res) {
 	let { limit, skip } = req.query;
@@ -38,7 +40,7 @@ async function controllerSaveBlog(req, res) {
 		return;
 	}
 
-	if (!req.files[0]) {
+	if (!req.files || !req.files[0]) {
 		res.status(400).json({ error: "No file was uploaded" });
 		return;
 	}
@@ -57,19 +59,26 @@ async function controllerSaveBlog(req, res) {
 }
 
 async function controllerUpdateABlog(req, res) {
-	let data = req.body;
-	if (req.files?.length) {
-		data.imageUrl = `http://localhost:8000/photos/blogs/${req.files[0].filename}`;
-	}
-	console.log(data);
 	// Updating data in database
 	try {
-		await updateABlog(data._id, data);
-		res.status(201).json(data);
+		let data = req.body;
+		// Validations
+		if (!data.title || !data.summary || !data.tag || !data.content) {
+			res.status(400).json({ error: "Please provide data for all fields" });
+			return;
+		}
+		if (!req.files && !data.imageUrl) {
+			res.status(400).json({ error: "No file was uploaded" });
+			return;
+		}
+		if (req.files?.length) {
+			data.imageUrl = `http://localhost:8000/photos/blogs/${req.files[0].filename}`;
+		}
+		let response = await updateABlog(req.params.blogId, data);
+
+		res.status(201).json(response);
 	} catch (e) {
-		res.status(404).json({
-			error: e.message,
-		});
+		res.status(404).json({ error: e.message });
 	}
 }
 

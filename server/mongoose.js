@@ -9,7 +9,10 @@ mongoose.connection.once("err", (err) => {
 	console.log("An error occurred in database connection");
 });
 async function startMongoose() {
-	await mongoose.connect(process.env.MONGO_URL);
+	await mongoose.connect(process.env.MONGO_URL, {
+		useUnifiedTopology: true,
+		useNewUrlParser: true,
+	});
 }
 
-module.exports = { startMongoose };
+module.exports = { startMongoose, mongoose };
