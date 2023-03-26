@@ -11,13 +11,19 @@ const Snackbar = ({ text, link, close }) => {
 	const theme = useTheme();
 	const navigate = useNavigate();
 	useEffect(() => {
-		link &&
+		if (link) {
 			setTimeout(() => {
 				setDesc("Redirecting...");
 				setTimeout(() => {
 					navigate(link);
 				}, 1000);
 			}, 1000);
+			return;
+		}
+
+		setTimeout(() => {
+			close();
+		}, 2000);
 	}, []);
 	return (
 		<Box sx={{ ...styles.snackbar, background: theme.palette.primary.main, borderColor: theme.palette.secondary.main }}>

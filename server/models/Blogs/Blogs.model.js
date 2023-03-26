@@ -44,7 +44,7 @@ async function updateABlog(blogId, newData) {
 		const exists = await blogsCollection.findOne({ _id: blogId });
 		if (!exists) throw new Error("No blog exists with the specified id");
 
-		let res = await blogsCollection.updateOne({ blogId }, newData);
+		let res = await blogsCollection.updateOne({ _id: blogId }, newData);
 	} catch (e) {
 		throw new Error("No blog exists with the specified id");
 	}

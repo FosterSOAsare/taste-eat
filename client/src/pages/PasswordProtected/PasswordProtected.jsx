@@ -34,7 +34,6 @@ const PasswordProtectedPage = () => {
 			}
 			statusDispatchFunc({ type: "setSuccess", payload: "Admin user authenticated successfully..." });
 			setTimeout(() => {
-				statusDispatchFunc({ type: "clearStatus" });
 				setIsAdmin(true);
 				localStorage.setItem("admin-session", res._id);
 			}, 1000);

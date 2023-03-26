@@ -45,9 +45,6 @@ const Reservation = () => {
 		});
 		reset();
 		statusDispatchFunc({ type: "setSuccess", payload: "Your reservation has been registered" });
-		setTimeout(() => {
-			statusDispatchFunc({ type: "clearStatus" });
-		}, 2000);
 
 		// Send data as email or store it on the DB
 	}

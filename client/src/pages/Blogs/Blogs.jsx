@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { Container, Box, Grid, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import styles from "../../app.styles";
+import { statusFunc } from "../../components/Snackbar/status.service";
 // import blogs from "../../data/blogData";
 import { reservationSchema } from "../../hooks/validations/react-hook-form";
 import { httpFetchBlogs } from "../../hooks/requests/request";
-import { useAuthContext } from "../../context/AuthContext";
 import { useAdminContext } from "../../context/AdminContext";
 
 import PageDesc from "../../components/Header/PageDesc";
@@ -17,6 +17,7 @@ import BlogItem from "../../components/BlogItem/BlogItem";
 import InstagramGallery from "../../components/InstagramGallery/InstagramGallery";
 import Error from "../../components/Error/Error";
 import Loading from "../../components/Loading/Loading";
+import Snackbar from "../../components/Snackbar/Snackbar";
 
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
@@ -25,17 +26,17 @@ const BlogsPage = () => {
 	const {
 		register,
 		handleSubmit,
-		getValues,
+		reset,
 		formState: { errors },
 	} = useForm({ resolver: zodResolver(reservationSchema) });
-	const { error, clearError, errorDispatchFunc } = useAuthContext();
+	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 	const [blogsData, setBlogsData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const { isAdmin } = useAdminContext();
 
 	useEffect(() => {
 		let errorKeys = Array.from(Object.keys(errors));
-		errorKeys?.length && errorDispatchFunc({ type: "displayError", payload: errors[errorKeys[0]].message });
+		errorKeys?.length && statusDispatchFunc({ type: "setError", payload: errors[errorKeys[0]].message });
 	}, [errors]);
 
 	useEffect(() => {
@@ -55,6 +56,7 @@ const BlogsPage = () => {
 		setLoading(false);
 	}
 	function saveReservation(data) {
+		statusDispatchFunc({ type: "setSuccess", payload: "Reservation was successfully registered" });
 		const time = `${data.date} ${data.timing}`;
 		console.log({
 			type: "New Reservation",
@@ -63,8 +65,8 @@ const BlogsPage = () => {
 			email: data.email,
 			reservationType: data.reservation,
 		});
-
 		// Send data as email or store it on the DB
+		reset();
 	}
 
 	return (
@@ -122,7 +124,7 @@ const BlogsPage = () => {
 										aria-label={e.name}
 										placeholder={e.name}
 										{...register(e.name.toLowerCase())}
-										onFocus={() => clearError()}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 									/>
 								</Grid>
 							))}
@@ -139,13 +141,14 @@ const BlogsPage = () => {
 												placeholder={e.name}
 												name={e.name.toLowerCase()}
 												{...register(e.name.toLowerCase())}
-												onFocus={() => clearError()}
+												onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 											/>
 										)}
 										{e.name === "Reservation" && (
 											<select
 												className="w-[100%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
-												{...register("reservation")}>
+												{...register("reservation")}
+												onFocus={() => statusDispatchFunc({ type: "clearStatus" })}>
 												<option value="Reservation Type" disabled style={{ background: theme.palette.primary.main, display: "block", marginTop: "10px" }}>
 													Reservation Type
 												</option>
@@ -161,14 +164,15 @@ const BlogsPage = () => {
 							})}
 						</Grid>
 
-						<Button variant="contained" color="white" sx={{ ...styles.button, marginInline: "auto", display: "block" }} type="submit">
-							Book a Table
+						<Button variant="contained" color="white" sx={{ ...styles.button, marginInline: "auto", display: "block" }} type="submit" disabled={status.waiting}>
+							{status.waiting ? "Waiting..." : "Book a Table"}
 						</Button>
-						{error.display === "block" && <Error text={error.text} sx={{ textAlign: "center" }} />}
+						{status.error && <Error text={status.error} sx={{ textAlign: "center" }} />}
 					</form>
 				</Container>
 			</Box>
 			<InstagramGallery />
+			{status.success && <Snackbar text={status.success} close={() => statusDispatchFunc({ type: "clearStatus" })} />}
 		</>
 	);
 };

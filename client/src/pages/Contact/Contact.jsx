@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Box, Container, Typography, TextField, Button, Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -7,10 +7,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema } from "../../hooks/validations/react-hook-form";
 import styles from "../../app.styles";
 import { useAuthContext } from "../../context/AuthContext";
+import { statusFunc } from "../../components/Snackbar/status.service";
 
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
 import Error from "../../components/Error/Error";
+import Snackbar from "../../components/Snackbar/Snackbar";
 
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
@@ -29,19 +31,21 @@ const ContactUsPage = () => {
 	const {
 		register,
 		handleSubmit,
-		getValues,
+		reset,
 		formState: { errors },
 	} = useForm({ resolver: zodResolver(contactSchema) });
-	const { error, errorDispatchFunc, clearError } = useAuthContext();
+	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 
 	useEffect(() => {
 		let errorKeys = Array.from(Object.keys(errors));
-		errorKeys?.length && errorDispatchFunc({ type: "displayError", payload: errors[errorKeys[0]].message });
+		errorKeys?.length && statusDispatchFunc({ type: "setError", payload: errors[errorKeys[0]].message });
 	}, [errors]);
 
 	function saveReservation(data) {
+		statusDispatchFunc({ type: "setWaiting" });
 		console.log(data);
 		// Send data as email or store it on the DB
+		statusDispatchFunc({ type: "clearStatus" });
 	}
 	return (
 		<>
@@ -174,7 +178,7 @@ const ContactUsPage = () => {
 												placeholder={e.text}
 												aria-label={e.text}
 												{...register(e.text.toLowerCase())}
-												onFocus={() => clearError()}></input>
+												onFocus={() => statusDispatchFunc({ type: "clearStatus" })}></input>
 										</Grid>
 									);
 								})}
@@ -193,22 +197,21 @@ const ContactUsPage = () => {
 										placeholder="Message"
 										aria-label="Enter message here"
 										{...register("message")}
-										onFocus={() => clearError()}></TextField>
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}></TextField>
 								</Grid>
 							</Grid>
-							{error.display === "block" && <Error text={error.text} />}
-							<button
+							{status.error && <Error text={status.error} />}
+							<Button
+								variant="outlined"
+								color="secondary"
 								style={{
 									...styles.button,
-									paddingInline: "30px",
-									background: "transparent",
 									padding: "10px 40px",
-									border: `2px solid ${theme.palette.secondary.main}`,
-									color: theme.palette.secondary.main,
 								}}
-								type="submit">
-								Send
-							</button>
+								type="submit"
+								disabled={status?.waiting}>
+								{status.waiting ? "Waiting..." : "Send"}
+							</Button>
 						</form>
 					</Box>
 				</Container>
@@ -277,6 +280,7 @@ const ContactUsPage = () => {
 					</Grid>
 				</Container>
 			</Box>
+			{status.success && <Snackbar text={status.success} />}
 		</>
 	);
 };

@@ -763,6 +763,11 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-\[red\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 0 0 / var(--tw-bg-opacity));
+}
+
 .p-\[15px\] {
   padding: 15px;
 }
@@ -783,6 +788,10 @@ video {
 
 .text-\[14px\] {
   font-size: 14px;
+}
+
+.text-\[16px\] {
+  font-size: 16px;
 }
 
 .uppercase {
@@ -902,6 +911,11 @@ video {
 .hover\:text-secondary:hover {
   --tw-text-opacity: 1;
   color: rgb(225 177 104 / var(--tw-text-opacity));
+}
+
+.hover\:outline-none:hover {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .focus\:outline-none:focus {

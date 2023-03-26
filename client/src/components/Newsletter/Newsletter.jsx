@@ -38,7 +38,6 @@ const Newsletter = ({ setSnackbar }) => {
 		// setSuccess(true);
 		statusDispatchFunc({ type: "setSuccess", payload: res.success });
 		setEmail("");
-		setTimeout(() => statusDispatchFunc({ type: "clearStatus" }), 2000);
 	}
 	const theme = useTheme();
 	return (
