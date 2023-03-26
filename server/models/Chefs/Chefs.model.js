@@ -1,7 +1,14 @@
 const chefsCollection = require("./Chefs.mongo");
 async function getChefs(limit) {
-	let res = limit === "all" ? await chefsCollection.find({}, { name: 1, image: 1, position: 1 }) : await chefsCollection.find({}, { name: 1, image: 1, position: 1 }).limit(limit);
-	return res;
+	limit = limit || "all";
+	let totalCount = await chefsCollection.countDocuments();
+	// Note we don't use nextpages for chefs that is why it is not checked here
+	let res =
+		limit === "all"
+			? await chefsCollection.find({}, { name: 1, image: 1, position: 1 }).sort({ _id: -1 })
+			: await chefsCollection.find({}, { name: 1, image: 1, position: 1 }).sort({ _id: -1 }).limit(limit);
+
+	if (res) return { chefs: res, nextpage: totalCount > parseInt(limit) };
 	throw new Error("An error occurred while retrieving chefs");
 }
 
@@ -25,7 +32,11 @@ async function deleteAChef(chefId) {
 
 async function updateAChef(chefId, newData) {
 	try {
-		await chefsCollection.updateOne({ _id: chefId }, newData);
+		// Check to see if the chefs  exists
+		const exists = await chefsCollection.findOne({ _id: chefId });
+		if (!exists) throw new Error("No chef exists with the specified id");
+		let data = await chefsCollection.updateOne({ _id: chefId }, newData);
+		return data;
 	} catch (e) {
 		throw new Error("No chef exists with the specified id");
 	}

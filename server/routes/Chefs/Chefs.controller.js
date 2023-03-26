@@ -38,6 +38,19 @@ async function controllerDeleteAChef(req, res) {
 
 async function controllerSaveChef(req, res) {
 	let data = req.body;
+
+	// Validations
+	let { name, email, experience, location, summary, position } = data;
+	if (!name || !email || !experience || !location || !summary || !position) {
+		res.status(400).json({ error: "Please provide data for all fields" });
+		return;
+	}
+
+	if (!req.files || !req.files[0]) {
+		res.status(400).json({ error: "No file was uploaded" });
+		return;
+	}
+
 	let image = `http://localhost:8000/photos/chefs/${req.files[0].filename}`;
 	data = { ...data, experience: parseInt(data.experience), image };
 	// Storing data in database
@@ -55,12 +68,23 @@ async function controllerSaveChef(req, res) {
 
 async function controllerUpdateAChef(req, res) {
 	let data = req.body;
+	// Validations
+	let { name, email, experience, location, summary, position } = data;
+	if (!name || !email || !experience || !location || !summary || !position) {
+		res.status(400).json({ error: "Please provide data for all fields" });
+		return;
+	}
+	if (!req.files && !data.image) {
+		res.status(400).json({ error: "No file was uploaded" });
+		return;
+	}
+
 	if (req.files?.length) {
 		data.image = `http://localhost:8000/photos/chefs/${req.files[0].filename}`;
 	}
 	// Updating data in database
 	try {
-		await updateAChef(data._id, data);
+		await updateAChef(req.params.chefId, data);
 		res.status(201).json(data);
 	} catch (e) {
 		res.status(404).json({
