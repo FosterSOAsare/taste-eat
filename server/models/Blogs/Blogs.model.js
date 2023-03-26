@@ -1,11 +1,16 @@
 const blogsCollection = require("./Blogs.mongo");
-const mongoose = require("mongoose");
 
-async function getBlogs(limit, skip) {
+async function getBlogs(limit, skip, order) {
 	let totalCount = await blogsCollection.countDocuments();
 	limit = limit || totalCount;
 	skip = skip || 0;
-	let res = await blogsCollection.find({}, { __v: 0, content: 0 }).skip(skip).limit(limit);
+	// Blogs should be fetched ordered by date . Newest blog first. Even if the order passed is not acceptable
+	order = order || "desc";
+	let res = await blogsCollection
+		.find({}, { __v: 0, content: 0 })
+		.skip(skip)
+		.limit(limit)
+		.sort({ date: order === "asc" ? 1 : -1 });
 	if (res) {
 		return { blogs: res, nextpage: parseInt(limit) + parseInt(skip) < totalCount };
 	}

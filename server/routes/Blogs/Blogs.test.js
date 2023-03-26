@@ -25,10 +25,13 @@ describe("Testing Blogs API", () => {
 			expect(response.nextpage).toBeTruthy();
 		});
 		it("Skip set up", async () => {
+			let total = await request(app).get("/blogs");
+			total = JSON.parse(total.text);
+			total = total.blogs.length;
 			let response = await request(app).get("/blogs?skip=4").expect(200);
 			// Total blogs is 11 at the moment hence this should work
 			response = JSON.parse(response.text);
-			expect(response.blogs.length).toBe(5);
+			expect(response.blogs.length).toBe(total - 4);
 		});
 	});
 
@@ -150,7 +153,11 @@ describe("Testing Blogs API", () => {
 				expect(response).toStrictEqual({ error: "No blog exists with the specified id" });
 			});
 			it("Should return a success when all data is valid", async () => {
-				let response = await request(app).delete("/blog/6420538960a694d7e226bca0").expect(201);
+				let lastBlog = await request(app).get("/blogs?limit=1&order=desc");
+				lastBlog = JSON.parse(lastBlog.text);
+				lastBlog = lastBlog.blogs[0];
+				// Delete the just created blog
+				let response = await request(app).delete(`/blog/${lastBlog._id}`).expect(201);
 			});
 		});
 	});

@@ -1,10 +1,8 @@
 const { getBlogs, getABlog, deleteABlog, updateABlog, postABlog } = require("../../models/Blogs/Blogs.model");
-const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Types;
 
 async function controllerGetBlogs(req, res) {
-	let { limit, skip } = req.query;
-	res.status(200).json(await getBlogs(limit, skip));
+	let { limit, skip, order } = req.query;
+	res.status(200).json(await getBlogs(limit, skip, order));
 }
 
 async function controllerGetABlog(req, res) {
