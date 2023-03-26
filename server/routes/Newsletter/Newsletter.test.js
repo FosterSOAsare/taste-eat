@@ -10,10 +10,12 @@ describe("Test the Newsletter Collection", () => {
 		await mongoose.connection.close();
 	});
 	describe("GET subscriptions", () => {
-		// it("should return success", async () => {
-		// 	let response = await request(app).get("/newsletter").expect(200);
-		// 	console.log(response);
-		// });
+		it("should return success", async () => {
+			let response = await request(app).get("/newsletter").expect(200);
+		});
+		it("should return 404 when route is wrong", async () => {
+			let response = await request(app).get("/newsletters").expect(404);
+		});
 	});
 	describe("POST subscription", () => {
 		it("should return an error when no email is set", async () => {

@@ -114,7 +114,6 @@ export async function httpStoreDish(data) {
 	}
 }
 export async function httpUpdateDish(dishId, newData) {
-	console.log(dishId);
 	try {
 		let res = await axios({
 			method: "put",
@@ -215,7 +214,6 @@ export async function httpValidateAdmin(type, value) {
 }
 
 export async function insertSubscription(email) {
-	console.log(email);
 	try {
 		let res = await axios({
 			method: "post",
