@@ -148,8 +148,11 @@ describe("Testing Chefs API", () => {
 				expect(response).toStrictEqual({ error: "No chef exists with the specified id" });
 			});
 			it("Should return a success when all data is valid", async () => {
+				let lastChef = await request(app).get("/chefs?limit=1");
+				lastChef = JSON.parse(lastChef.text);
+				lastChef = lastChef.chefs[0];
 				let response = await request(app)
-					.put("/chef/64146ea3a79a311b41c820ab")
+					.put(`/chef/${lastChef._id}`)
 					.send({
 						name: "TEst Please",
 						position: "Senior chef test",

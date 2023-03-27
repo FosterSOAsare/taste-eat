@@ -1,14 +1,14 @@
 const chefsCollection = require("./Chefs.mongo");
 async function getChefs(limit) {
-	limit = limit || "all";
 	let totalCount = await chefsCollection.countDocuments();
-	// Note we don't use nextpages for chefs that is why it is not checked here
+	limit = limit || "all";
+	// Note we don't use nextpages for chefs that is why we don't have skip implemented
 	let res =
 		limit === "all"
 			? await chefsCollection.find({}, { name: 1, image: 1, position: 1 }).sort({ _id: -1 })
 			: await chefsCollection.find({}, { name: 1, image: 1, position: 1 }).sort({ _id: -1 }).limit(limit);
 
-	if (res) return { chefs: res, nextpage: totalCount > parseInt(limit) };
+	if (res) return { chefs: res, nextpage: totalCount > parseInt(limit === "all" ? totalCount : limit) };
 	throw new Error("An error occurred while retrieving chefs");
 }
 
