@@ -2,6 +2,7 @@ const { getDishes, getADish, deleteADish, updateADish, postADish } = require("..
 
 async function controllerGetDishes(req, res) {
 	let { type, limit, skip } = req.query;
+
 	let correspondingType = type === "starters" ? "Starter" : type === "main dishes" ? "Main Dish" : type === "dessert" ? "Dessert" : "all";
 	let response = await getDishes(correspondingType, limit, skip);
 	if (!res) {
@@ -26,7 +27,6 @@ async function controllerGetADish(req, res) {
 
 async function controllerDeleteADish(req, res) {
 	let { dishId } = req.params;
-	console.log(dishId);
 	try {
 		let response = await deleteADish(dishId);
 		res.status(201).json({ success: `Dish of id ${dishId} has been deleted ` });
@@ -39,7 +39,13 @@ async function controllerDeleteADish(req, res) {
 
 async function controllerSaveDish(req, res) {
 	let data = req.body;
-	if (!req.files[0]) {
+	let { name, summary, type, price } = req.body;
+
+	if (!name || !summary || !type || !price) {
+		res.status(400).json({ error: "Please provide data for all fields" });
+		return;
+	}
+	if (!req.files || !req.files[0]) {
 		res.status(400).json({ error: "No file was uploaded" });
 		return;
 	}
@@ -59,15 +65,26 @@ async function controllerSaveDish(req, res) {
 }
 
 async function controllerUpdateADish(req, res) {
-	let data = req.body;
-	if (req.files?.length) {
-		data.imageUrl = `http://localhost:8000/photos/dishes/${req.files[0].filename}`;
-	}
-
-	// Updating data in database
 	try {
-		await updateADish(data._id, data);
-		res.status(201).json(data);
+		let data = req.body;
+		let { name, summary, type, price, imageUrl } = req.body;
+
+		if (!name || !summary || !type || !price) {
+			res.status(400).json({ error: "Please provide data for all fields" });
+			return;
+		}
+		if (!req.files && !imageUrl) {
+			res.status(400).json({ error: "No file was uploaded" });
+			return;
+		}
+		if (req.files?.length) {
+			data.imageUrl = `http://localhost:8000/photos/dishes/${req.files[0].filename}`;
+		}
+
+		// Updating data in database
+		let response = await updateADish(req.params.dishId, data);
+
+		res.status(201).json(response);
 	} catch (e) {
 		res.status(404).json({
 			error: e.message,
