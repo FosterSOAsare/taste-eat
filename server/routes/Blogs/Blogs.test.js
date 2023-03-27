@@ -129,8 +129,11 @@ describe("Testing Blogs API", () => {
 				expect(response).toStrictEqual({ error: "No blog exists with the specified id" });
 			});
 			it("Should return a success when all data is valid", async () => {
+				let lastBlog = await request(app).get("/blogs?limit=1&order=desc");
+				lastBlog = JSON.parse(lastBlog.text);
+				lastBlog = lastBlog.blogs[0];
 				let response = await request(app)
-					.put("/blog/641e2e9ecff558d79d0b5ec8")
+					.put(`/blog/${lastBlog._id}`)
 					.send({
 						title: "Elegant Dessert: 10 Tips How to Make It at Home. Blog 1",
 						summary:

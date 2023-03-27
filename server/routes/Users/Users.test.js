@@ -27,7 +27,6 @@ describe("Test Users endpoint", () => {
 			expect(response).toStrictEqual({ error: "Invalid admin password" });
 		});
 		it("should return success", async () => {
-			console.log(process.env.ADMIN_PASSWORD);
 			let response = await request(app).get(`/users?type=password&value=${process.env.ADMIN_PASSWORD}`).expect(200);
 			response = JSON.parse(response.text);
 		});
