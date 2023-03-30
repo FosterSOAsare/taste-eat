@@ -14,12 +14,14 @@ import ImageInput from "../../components/ImageInput/ImageInput";
 import Error from "../../components/Error/Error";
 import Snackbar from "../../components/Snackbar/Snackbar";
 import Loading from "../../components/Loading/Loading";
+import NotFound from "../../components/NotFound/NotFound";
 
 const NewDishPage = () => {
 	const theme = useTheme();
 	const { validations } = useAuthContext();
 	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 	const { dishId } = useParams();
+	const [notFound, setNotFound] = useState(false);
 	const [dishData, setDishData] = useState({
 		// price: 40,
 		// summary: "Candied Jerusalem dummy texts",
@@ -31,12 +33,12 @@ const NewDishPage = () => {
 		dishId &&
 			(async function () {
 				let res = await httpFetchADish(dishId);
+				setLoading(false);
 				if (res.error) {
-					navigate("/404");
+					setNotFound(true);
 					return;
 				}
 				setDishData(res);
-				setLoading(false);
 			})();
 	}, []);
 	const navigate = useNavigate();
@@ -102,67 +104,70 @@ const NewDishPage = () => {
 	}
 	return (
 		<>
-			<PageDesc content="Add Dish" />
-			<Box sx={styles.new__dish}>
-				<Container maxWidth="md" sx={styles.new__dish__container}>
-					{!loading && (
-						<>
-							<Title text="add dish"></Title>
-							<Typography variant="h1" sx={{ ...styles.title, fontSize: "28px", marginBlock: "10px" }}>
-								Add A New Dish
-							</Typography>
-							<TextField
-								sx={styles.new__dish__text__field}
-								onChange={(event) => handleChange("name", event.target.value)}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-								placeholder="Dish Name"
-								value={dishData.name || ""}
-							/>
-							<TextField
-								sx={styles.new__dish__text__field}
-								onChange={(event) => handleChange("price", event.target.value)}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-								placeholder="Dish Price"
-								value={dishData.price || ""}
-							/>
-
-							<Select
-								value={dishData.type || "Select Dish Type"}
-								onChange={(e) => handleChange("type", e.target.value)}
-								sx={{ width: "100%" }}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}>
-								<MenuItem value="Select Dish Type" selected={true} disabled={true}>
-									Select Dish Type
-								</MenuItem>
-								<MenuItem value="Starter">Starter</MenuItem>
-								<MenuItem value="Main Dish">Main Dish</MenuItem>
-								<MenuItem value="Dessert">Dessert</MenuItem>
-							</Select>
-							<Box sx={styles.dish__desc__container}>
+			{loading && <Loading />}
+			{!loading && !notFound && (
+				<>
+					<PageDesc content="Add Dish" />
+					<Box sx={styles.new__dish}>
+						<Container maxWidth="md" sx={styles.new__dish__container}>
+							<>
+								<Title text="add dish"></Title>
+								<Typography variant="h1" sx={{ ...styles.title, fontSize: "28px", marginBlock: "10px" }}>
+									Add A New Dish
+								</Typography>
 								<TextField
-									placeholder="Dish Description"
-									multiline
-									maxRows={4}
-									sx={{ ...styles.new__dish__text__field }}
+									sx={styles.new__dish__text__field}
+									onChange={(event) => handleChange("name", event.target.value)}
 									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-									onChange={(event) => handleChange("summary", event.target.value)}
-									value={dishData.summary || ""}
+									placeholder="Dish Name"
+									value={dishData.name || ""}
 								/>
-							</Box>
+								<TextField
+									sx={styles.new__dish__text__field}
+									onChange={(event) => handleChange("price", event.target.value)}
+									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									placeholder="Dish Price"
+									value={dishData.price || ""}
+								/>
 
-							<ImageInput label="Dish Image" handleChange={handleChange} sx={{ marginTop: "20px" }} image={dishData.imageUrl} />
-							{status.error && <Error text={status.error} />}
-							<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-								<Button variant="outlined" sx={{ ...styles.button }} color="secondary" onClick={() => PostOrUpdateDish()} disabled={status.waiting}>
-									{!status.waiting ? (dishId ? "Update" : "Save") + " Dish" : "Waiting..."}
-								</Button>
-							</Box>
-						</>
-					)}
-					{loading && <Loading />}
-				</Container>
-			</Box>
-			{status.success && <Snackbar text={status.success} close={() => statusDispatchFunc({ type: "clearStatus" })} link="/dishes" />}
+								<Select
+									value={dishData.type || "Select Dish Type"}
+									onChange={(e) => handleChange("type", e.target.value)}
+									sx={{ width: "100%" }}
+									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}>
+									<MenuItem value="Select Dish Type" selected={true} disabled={true}>
+										Select Dish Type
+									</MenuItem>
+									<MenuItem value="Starter">Starter</MenuItem>
+									<MenuItem value="Main Dish">Main Dish</MenuItem>
+									<MenuItem value="Dessert">Dessert</MenuItem>
+								</Select>
+								<Box sx={styles.dish__desc__container}>
+									<TextField
+										placeholder="Dish Description"
+										multiline
+										maxRows={4}
+										sx={{ ...styles.new__dish__text__field }}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+										onChange={(event) => handleChange("summary", event.target.value)}
+										value={dishData.summary || ""}
+									/>
+								</Box>
+
+								<ImageInput label="Dish Image" handleChange={handleChange} sx={{ marginTop: "20px" }} image={dishData.imageUrl} />
+								{status.error && <Error text={status.error} />}
+								<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
+									<Button variant="outlined" sx={{ ...styles.button }} color="secondary" onClick={() => PostOrUpdateDish()} disabled={status.waiting}>
+										{!status.waiting ? (dishId ? "Update" : "Save") + " Dish" : "Waiting..."}
+									</Button>
+								</Box>
+							</>
+						</Container>
+					</Box>
+					{status.success && <Snackbar text={status.success} close={() => statusDispatchFunc({ type: "clearStatus" })} link="/dishes" />}
+				</>
+			)}
+			{!loading && notFound && <NotFound />}
 		</>
 	);
 };

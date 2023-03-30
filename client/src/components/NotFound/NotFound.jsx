@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 
-import PageDesc from "../../components/Header/PageDesc";
+import PageDesc from "../Header/PageDesc";
 import styles from "../../app.styles";
 import NotFoundImage from "../../assets/404-image.png";
 
-const NotFoundPage = () => {
+const NotFound = () => {
 	return (
 		<>
 			<PageDesc content="404" />
@@ -37,4 +37,4 @@ const NotFoundPage = () => {
 	);
 };
 
-export default NotFoundPage;
+export default NotFound;

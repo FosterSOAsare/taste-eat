@@ -3,6 +3,7 @@ import { Box, Container, Typography, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
 import blogs from "../../data/blogData";
+import styles from "../../app.styles";
 import { httpDeleteABlog, httpFetchABlog } from "../../hooks/requests/request";
 import { useAdminContext } from "../../context/AdminContext";
 import { useTheme } from "@mui/material/styles";
@@ -10,7 +11,8 @@ import { useTheme } from "@mui/material/styles";
 import Loading from "../../components/Loading/Loading";
 import BlogPreview from "./BlogPreview";
 import ConfirmationPopper from "../../components/ConfirmPopup/Popper";
-import styles from "../../app.styles";
+import PageDesc from "../../components/Header/PageDesc";
+import NotFound from "../../components/NotFound/NotFound";
 
 const BlogPage = ({ previewData }) => {
 	const [blogData, setBlogData] = useState(previewData || {});
@@ -19,6 +21,7 @@ const BlogPage = ({ previewData }) => {
 	const navigate = useNavigate();
 	const theme = useTheme();
 	const { isAdmin } = useAdminContext();
+	const [notFound, setNotFound] = useState(false);
 
 	useEffect(() => {
 		(async function () {
@@ -26,7 +29,7 @@ const BlogPage = ({ previewData }) => {
 			setLoading(false);
 
 			if (res.error) {
-				navigate("/404");
+				setNotFound(true);
 				return;
 			}
 			setBlogData(res);
@@ -50,8 +53,9 @@ const BlogPage = ({ previewData }) => {
 	return (
 		<Box>
 			{loading && <Loading />}
-			{!loading && (
+			{!loading && !notFound && (
 				<>
+					<PageDesc content="Blog Page" />
 					<BlogPreview {...blogData} />
 					{/* Edit and delete chef */}
 					<Box sx={{ display: "flex", justifyContent: "center", marginBlock: "20px" }}>
@@ -79,6 +83,7 @@ const BlogPage = ({ previewData }) => {
 					</Box>
 				</>
 			)}
+			{!loading && notFound && <NotFound />}
 		</Box>
 	);
 };

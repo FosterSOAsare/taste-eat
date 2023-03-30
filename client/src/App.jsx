@@ -17,7 +17,7 @@ import AboutPage from "./pages/About/AboutPage";
 import ChefsPage from "./pages/Chefs/Chefs";
 import Chef from "./pages/Chefs/Chef";
 import GalleryCollection from "./pages/Gallery/GalleryCollection";
-import NotFoundPage from "./pages/NotFound/NotFound";
+import NotFound from "./components/NotFound/NotFound";
 import ReservationPage from "./pages/Reservation/Reservation";
 import NewBlogPage from "./pages/Blogs/NewBlog";
 import DishesPage from "./pages/Dishes/Dishes";
@@ -110,7 +110,7 @@ function App() {
 							}></Route>
 						<Route path="dish/:dishId" element={<SingleDishPage />}></Route>
 					</Route>
-					<Route path="*" element={<NotFoundPage />}></Route>
+					<Route path="*" element={<NotFound />}></Route>
 				</Route>
 			</Routes>
 		</Box>

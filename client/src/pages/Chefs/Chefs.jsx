@@ -26,6 +26,7 @@ const ChefsPage = () => {
 	useEffect(() => {
 		(async function () {
 			let result = await httpFetchChefs();
+			console.log(result);
 			setChefsData(result.chefs);
 			setLoading(false);
 		})();
@@ -42,14 +43,16 @@ const ChefsPage = () => {
 								Meet Our Professional Chefs
 							</Typography>
 
-							<Box className="about__teams__container" sx={styles.chefs__teams__container}>
-								{chefsData.map((chef) => (
-									<Chef key={chef._id} {...chef} />
-								))}
-							</Box>
+							<Container maxWidth="sm">
+								<Box className="about__teams__container" sx={styles.chefs__teams__container}>
+									{chefsData.map((chef) => (
+										<Chef key={chef._id} {...chef} />
+									))}
+								</Box>
+							</Container>
 							{isAdmin && (
 								<Button variant="contained" color="secondary" href="/chefs/new" sx={{ marginTop: "30px", ...styles.button }}>
-									Add A Dish
+									Add A Chef
 								</Button>
 							)}
 						</>

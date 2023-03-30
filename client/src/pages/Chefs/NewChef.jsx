@@ -14,6 +14,7 @@ import ImageInput from "../../components/ImageInput/ImageInput";
 import Error from "../../components/Error/Error";
 import Loading from "../../components/Loading/Loading";
 import Snackbar from "../../components/Snackbar/Snackbar";
+import NotFound from "../../components/NotFound/NotFound";
 
 const NewChefPage = () => {
 	const theme = useTheme();
@@ -35,6 +36,7 @@ const NewChefPage = () => {
 		instagram: "http://instagram.com",
 		pinterest: "http://pinterest.com",
 	});
+	const [notFound, setNotFound] = useState(false);
 	const [loading, setLoading] = useState(chefId ? true : false);
 
 	useEffect(() => {
@@ -44,13 +46,13 @@ const NewChefPage = () => {
 					let chefData = await httpFetchAChef(chefId);
 					setLoading(false);
 					if (chefData?.error) {
-						navigate("/404");
+						setNotFound(true);
 						return;
 					}
 					setChefData(chefData);
 				} catch (err) {
 					setLoading(false);
-					navigate("/404");
+					setNotFound(true);
 				}
 				return;
 			}
@@ -121,7 +123,6 @@ const NewChefPage = () => {
 			}
 			statusDispatchFunc({ type: "setSuccess", payload: chefId ? `Chef of id ${chefId} has been updated` : "New chef has been registered" });
 		} catch (err) {
-			console.log(err);
 			// Handles the form validation
 			statusDispatchFunc({ type: "setError", payload: err });
 		}
@@ -129,126 +130,134 @@ const NewChefPage = () => {
 
 	return (
 		<>
-			<PageDesc content="Add Chef" />
-			<Box sx={{ marginBlock: "100px" }}>
-				<Container maxWidth="md">
-					{!loading && (
-						<>
-							<Title text="add chef"></Title>
-							<Typography variant="h1" sx={{ ...styles.title, fontSize: "28px", marginBlock: "10px" }}>
-								Add A New Chef
-							</Typography>
-							<Box sx={styles.chef__textarea__container}>
+			{loading && <Loading />}
+			{!loading && !notFound && (
+				<>
+					<PageDesc content="Add Chef" />
+					<Box sx={{ marginBlock: "100px" }}>
+						<Container maxWidth="md">
+							<>
+								<Title text="add chef"></Title>
+								<Typography variant="h1" sx={{ ...styles.title, fontSize: "28px", marginBlock: "10px" }}>
+									Add A New Chef
+								</Typography>
+								<Box sx={styles.chef__textarea__container}>
+									<TextField
+										sx={{ width: { xxs: "100%", md: "50%" } }}
+										onChange={(event) => handleChange("name", event.target.value)}
+										placeholder="Chef Name"
+										value={chefData.name || ""}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									/>
+									<TextField
+										sx={{ width: { xxs: "100%", md: "50%" } }}
+										onChange={(event) => handleChange("position", event.target.value)}
+										placeholder="Chef Position"
+										value={chefData.position || ""}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									/>
+								</Box>
+								<Box sx={styles.chef__textarea__container}>
+									<TextField
+										sx={{ width: { xxs: "100%", md: "50%" } }}
+										onChange={(event) => handleChange("email", event.target.value)}
+										placeholder="Email"
+										value={chefData.email || ""}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									/>
+									<TextField
+										sx={{ width: { xxs: "100%", md: "50%" } }}
+										onChange={(event) => handleChange("experience", event.target.value)}
+										placeholder="Years of experience"
+										value={chefData.experience || ""}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									/>
+								</Box>
+								<Box sx={styles.chef__textarea__container}>
+									<TextField
+										sx={{ width: { xxs: "100%", md: "50%" } }}
+										onChange={(event) => handleChange("contact", event.target.value)}
+										placeholder="Contact - add country code and valid country format"
+										value={chefData.contact || ""}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									/>
+									<TextField
+										sx={{ width: { xxs: "100%", md: "50%" } }}
+										onChange={(event) => handleChange("location", event.target.value)}
+										placeholder="Location"
+										value={chefData.location || ""}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									/>
+								</Box>
 								<TextField
-									sx={{ width: { xxs: "100%", md: "50%" } }}
-									onChange={(event) => handleChange("name", event.target.value)}
-									placeholder="Chef Name"
-									value={chefData.name || ""}
+									sx={{ width: "100%", marginBottom: "20px" }}
+									onChange={(event) => handleChange("facebook", event.target.value)}
+									placeholder="Facebook Link to profile (optional)"
+									value={chefData.facebook || ""}
 									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 								/>
 								<TextField
-									sx={{ width: { xxs: "100%", md: "50%" } }}
-									onChange={(event) => handleChange("position", event.target.value)}
-									placeholder="Chef Position"
-									value={chefData.position || ""}
-									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-								/>
-							</Box>
-							<Box sx={styles.chef__textarea__container}>
-								<TextField
-									sx={{ width: { xxs: "100%", md: "50%" } }}
-									onChange={(event) => handleChange("email", event.target.value)}
-									placeholder="Email"
-									value={chefData.email || ""}
+									sx={{ width: "100%", marginBottom: "20px" }}
+									onChange={(event) => handleChange("twitter", event.target.value)}
+									placeholder="Twitter Link to profile (optional)"
+									value={chefData.twitter || ""}
 									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 								/>
 								<TextField
-									sx={{ width: { xxs: "100%", md: "50%" } }}
-									onChange={(event) => handleChange("experience", event.target.value)}
-									placeholder="Years of experience"
-									value={chefData.experience || ""}
-									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-								/>
-							</Box>
-							<Box sx={styles.chef__textarea__container}>
-								<TextField
-									sx={{ width: { xxs: "100%", md: "50%" } }}
-									onChange={(event) => handleChange("contact", event.target.value)}
-									placeholder="Contact - add country code and valid country format"
-									value={chefData.contact || ""}
+									sx={{ width: "100%", marginBottom: "20px" }}
+									onChange={(event) => handleChange("instagram", event.target.value)}
+									placeholder="Instagram Link to profile (optional)"
+									value={chefData.instagram || ""}
 									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 								/>
 								<TextField
-									sx={{ width: { xxs: "100%", md: "50%" } }}
-									onChange={(event) => handleChange("location", event.target.value)}
-									placeholder="Location"
-									value={chefData.location || ""}
+									sx={{ width: "100%", marginBottom: "20px" }}
+									onChange={(event) => handleChange("pinterest", event.target.value)}
+									placeholder="Pinterest Link to profile (optional)"
+									value={chefData.pinterest || ""}
 									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 								/>
-							</Box>
-							<TextField
-								sx={{ width: "100%", marginBottom: "20px" }}
-								onChange={(event) => handleChange("facebook", event.target.value)}
-								placeholder="Facebook Link to profile (optional)"
-								value={chefData.facebook || ""}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-							/>
-							<TextField
-								sx={{ width: "100%", marginBottom: "20px" }}
-								onChange={(event) => handleChange("twitter", event.target.value)}
-								placeholder="Twitter Link to profile (optional)"
-								value={chefData.twitter || ""}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-							/>
-							<TextField
-								sx={{ width: "100%", marginBottom: "20px" }}
-								onChange={(event) => handleChange("instagram", event.target.value)}
-								placeholder="Instagram Link to profile (optional)"
-								value={chefData.instagram || ""}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-							/>
-							<TextField
-								sx={{ width: "100%", marginBottom: "20px" }}
-								onChange={(event) => handleChange("pinterest", event.target.value)}
-								placeholder="Pinterest Link to profile (optional)"
-								value={chefData.pinterest || ""}
-								onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-							/>
-							<Box sx={styles.dish__desc__container}>
-								<TextField
-									placeholder="Chef summary"
-									multiline
-									maxRows={4}
-									sx={{ ...styles.new__dish__text__field }}
-									onChange={(event) => handleChange("summary", event.target.value)}
-									value={chefData.summary || ""}
-									onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-								/>
-							</Box>
+								<Box sx={styles.dish__desc__container}>
+									<TextField
+										placeholder="Chef summary"
+										multiline
+										maxRows={4}
+										sx={{ ...styles.new__dish__text__field }}
+										onChange={(event) => handleChange("summary", event.target.value)}
+										value={chefData.summary || ""}
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									/>
+								</Box>
 
-							<ImageInput name="image" label="Chef Image" handleChange={handleChange} sx={{ marginTop: "20px" }} image={chefData.image} />
-							{status.error && <Error text={status.error} />}
-							<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-								<Button variant="contained" sx={{ ...styles.button, color: theme.palette.white.main }} color="secondary" onClick={() => postOrUpdateChef()} disabled={status.waiting}>
-									{!status.waiting ? (chefId ? "Update" : "Save") + " Chef" : "Waiting..."}
-								</Button>
-								<Button
-									variant="outlined"
-									sx={{ ...styles.button }}
-									color="primary"
-									onClick={() => {
-										statusDispatchFunc({ type: "clearStatus" });
-										navigate("/chefs");
-									}}>
-									Cancel
-								</Button>
-							</Box>
-						</>
-					)}
-					{loading && <Loading />}
-				</Container>
-			</Box>
-			{status.success && <Snackbar text={status.success} close={() => statusDispatchFunc({ type: "clearStatus" })} link="/chefs" />}
+								<ImageInput name="image" label="Chef Image" handleChange={handleChange} sx={{ marginTop: "20px" }} image={chefData.image} />
+								{status.error && <Error text={status.error} />}
+								<Box sx={{ display: "flex", gap: "20px", marginTop: "30px" }}>
+									<Button
+										variant="contained"
+										sx={{ ...styles.button, color: theme.palette.white.main }}
+										color="secondary"
+										onClick={() => postOrUpdateChef()}
+										disabled={status.waiting}>
+										{!status.waiting ? (chefId ? "Update" : "Save") + " Chef" : "Waiting..."}
+									</Button>
+									<Button
+										variant="outlined"
+										sx={{ ...styles.button }}
+										color="primary"
+										onClick={() => {
+											statusDispatchFunc({ type: "clearStatus" });
+											navigate("/chefs");
+										}}>
+										Cancel
+									</Button>
+								</Box>
+							</>
+						</Container>
+					</Box>
+					{status.success && <Snackbar text={status.success} close={() => statusDispatchFunc({ type: "clearStatus" })} link="/chefs" />}
+				</>
+			)}
+			{!loading && notFound && <NotFound />}
 		</>
 	);
 };
