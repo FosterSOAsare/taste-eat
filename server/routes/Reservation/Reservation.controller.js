@@ -1,23 +1,25 @@
 let SmsClient = require("../../lib/twilioSms");
 async function receiveNewReservation(req, res) {
 	try {
-		let { type, time, name, email, reservationType } = req.body;
-		if (!type || !name || !email || !reservationType) {
+		let { time, name, email, reservationType } = req.body;
+		if (!time || !name || !email || !reservationType) {
 			res.status(400).json({ error: "Please fill in required fields" });
 			return;
 		}
-		let message = `
+		let array = Array.from(Object.keys(req.body));
+		let present = array.every((res) => res);
+		if (!present) {
+			res.status(400).json({ error: "Please fill in required fields" });
+		}
 
-    NEW RESERVATION REQUEST
+		let message = `NEW RESERVATION REQUEST\n\n`;
+		array.forEach((e) => {
+			// This formatting is necessary, D
+			let key = `${e.toUpperCase()} : ${req.body[e]}`;
+			message += key + "\n\n";
+		});
 
-    Name : ${name}
-
-    Email : ${email}
-
-    ReservationType : ${reservationType}
-    
-    Time : ${time}
-    `;
+		// console.log(message);
 
 		let sms = new SmsClient(message);
 		await sms.sendMessage();

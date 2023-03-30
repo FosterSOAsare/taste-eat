@@ -22,7 +22,6 @@ const Reservation = () => {
 		formState: { errors },
 	} = useForm({ resolver: zodResolver(reservationSchema) });
 	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
-	const [waiting, setWaiting] = useState(false);
 
 	useEffect(() => {
 		let errorKeys = Array.from(Object.keys(errors));
@@ -31,27 +30,25 @@ const Reservation = () => {
 
 	async function saveReservation(data) {
 		try {
-			setWaiting(true);
+			statusDispatchFunc({ type: "setWaiting" });
 			let time = `${data.date} ${data.timing}`;
 			// Check to see if time is in the future
 			let specified = new Date(time).getTime();
 			let now = new Date().getTime();
 			if (specified - now <= 0) {
-				setWaiting(false);
 				statusDispatchFunc({ type: "setError", payload: "Make sure date and time is in the future" });
 				return;
 			}
 
 			data = {
-				type: "New Reservation",
-				time,
 				name: data.name,
 				email: data.email,
 				reservationType: data.reservation,
+				time,
 			};
 
 			let res = await sendReservation(data);
-			setWaiting(false);
+
 			if (res.error) {
 				statusDispatchFunc({ type: "setError", payload: "Message sending failed. Please try again later" });
 				return;
@@ -122,8 +119,8 @@ const Reservation = () => {
 							})}
 						</Grid>
 
-						<Button variant="contained" color="white" sx={{ ...styles.button, marginInline: "auto", display: "block" }} type="submit" disabled={waiting}>
-							{waiting ? "Waiting..." : "Book a Table"}
+						<Button variant="contained" color="white" sx={{ ...styles.button, marginInline: "auto", display: "block" }} type="submit" disabled={status.waiting}>
+							{status.waiting ? "Waiting..." : "Book a Table"}
 						</Button>
 						{status.error && <Error text={status.error} sx={{ textAlign: "center" }} />}
 					</form>

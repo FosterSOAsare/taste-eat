@@ -8,7 +8,7 @@ import styles from "../../app.styles";
 import { statusFunc } from "../../components/Snackbar/status.service";
 // import blogs from "../../data/blogData";
 import { reservationSchema } from "../../hooks/validations/react-hook-form";
-import { httpFetchBlogs } from "../../hooks/requests/request";
+import { httpFetchBlogs, sendReservation } from "../../hooks/requests/request";
 import { useAdminContext } from "../../context/AdminContext";
 
 import PageDesc from "../../components/Header/PageDesc";
@@ -55,16 +55,23 @@ const BlogsPage = () => {
 		});
 		setLoading(false);
 	}
-	function saveReservation(data) {
-		statusDispatchFunc({ type: "setSuccess", payload: "Reservation was successfully registered" });
+	async function saveReservation(data) {
+		statusDispatchFunc({ type: "setWaiting" });
 		const time = `${data.date} ${data.timing}`;
-		console.log({
-			type: "New Reservation",
-			time,
+		data = {
 			name: data.name,
 			email: data.email,
 			reservationType: data.reservation,
-		});
+			time,
+		};
+
+		const response = await sendReservation(data);
+
+		if (response.error) {
+			statusDispatchFunc({ type: "setError", payload: "Message sending failed. Please try again later" });
+			return;
+		}
+		statusDispatchFunc({ type: "setSuccess", payload: "Reservation was successfully sent" });
 		// Send data as email or store it on the DB
 		reset();
 	}
