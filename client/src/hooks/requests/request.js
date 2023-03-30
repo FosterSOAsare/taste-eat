@@ -225,3 +225,16 @@ export async function insertSubscription(email) {
 		return e.response.data;
 	}
 }
+
+export async function sendReservation(data) {
+	try {
+		let res = await axios({
+			method: "post",
+			url: `${baseUrl}/reservations`,
+			data,
+		});
+		return res?.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}

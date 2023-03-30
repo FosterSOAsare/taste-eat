@@ -7,10 +7,12 @@ import { useForm } from "react-hook-form";
 import { reservationSchema } from "../../hooks/validations/react-hook-form";
 import styles from "../../app.styles";
 import { statusFunc } from "../Snackbar/status.service";
+import { sendReservation } from "../../hooks/requests/request";
 
 import Error from "../Error/Error";
 import Title from "../Title/Title";
 import Snackbar from "../../components/Snackbar/Snackbar";
+import { useState } from "react";
 const Reservation = () => {
 	const theme = useTheme();
 	const {
@@ -20,31 +22,46 @@ const Reservation = () => {
 		formState: { errors },
 	} = useForm({ resolver: zodResolver(reservationSchema) });
 	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
+	const [waiting, setWaiting] = useState(false);
 
 	useEffect(() => {
 		let errorKeys = Array.from(Object.keys(errors));
 		errorKeys?.length && statusDispatchFunc({ type: "setError", payload: errors[errorKeys[0]].message });
 	}, [errors]);
 
-	function saveReservation(data) {
-		let time = `${data.date} ${data.timing}`;
+	async function saveReservation(data) {
+		try {
+			setWaiting(true);
+			let time = `${data.date} ${data.timing}`;
+			// Check to see if time is in the future
+			let specified = new Date(time).getTime();
+			let now = new Date().getTime();
+			if (specified - now <= 0) {
+				setWaiting(false);
+				statusDispatchFunc({ type: "setError", payload: "Make sure date and time is in the future" });
+				return;
+			}
 
-		// Check to see if time is in the future
-		let specified = new Date(time).getTime();
-		let now = new Date().getTime();
-		if (specified - now <= 0) {
-			statusDispatchFunc({ type: "setError", payload: "Make sure date and time is in the future" });
-			return;
+			data = {
+				type: "New Reservation",
+				time,
+				name: data.name,
+				email: data.email,
+				reservationType: data.reservation,
+			};
+
+			let res = await sendReservation(data);
+			setWaiting(false);
+			if (res.error) {
+				statusDispatchFunc({ type: "setError", payload: "Message sending failed. Please try again later" });
+				return;
+			}
+
+			reset();
+			statusDispatchFunc({ type: "setSuccess", payload: "Your reservation has been registered" });
+		} catch (e) {
+			statusDispatchFunc({ type: "setError", payload: "Message sending failed. Please try again later" });
 		}
-		console.log({
-			type: "New Reservation",
-			time,
-			name: data.name,
-			email: data.email,
-			reservationType: data.reservation,
-		});
-		reset();
-		statusDispatchFunc({ type: "setSuccess", payload: "Your reservation has been registered" });
 
 		// Send data as email or store it on the DB
 	}
@@ -105,8 +122,8 @@ const Reservation = () => {
 							})}
 						</Grid>
 
-						<Button variant="contained" color="white" sx={{ ...styles.button, marginInline: "auto", display: "block" }} type="submit">
-							Book a Table
+						<Button variant="contained" color="white" sx={{ ...styles.button, marginInline: "auto", display: "block" }} type="submit" disabled={waiting}>
+							{waiting ? "Waiting..." : "Book a Table"}
 						</Button>
 						{status.error && <Error text={status.error} sx={{ textAlign: "center" }} />}
 					</form>
