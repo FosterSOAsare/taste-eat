@@ -7,6 +7,7 @@ const blogsRouter = require("./routes/Blogs/Blogs.route");
 const chefsRouter = require("./routes/Chefs/Chefs.route");
 const usersRouter = require("./routes/Users/Users.route");
 const newsletterRouter = require("./routes/Newsletter/Newsletter.route");
+const reservationRouter = require("./routes/Reservation/Reservation.route");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(blogsRouter);
 app.use(chefsRouter);
 app.use(usersRouter);
 app.use(newsletterRouter);
+app.use(reservationRouter);
 
 // For  images
 
