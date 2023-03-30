@@ -1,0 +1,21 @@
+{
+	"name": "taste-eat",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"buildproduction": "npm run build --prefix client && npm start --prefix server",
+		"install": "npm i --prefix client && npm install --prefix server"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/FosterSOAsare/taste-eat.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/FosterSOAsare/taste-eat/issues"
+	},
+	"homepage": "https://github.com/FosterSOAsare/taste-eat#readme"
+}
