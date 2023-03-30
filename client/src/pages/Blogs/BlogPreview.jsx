@@ -25,7 +25,7 @@ const BlogPreview = ({ title, imageUrl, summary, tag, content, date, image }) =>
 				<Title text={tag} />
 				<Title text={date} />
 			</Box>
-			<Typography variant="h1" sx={{ ...styles.title, fontSize: { xxs: "32px", md: "42px" }, width: { xxs: "100%", sm: "50%" }, textAlign: "center", marginBottom: "10px" }}>
+			<Typography variant="h1" sx={{ ...styles.title, fontSize: { xxs: "32px", md: "42px" }, width: { xxs: "100%", sm: "80%", md: "60%" }, textAlign: "center", marginBlock: "10px" }}>
 				{title}
 			</Typography>
 			<Typography variant="p" sx={{ ...styles.desc, width: { sm: "60%", xxs: "100%" }, textAlign: { md: "center" } }}>
