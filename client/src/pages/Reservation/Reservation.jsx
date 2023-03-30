@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useReducer, useEffect } from "react";
 import { Box, Container, Typography, Grid, TextField, Button } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import styles from "../../app.styles";
+import { reservationPageSchema } from "../../hooks/validations/react-hook-form";
+import { statusFunc } from "../../components/Snackbar/status.service";
+import { sendReservation } from "../../hooks/requests/request";
+
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
-import { reservationPageSchema } from "../../hooks/validations/react-hook-form";
+import Error from "../../components/Error/Error";
+import Snackbar from "../../components/Snackbar/Snackbar";
 
 import FreshFoodImage from "../../assets/fresh-food.svg";
 import FastDeliveryImage from "../../assets/fast-delivery.svg";
@@ -15,6 +20,7 @@ import QualityMaintainImage from "../../assets/quality-maintain.svg";
 import Service247 from "../../assets/service-247.svg";
 import WhyChooseUsImage from "../../assets/why-choose-us.png";
 import ReservedImage from "../../assets/reserved-image.jpg";
+
 const ReservationPage = () => {
 	const theme = useTheme();
 	const {
@@ -24,30 +30,39 @@ const ReservationPage = () => {
 		formState: { errors },
 	} = useForm({ resolver: zodResolver(reservationPageSchema) });
 
-	console.log(errors);
+	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 
-	function saveReservation(data) {
-		console.log(data);
-		// let time = `${data.date} ${data.timing}`;
-		// // Check to see if time is in the future
-		// let specified = new Date(time).getTime();
-		// let now = new Date().getTime();
-		// if (specified - now <= 0) {
-		// 	statusDispatchFunc({ type: "setError", payload: "Make sure date and time is in the future" });
-		// 	return;
-		// }
-		// console.log({
-		// 	type: "New Reservation",
-		// 	time,
-		// 	name: data.name,
-		// 	email: data.email,
-		// 	reservationType: data.reservation,
-		// });
-		// reset();
-		// statusDispatchFunc({ type: "setSuccess", payload: "Your reservation has been registered" });
-		// setTimeout(() => {
-		// 	statusDispatchFunc({ type: "clearStatus" });
-		// }, 2000);
+	useEffect(() => {
+		let errorKeys = Array.from(Object.keys(errors));
+		errorKeys?.length && statusDispatchFunc({ type: "setError", payload: errors[errorKeys[0]].message });
+	}, [errors]);
+
+	async function saveReservation(data) {
+		statusDispatchFunc({ type: "setWaiting", payload: "Make sure date and time is in the future" });
+		let time = `${data.date} ${data.time}`;
+		// Check to see if time is in the future
+		let specified = new Date(time).getTime();
+		let now = new Date().getTime();
+		if (specified - now <= 0) {
+			statusDispatchFunc({ type: "setError", payload: "Make sure date and time is in the future" });
+			return;
+		}
+		data = {
+			name: data.name,
+			email: data.email,
+			phone: data.phone,
+			reservationType: data.reservation,
+			time,
+		};
+		let res = await sendReservation(data);
+
+		if (res.error) {
+			statusDispatchFunc({ type: "setError", payload: "Message sending failed. Please try again later" });
+			return;
+		}
+
+		reset();
+		statusDispatchFunc({ type: "setSuccess", payload: "Your reservation has been registered" });
 		// Send data as email or store it on the DB
 	}
 	return (
@@ -73,18 +88,25 @@ const ReservationPage = () => {
 											<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px" }}>
 												<input
 													style={{ ...styles.choose__us__reason }}
-													className="focus:outline-none"
+													className="focus:outline-none reservation__white"
 													placeholder={e.text}
 													aria-label={e.text}
+													type={e.text === "Date" ? "date" : e.text === "Time" ? "time" : "text"}
+													onFocus={() => {
+														statusDispatchFunc({ type: "clearStatus" });
+													}}
 													{...register(e.text.toLowerCase())}></input>
 											</Grid>
 										);
 									}
 									return (
-										<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px", background: "red" }}>
+										<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px" }}>
 											<select
-												className="w-[100%] block h-[50px] text-[14px] text-primary focus:outline-none px-[10px] border-[1px] border-white border-solid  py-[7px]"
-												{...register("reservation")}>
+												className="w-[calc(100%-20px)] block h-[50px] text-[14px] text-primary focus:outline-none px-[10px] border-[1px] border-black  py-[7px]"
+												{...register("reservation")}
+												onFocus={() => {
+													statusDispatchFunc({ type: "clearStatus" });
+												}}>
 												<option value="Reservation Type" disabled style={{ background: theme.palette.primary.main, display: "block", marginTop: "10px" }}>
 													Reservation Type
 												</option>
@@ -99,13 +121,14 @@ const ReservationPage = () => {
 									);
 								})}
 							</Grid>
-							<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "20px" }} type="submit">
-								Book a Table
+							{status.error && <Error text={status.error} />}
+							<Button variant="outlined" color="secondary" sx={{ ...styles.button, marginTop: "20px" }} type="submit" disabled={status.waiting}>
+								{status.waiting ? "Waiting..." : "Book a Table"}
 							</Button>
 						</form>
 					</Box>
 
-					<Box sx={{ backgroundColor: "yellow", width: { md: "40%", xxs: "100%" }, height: { md: "450px", xxs: "350px" }, order: { xxs: 1, md: 2 } }}>
+					<Box sx={{ width: { md: "40%", xxs: "100%" }, height: { md: "450px", xxs: "350px" }, order: { xxs: 1, md: 2 } }}>
 						<img src={ReservedImage} alt="" className="w-[100%] h-[100%]" />
 					</Box>
 				</Container>
@@ -148,6 +171,8 @@ const ReservationPage = () => {
 					</Box>
 				</Container>
 			</Box>
+
+			{status.success && <Snackbar text={status.success} close={() => statusDispatchFunc({ type: "clearStatus" })} />}
 		</>
 	);
 };

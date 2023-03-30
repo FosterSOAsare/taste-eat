@@ -92,3 +92,7 @@ option {
 ::-webkit-calendar-picker-indicator {
 	filter: invert(1);
 }
+
+.reservation__white::-webkit-calendar-picker-indicator {
+	filter: invert(0);
+}
