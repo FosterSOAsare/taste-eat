@@ -111,7 +111,7 @@ const NewBlogPage = () => {
 					<PageDesc content="Create Blog" />
 
 					<Box sx={{ position: "relative", overflowY: "auto" }}>
-						<Box sx={styles.new__blog}>
+						<Box sx={{ ...styles.new__blog, display: preview ? "none" : "block" }}>
 							<Container maxWidth="md" sx={styles.new__blog__container}>
 								<>
 									<Title text="create blog"></Title>
@@ -176,25 +176,13 @@ const NewBlogPage = () => {
 										</Button>
 									</Box>
 								</>
-
-								{loading && <Loading />}
 							</Container>
 						</Box>
 
 						{status.success && <Snackbar text={status.success} link="/blogs" close={() => statusDispatchFunc({ type: "clearStatus" })} />}
+
 						{preview && (
-							<Box
-								sx={{
-									position: "absolute",
-									height: "auto",
-									minHeight: "100%",
-									width: "100%",
-									top: "0",
-									left: "0",
-									background: theme.palette.white.main,
-									zIndex: 3,
-									paddingBottom: "40px",
-								}}>
+							<Box className="previewBlog" sx={{ paddingBlock: { xxs: "30px", md: "70px" } }}>
 								<BlogPreview {...{ ...blogData }} />
 								<Button variant="outlined" onClick={() => setPreview(false)} sx={{ ...styles.button, marginInline: "auto", display: "block" }}>
 									Exit Preview
