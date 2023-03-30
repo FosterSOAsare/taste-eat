@@ -112,6 +112,7 @@ const NewBlogPage = () => {
 
 					<Box sx={{ position: "relative", overflowY: "auto" }}>
 						<Box sx={{ ...styles.new__blog, display: preview ? "none" : "block" }}>
+						<Box sx={{ ...styles.new__blog, display: preview ? "none" : "block" }}>
 							<Container maxWidth="md" sx={styles.new__blog__container}>
 								<>
 									<Title text="create blog"></Title>
