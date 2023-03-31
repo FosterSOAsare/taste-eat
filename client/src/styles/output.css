@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.2.7 | MIT License | https://tailwindcss.com
+! tailwindcss v3.3.1 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -31,6 +31,7 @@
 3. Use a more readable tab size.
 4. Use the user's configured `sans` font-family by default.
 5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
 */
 
 html {
@@ -47,6 +48,8 @@ html {
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
+  font-variation-settings: normal;
+  /* 6 */
 }
 
 /*
@@ -665,20 +668,16 @@ video {
   width: 70px;
 }
 
-.w-\[95\%\] {
-  width: 95%;
-}
-
 .w-\[auto\] {
   width: auto;
 }
 
-.w-full {
-  width: 100%;
-}
-
 .w-\[calc\(100\%-20px\)\] {
   width: calc(100% - 20px);
+}
+
+.w-full {
+  width: 100%;
 }
 
 @keyframes spin {
@@ -739,9 +738,9 @@ video {
   border-style: solid;
 }
 
-.border-\[green\] {
+.border-black {
   --tw-border-opacity: 1;
-  border-color: rgb(0 128 0 / var(--tw-border-opacity));
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .border-secondary {
@@ -752,16 +751,6 @@ video {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
-
-.border-\[grey\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(128 128 128 / var(--tw-border-opacity));
-}
-
-.border-black {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .border-r-transparent {

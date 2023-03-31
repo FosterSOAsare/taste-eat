@@ -8,4 +8,7 @@ export default defineConfig({
 		outDir: "dest",
 		emptyOutDir: true,
 	},
+	define: {
+		"process.env": process.env,
+	},
 });

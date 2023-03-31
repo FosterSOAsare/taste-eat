@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8000";
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 import axios from "axios";
 
 export async function httpFetchBlogs(limit = 6, skip = 0) {

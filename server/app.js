@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const path = require("path");
 
 const dishesRouter = require("./routes/Dishes/Dishes.route");
 const blogsRouter = require("./routes/Blogs/Blogs.route");
@@ -19,15 +20,19 @@ app.use(
 );
 
 app.use(express.json());
-app.use(dishesRouter);
-app.use(blogsRouter);
-app.use(chefsRouter);
-app.use(usersRouter);
-app.use(newsletterRouter);
-app.use(reservationRouter);
+app.use("/api", dishesRouter);
+app.use("/api", blogsRouter);
+app.use("/api", chefsRouter);
+app.use("/api", usersRouter);
+app.use("/api", newsletterRouter);
+app.use("/api", reservationRouter);
 
 // For  images
 
 app.use("/photos", express.static("uploads"));
+
+app.use("/", express.static(path.join(__dirname, "public")));
+
+app.use("/*", express.static(path.join(__dirname, "public", "index.html")));
 
 module.exports = app;
