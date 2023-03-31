@@ -8,7 +8,7 @@ import styles from "../../app.styles";
 import { statusFunc } from "../../components/Snackbar/status.service";
 // import blogs from "../../data/blogData";
 import { reservationSchema } from "../../hooks/validations/react-hook-form";
-import { httpFetchBlogs, sendReservation } from "../../hooks/requests/request";
+import { httpFetchBlogs, httpSendReservation } from "../../hooks/requests/request";
 import { useAdminContext } from "../../context/AdminContext";
 
 import PageDesc from "../../components/Header/PageDesc";

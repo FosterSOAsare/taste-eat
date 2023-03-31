@@ -226,7 +226,7 @@ export async function insertSubscription(email) {
 	}
 }
 
-export async function sendReservation(data) {
+export async function httpSendReservation(data) {
 	try {
 		let res = await axios({
 			method: "post",

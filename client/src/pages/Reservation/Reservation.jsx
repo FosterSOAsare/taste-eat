@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "../../app.styles";
 import { reservationPageSchema } from "../../hooks/validations/react-hook-form";
 import { statusFunc } from "../../components/Snackbar/status.service";
-import { sendReservation } from "../../hooks/requests/request";
+import { httpSendReservation } from "../../hooks/requests/request";
 
 import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";

@@ -5,6 +5,10 @@ const usersSchema = new mongoose.Schema({
 		required: true,
 		type: "String",
 	},
+	code: {
+		required: false,
+		type: "String",
+	},
 });
 
 module.exports = mongoose.model("Users", usersSchema);

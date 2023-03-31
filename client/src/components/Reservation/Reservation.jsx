@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { reservationSchema } from "../../hooks/validations/react-hook-form";
 import styles from "../../app.styles";
 import { statusFunc } from "../Snackbar/status.service";
-import { sendReservation } from "../../hooks/requests/request";
+import { httpSendReservation } from "../../hooks/requests/request";
 
 import Error from "../Error/Error";
 import Title from "../Title/Title";
