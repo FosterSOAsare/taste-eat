@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import styles from "../../app.styles";
 import { useAdminContext } from "../../context/AdminContext";
-import { httpRequestPasswordReset, httpLoginAdmin } from "../../hooks/requests/request";
+import { httpLoginAdmin } from "../../hooks/requests/request";
 import { statusFunc } from "../../components/Snackbar/status.service";
 
 import PageDesc from "../../components/Header/PageDesc";
@@ -44,18 +44,6 @@ const PasswordProtectedPage = () => {
 		}
 	}
 
-	async function navigateToForgotPassword(e) {
-		e.preventDefault();
-
-		// Send a request to send a code to the admin's phone number
-		let response = await httpRequestPasswordReset();
-		if (response.error) {
-			return;
-		}
-		let time = new Date().getTime();
-		localStorage.setItem("forgot-password", time);
-		navigate("/forgotpassword");
-	}
 	return (
 		<>
 			<PageDesc content="Password Protected" />
@@ -72,7 +60,7 @@ const PasswordProtectedPage = () => {
 					</Typography>
 					<Box sx={{ width: { xxs: "100%", sm: "60%" }, marginBlock: "20px" }}>
 						<Box sx={{ textAlign: "right", marginBottom: "3px", "&:hover": { textDecoration: "underline" } }}>
-							<Link to="/forgotpassword" style={{ textAlign: "right" }} onClick={navigateToForgotPassword}>
+							<Link to="/forgotpassword" style={{ textAlign: "right" }}>
 								Forgot password?
 							</Link>
 						</Box>
