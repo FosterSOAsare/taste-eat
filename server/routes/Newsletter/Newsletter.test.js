@@ -11,21 +11,23 @@ describe("Test the Newsletter Collection", () => {
 	});
 	describe("GET subscriptions", () => {
 		it("should return success", async () => {
-			let response = await request(app).get("/newsletter").expect(200);
+			let response = await request(app).get("/api/newsletter").expect(200);
 		});
-		it("should return 404 when route is wrong", async () => {
-			let response = await request(app).get("/newsletters").expect(404);
-		});
+		// Removed because public will have all 404 routes
+		// it("should return 404 when route is wrong", async () => {
+		// 	let response = await request(app).get("/api/newsletters");
+		// 	console.log(response.text);
+		// });
 	});
 	describe("POST subscription", () => {
 		it("should return an error when no email is set", async () => {
-			let response = await request(app).post("/newsletter").expect(400);
+			let response = await request(app).post("/api/newsletter").expect(400);
 			response = JSON.parse(response.text);
 			expect(response).toStrictEqual({ error: "Please provide all needed data" });
 		});
 		it("should return an error when email is already registered", async () => {
 			let response = await request(app)
-				.post("/newsletter")
+				.post("/api/newsletter")
 				.send({
 					email: "asare4ster@gmail.com",
 				})
@@ -42,7 +44,7 @@ describe("Test the Newsletter Collection", () => {
 			}
 
 			let response = await request(app)
-				.post("/newsletter")
+				.post("/api/newsletter")
 				.send({
 					email: `asare4ster${ext}@gmail.com`,
 				})

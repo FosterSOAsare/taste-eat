@@ -1,7 +1,8 @@
 const { startMongoose, mongoose } = require("../../mongoose");
 const path = require("path");
+let auth = process.env.JWT_TOKEN;
+const agent = require("../../supertest");
 
-const request = require("supertest");
 const app = require("../../app");
 
 describe("Testing Blogs API", () => {
@@ -13,22 +14,22 @@ describe("Testing Blogs API", () => {
 	});
 	describe("GET /Blogs", () => {
 		it("Should have a success header when getting all blogs", async () => {
-			let response = await request(app)
-				.get("/blogs")
+			let response = await agent
+				.get("/api/blogs")
 				.expect(200)
 				.expect("Content-Type", /application\/json/);
 		});
 		it("Should have limit setup", async () => {
-			let response = await request(app).get("/blogs?limit=2").expect(200);
+			let response = await agent.get("/api/blogs?limit=2").expect(200);
 			response = JSON.parse(response.text);
 			expect(response.blogs.length).toBeLessThanOrEqual(2);
 			expect(response.nextpage).toBeTruthy();
 		});
 		it("Skip set up", async () => {
-			let total = await request(app).get("/blogs");
+			let total = await agent.get("/api/blogs");
 			total = JSON.parse(total.text);
 			total = total.blogs.length;
-			let response = await request(app).get("/blogs?skip=4").expect(200);
+			let response = await agent.get("/api/blogs?skip=4").expect(200);
 			// Total blogs is 11 at the moment hence this should work
 			response = JSON.parse(response.text);
 			expect(response.blogs.length).toBe(total - 4);
@@ -37,15 +38,23 @@ describe("Testing Blogs API", () => {
 
 	describe("GET A Blog", () => {
 		it("Should have a success header when getting a blog", async () => {
-			let response = await request(app)
-				.get("/blog/641e2e9ecff558d79d0b5ec8")
+			// Fetch blogs
+			let blogs = await agent.get("/api/blogs");
+			blogs = JSON.parse(blogs.text);
+			let blog = blogs.blogs[0];
+
+			let response = await agent
+				.get(`/api/blog/${blog._id}`)
 				.expect(200)
 				.expect("Content-Type", /application\/json/);
+
+			response = JSON.parse(response.text);
+			expect(response._id).toBe(blog._id);
 		});
 		it("Should have an error status if blog does not exist ", async () => {
-			let response = await request(app)
+			let response = await agent
 				// Entered an invalid blog Id
-				.get("/blog/641e2e9ecff558d79d0b5sd8")
+				.get("/api/blog/641e2e9ecff558d79d0b5sd8")
 				.expect(404)
 				.expect("Content-Type", /application\/json/);
 
@@ -57,13 +66,13 @@ describe("Testing Blogs API", () => {
 	describe("POST A Blog", () => {
 		describe("Check for post credentials", () => {
 			it("Should return an error for invalid credentials", async () => {
-				let response = await request(app).post("/blogs").send({}).expect(400);
+				let response = await agent.post("/api/blogs").send({}).expect(400);
 				response = JSON.parse(response.text);
 				expect(response).toStrictEqual({ error: "Please provide data for all fields" });
 			});
 			it("Should return an error for no uploaded files(lead image)", async () => {
-				let response = await request(app)
-					.post("/blogs")
+				let response = await agent
+					.post("/api/blogs", {})
 					.send({
 						title: "This is a test title",
 						summary: "This is a test summary",
@@ -76,33 +85,32 @@ describe("Testing Blogs API", () => {
 			});
 			// Works but has been commented out to avoid too many creations
 			it("should return success when all details are set", async () => {
-				let response = await request(app)
-					.post("/blogs")
+				let response = await agent
+					.post("/api/blogs")
 					.field("title", "This is a test title")
 					.field("summary", "This is a test summary")
 					.field("tag", "Recipes")
 					.field("content", "This is a test content ")
 					.attach("image", path.join(__dirname, "../../../client/src/assets/blog2.png"))
 					.expect(201);
-				response = JSON.parse(response.text);
 			});
 		});
 	});
 	describe("UPDATE A Blog", () => {
 		describe("Check for route", () => {
 			it("Should return an error for route", async () => {
-				let response = await request(app).put("/blogs/641e2e9ecff558d79d0b5ec8").send({}).expect(404);
+				let response = await agent.put("/api/blogs/641e2e9ecff558d79d0b5ec8").send({}).expect(404);
 			});
 		});
 		describe("Check for post credentials", () => {
 			it("Should return an error for invalid blog credentials", async () => {
-				let response = await request(app).put("/blog/641e2e9ecff558d79d0b5ec8").send({}).expect(400);
+				let response = await agent.put("/api/blog/641e2e9ecff558d79d0b5ec8").send({}).expect(400);
 				response = JSON.parse(response.text);
 				expect(response).toStrictEqual({ error: "Please provide data for all fields" });
 			});
 			it("Should return an error for no images", async () => {
-				let response = await request(app)
-					.post("/blogs")
+				let response = await agent
+					.post("/api/blogs")
 					.send({
 						title: "This is a test title",
 						summary: "This is a test summary",
@@ -114,8 +122,8 @@ describe("Testing Blogs API", () => {
 				expect(response).toStrictEqual({ error: "No file was uploaded" });
 			});
 			it("Should return an error when blogId is an invalid Hex value", async () => {
-				let response = await request(app)
-					.put("/blog/641f68844a93e60d4aff4esd")
+				let response = await agent
+					.put("/api/blog/641f68844a93e60d4aff4esd")
 					.send({
 						title: "This is a test title",
 						summary: "This is a test summary",
@@ -129,11 +137,11 @@ describe("Testing Blogs API", () => {
 				expect(response).toStrictEqual({ error: "No blog exists with the specified id" });
 			});
 			it("Should return a success when all data is valid", async () => {
-				let lastBlog = await request(app).get("/blogs?limit=1&order=desc");
+				let lastBlog = await agent.get("/api/blogs?limit=1&order=desc");
 				lastBlog = JSON.parse(lastBlog.text);
 				lastBlog = lastBlog.blogs[0];
-				let response = await request(app)
-					.put(`/blog/${lastBlog._id}`)
+				let response = await agent
+					.put(`/api/blog/${lastBlog._id}`)
 					.send({
 						title: "Elegant Dessert: 10 Tips How to Make It at Home. Blog 1",
 						summary:
@@ -151,16 +159,16 @@ describe("Testing Blogs API", () => {
 	describe("DELETE A Blog", () => {
 		describe("Check for delete credentials", () => {
 			it("Should return an error when blogId is invalid Hex value", async () => {
-				let response = await request(app).delete("/blog/641f68844a93e60d4aff4esd").expect(404);
+				let response = await agent.delete("/api/blog/641f68844a93e60d4aff4esd").expect(404);
 				response = JSON.parse(response.text);
 				expect(response).toStrictEqual({ error: "No blog exists with the specified id" });
 			});
 			it("Should return a success when all data is valid", async () => {
-				let lastBlog = await request(app).get("/blogs?limit=1&order=desc");
+				let lastBlog = await agent.get("/api/blogs?limit=1&order=desc");
 				lastBlog = JSON.parse(lastBlog.text);
 				lastBlog = lastBlog.blogs[0];
 				// Delete the just created blog
-				let response = await request(app).delete(`/blog/${lastBlog._id}`).expect(201);
+				let response = await agent.delete(`/api/blog/${lastBlog._id}`).expect(201);
 			});
 		});
 	});
