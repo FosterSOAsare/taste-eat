@@ -64,7 +64,7 @@ async function controllerValidatePassword(req, res) {
 		// Compare
 		let valid = await bcrypt.compare(code, admin.code);
 		if (!valid) {
-			res.status(404).json({ error: "The provided password is invalid" });
+			res.status(404).json({ error: "The provided code is invalid" });
 			return;
 		}
 
@@ -104,11 +104,10 @@ async function controllerUpdatePassword(req, res) {
 		// Update admin
 		await updatePassword(valid.id, valid.code, password);
 
-		// let token = await jwt.sign({ password: admin.password }, process.env.JWT_SECRET, { expiresIn: "1h" });
 		res.status(201).json({ success: true });
 	} catch (err) {
-		console.log(err);
-		res.status(404).json({ error: err.message });
+		let message = err.message === "jwt malformed" ? "An invalid token was provided." : err.message;
+		res.status(404).json({ error: message });
 	}
 }
 
