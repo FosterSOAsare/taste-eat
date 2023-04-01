@@ -91,7 +91,6 @@ const ForgotPasswordPage = () => {
 			}
 			let currentTime = new Date().getTime();
 
-			console.log(createdTime - currentTime);
 			if (createdTime - currentTime > 0 || createdTime - currentTime < -7200000) {
 				setPageFound(false);
 				return;

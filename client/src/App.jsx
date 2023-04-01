@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
-
+import instance from "./axios";
 import "./App.css";
 import "./styles/output.css";
 import { useAdminContext } from "./context/AdminContext";

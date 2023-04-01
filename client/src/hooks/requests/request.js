@@ -1,9 +1,9 @@
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 export async function httpFetchBlogs(limit = 6, skip = 0) {
-	const { data } = await axios({
-		url: `${baseUrl}/blogs`,
+	const { data } = await axiosInstance({
+		url: `/blogs`,
 		method: "get",
 		params: { limit, skip },
 	});
@@ -12,9 +12,9 @@ export async function httpFetchBlogs(limit = 6, skip = 0) {
 
 export async function httpStoreBlog(data) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "post",
-			url: `${baseUrl}/blogs`,
+			url: `/blogs`,
 			data,
 		});
 		return res.data;
@@ -24,9 +24,9 @@ export async function httpStoreBlog(data) {
 }
 export async function httpFetchABlog(blogId) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "get",
-			url: `${baseUrl}/blog/${blogId}`,
+			url: `/blog/${blogId}`,
 		});
 		return res.data;
 	} catch (e) {
@@ -35,9 +35,9 @@ export async function httpFetchABlog(blogId) {
 }
 export async function httpUpdateBlog(blogId, newData) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "put",
-			url: `${baseUrl}/blog/${blogId}`,
+			url: `/blog/${blogId}`,
 			data: newData,
 		});
 		return res.data;
@@ -47,9 +47,9 @@ export async function httpUpdateBlog(blogId, newData) {
 }
 export async function httpDeleteABlog(blogId) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "delete",
-			url: `${baseUrl}/blog/${blogId}`,
+			url: `/blog/${blogId}`,
 		});
 
 		return res.data;
@@ -60,9 +60,9 @@ export async function httpDeleteABlog(blogId) {
 
 export async function httpFetchDishes(type, limit = 6, skip = 0) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "get",
-			url: `${baseUrl}/dishes`,
+			url: `/dishes`,
 			params: {
 				type,
 				limit,
@@ -77,9 +77,9 @@ export async function httpFetchDishes(type, limit = 6, skip = 0) {
 
 export async function httpFetchAllDishes(limit = 20, skip = 0) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "get",
-			url: `${baseUrl}/dishes`,
+			url: `/dishes`,
 			params: {
 				limit,
 				skip,
@@ -92,9 +92,9 @@ export async function httpFetchAllDishes(limit = 20, skip = 0) {
 }
 export async function httpFetchADish(dishId) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "get",
-			url: `${baseUrl}/dish/${dishId}`,
+			url: `/dish/${dishId}`,
 		});
 		return res.data;
 	} catch (e) {
@@ -103,9 +103,9 @@ export async function httpFetchADish(dishId) {
 }
 export async function httpStoreDish(data) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "post",
-			url: `${baseUrl}/dishes`,
+			url: `/dishes`,
 			data,
 		});
 		return res.data;
@@ -115,9 +115,9 @@ export async function httpStoreDish(data) {
 }
 export async function httpUpdateDish(dishId, newData) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "put",
-			url: `${baseUrl}/dish/${dishId}`,
+			url: `dish/${dishId}`,
 			data: newData,
 		});
 		return res?.data;
@@ -127,9 +127,9 @@ export async function httpUpdateDish(dishId, newData) {
 }
 export async function httpDeleteADish(dishId) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "delete",
-			url: `${baseUrl}/dish/${dishId}`,
+			url: `/dish/${dishId}`,
 		});
 
 		return res.data;
@@ -139,9 +139,9 @@ export async function httpDeleteADish(dishId) {
 }
 export async function httpStoreChef(data) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "post",
-			url: `${baseUrl}/chefs`,
+			url: `/chefs`,
 			data,
 		});
 		return res.data;
@@ -152,9 +152,9 @@ export async function httpStoreChef(data) {
 
 export async function httpFetchChefs(limit = "all") {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "get",
-			url: `${baseUrl}/chefs`,
+			url: `/chefs`,
 			params: {
 				limit,
 			},
@@ -166,9 +166,9 @@ export async function httpFetchChefs(limit = "all") {
 }
 export async function httpFetchAChef(chefId) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "get",
-			url: `${baseUrl}/chef/${chefId}`,
+			url: `/chef/${chefId}`,
 		});
 		return res.data;
 	} catch (e) {
@@ -177,9 +177,9 @@ export async function httpFetchAChef(chefId) {
 }
 export async function httpUpdateChef(chefId, newData) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "put",
-			url: `${baseUrl}/chef/${chefId}`,
+			url: `/chef/${chefId}`,
 			data: newData,
 		});
 		return res?.data;
@@ -189,9 +189,9 @@ export async function httpUpdateChef(chefId, newData) {
 }
 export async function httpDeleteChef(chefId) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "delete",
-			url: `${baseUrl}/chef/${chefId}`,
+			url: `/chef/${chefId}`,
 		});
 
 		return res.data;
@@ -203,9 +203,9 @@ export async function httpDeleteChef(chefId) {
 // For validating the token stored if any
 export async function httpValidateAdminToken(token) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "get",
-			url: `${baseUrl}/users`,
+			url: `/users`,
 			headers: { Authorization: "Bearer " + token },
 		});
 		return res.data;
@@ -215,9 +215,9 @@ export async function httpValidateAdminToken(token) {
 }
 export async function httpLoginAdmin(password) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "post",
-			url: `${baseUrl}/users`,
+			url: `/users`,
 			data: { password },
 		});
 		return res.data;
@@ -228,9 +228,9 @@ export async function httpLoginAdmin(password) {
 
 export async function insertSubscription(email) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "post",
-			url: `${baseUrl}/newsletter`,
+			url: `/newsletter`,
 			data: { email },
 		});
 		return res?.data;
@@ -241,9 +241,9 @@ export async function insertSubscription(email) {
 
 export async function httpSendReservation(data) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "post",
-			url: `${baseUrl}/reservations`,
+			url: `/reservations`,
 			data,
 		});
 		return res?.data;
@@ -254,9 +254,9 @@ export async function httpSendReservation(data) {
 
 export async function httpRequestPasswordReset() {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "get",
-			url: `${baseUrl}/users/reset`,
+			url: `/users/reset`,
 		});
 		return res?.data;
 	} catch (e) {
@@ -266,9 +266,9 @@ export async function httpRequestPasswordReset() {
 
 export async function httpValidatePasswordResetCode(code) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "post",
-			url: `${baseUrl}/users/reset`,
+			url: `/users/reset`,
 			data: { user: "admin", code },
 		});
 		return res?.data;
@@ -279,9 +279,9 @@ export async function httpValidatePasswordResetCode(code) {
 
 export async function httpSetNewPassword(password, token) {
 	try {
-		let res = await axios({
+		let res = await axiosInstance({
 			method: "put",
-			url: `${baseUrl}/users/reset`,
+			url: `/users/reset`,
 			data: { user: "admin", password },
 			headers: {
 				Authorization: "Bearer " + token,
