@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Container, Grid, Typography, Card, CardContent, Button } from "@mui/material";
 import { httpFetchAllDishes } from "../../hooks/requests/request";
+import { Link } from "react-router-dom";
 
 import styles from "../../app.styles";
 import { useAdminContext } from "../../context/AdminContext";
@@ -14,6 +15,8 @@ const DishesPage = () => {
 	const [loading, setLoading] = useState(true);
 	const { isAdmin } = useAdminContext();
 	useEffect(() => {
+		document.title = "Restaurante - Our Dishes";
+
 		(async function () {
 			let res = await httpFetchAllDishes(20, dishesData?.dishes?.length || 0);
 			setDishesData(res);
@@ -43,7 +46,7 @@ const DishesPage = () => {
 							<Grid container sx={{ marginBlock: "30px", justifyContent: "center" }}>
 								{dishesData.dishes.map((e) => (
 									<Grid item key={e._id} md={3} xs={6} xxs={12} sx={{ marginBottom: { xxs: "20px", xs: 0 } }}>
-										<a href={`/dish/${e._id}`}>
+										<Link to={`/dish/${e._id}`}>
 											<Card variant="outlined" sx={{ height: "100%", padding: "20px" }}>
 												<img src={e.imageUrl} alt="" className="max-h-[80px]" crossOrigin="true" />
 												<CardContent sx={{ padding: 0, marginTop: "20px" }}>
@@ -58,7 +61,7 @@ const DishesPage = () => {
 													</Typography>
 												</CardContent>
 											</Card>
-										</a>
+										</Link>
 									</Grid>
 								))}
 							</Grid>

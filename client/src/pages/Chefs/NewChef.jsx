@@ -41,6 +41,8 @@ const NewChefPage = () => {
 
 	useEffect(() => {
 		(async function () {
+			document.title = "Restaurante - Create A New Chef";
+
 			if (chefId) {
 				try {
 					let chefData = await httpFetchAChef(chefId);
@@ -50,6 +52,7 @@ const NewChefPage = () => {
 						return;
 					}
 					setChefData(chefData);
+					document.title = "Restauarante - Edit Chef : " + chefData.name;
 				} catch (err) {
 					setLoading(false);
 					setNotFound(true);

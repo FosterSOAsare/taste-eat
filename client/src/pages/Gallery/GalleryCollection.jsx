@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { useTheme } from "@emotion/react";
 
@@ -18,6 +18,9 @@ import GalleryImage6 from "../../assets/gallery-image6.png";
 
 const GalleryCollection = () => {
 	const theme = useTheme();
+	useEffect(() => {
+		document.title = "Restaurante - Our Gallery Collection";
+	}, []);
 	return (
 		<>
 			<PageDesc content="Gallery" />

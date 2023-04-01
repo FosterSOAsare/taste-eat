@@ -32,6 +32,7 @@ const BlogPage = ({ previewData }) => {
 				setNotFound(true);
 				return;
 			}
+			document.title = "Restaurante Blog - " + res.title;
 			setBlogData(res);
 		})();
 	}, []);

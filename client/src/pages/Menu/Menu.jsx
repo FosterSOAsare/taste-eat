@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 
 import PageDesc from "../../components/Header/PageDesc";
@@ -10,6 +10,9 @@ import DishesImage1 from "../../assets/dishes-1.png";
 import DishesImage2 from "../../assets/dishes-2.png";
 
 const MenuPage = () => {
+	useEffect(() => {
+		document.title = "Restaurante - Our Menu";
+	}, []);
 	return (
 		<>
 			<PageDesc content="Our Menu" />

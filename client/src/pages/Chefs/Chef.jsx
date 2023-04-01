@@ -43,6 +43,8 @@ const Chef = () => {
 	// Using data from the database
 	useEffect(() => {
 		(async function () {
+			document.title = "Restaurante - Create New Chef";
+
 			let res = await httpFetchAChef(chefId);
 			setLoading(false);
 			if (res.error) {
@@ -50,6 +52,7 @@ const Chef = () => {
 				return;
 			}
 			setChefData(res);
+			document.title = "Restaurante - " + res.name;
 		})();
 	}, [chefId]);
 

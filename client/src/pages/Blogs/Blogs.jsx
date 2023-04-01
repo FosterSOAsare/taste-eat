@@ -40,6 +40,8 @@ const BlogsPage = () => {
 	}, [errors]);
 
 	useEffect(() => {
+		document.title = "Restaurante - Our Blog Post";
+
 		(async function () {
 			let res = await httpFetchBlogs(4, blogsData?.blogs?.length || 0);
 			setBlogsData(res);

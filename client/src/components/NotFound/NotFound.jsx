@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 
 import PageDesc from "../Header/PageDesc";
@@ -6,6 +6,9 @@ import styles from "../../app.styles";
 import NotFoundImage from "../../assets/404-image.png";
 
 const NotFound = () => {
+	useEffect(() => {
+		document.title = "Restaurante - Not Found";
+	}, []);
 	return (
 		<>
 			<PageDesc content="404" />

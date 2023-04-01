@@ -32,6 +32,8 @@ const AboutPage = () => {
 	const isMobileScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 
 	useEffect(() => {
+		// Set the title
+		document.title = "Restaurante - About Us";
 		(async function () {
 			try {
 				let chefs = await httpFetchChefs(4);

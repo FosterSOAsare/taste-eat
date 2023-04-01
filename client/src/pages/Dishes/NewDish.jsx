@@ -30,6 +30,7 @@ const NewDishPage = () => {
 	const [loading, setLoading] = useState(dishId ? true : false);
 
 	useEffect(() => {
+		document.title = "Restaurante - Create New Dish";
 		dishId &&
 			(async function () {
 				let res = await httpFetchADish(dishId);
@@ -39,6 +40,7 @@ const NewDishPage = () => {
 					return;
 				}
 				setDishData(res);
+				document.title = "Restaurante - Edit Dish : " + res.name;
 			})();
 	}, []);
 	const navigate = useNavigate();

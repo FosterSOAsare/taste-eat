@@ -25,8 +25,10 @@ const ChefsPage = () => {
 	const { isAdmin } = useAdminContext();
 	useEffect(() => {
 		(async function () {
+			document.title = "Restaurante - Our Chefs";
+
 			let result = await httpFetchChefs();
-			console.log(result);
+
 			setChefsData(result.chefs);
 			setLoading(false);
 		})();

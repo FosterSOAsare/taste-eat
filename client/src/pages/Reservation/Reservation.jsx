@@ -65,6 +65,10 @@ const ReservationPage = () => {
 		statusDispatchFunc({ type: "setSuccess", payload: "Your reservation has been registered" });
 		// Send data as email or store it on the DB
 	}
+
+	useEffect(() => {
+		document.title = "Restaurante - Reserve a spot";
+	}, []);
 	return (
 		<>
 			<PageDesc content="Booking Page"></PageDesc>

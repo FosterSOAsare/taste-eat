@@ -43,6 +43,7 @@ const SingleDishPage = () => {
 				return;
 			}
 			setDishData(res);
+			document.title = "Restaurante Dish : " + res.name;
 		})();
 	}, []);
 

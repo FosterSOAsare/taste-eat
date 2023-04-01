@@ -40,6 +40,9 @@ const ContactUsPage = () => {
 		let errorKeys = Array.from(Object.keys(errors));
 		errorKeys?.length && statusDispatchFunc({ type: "setError", payload: errors[errorKeys[0]].message });
 	}, [errors]);
+	useEffect(() => {
+		document.title = "Restaurante - Contact Us";
+	}, []);
 
 	function saveReservation(data) {
 		statusDispatchFunc({ type: "setWaiting" });

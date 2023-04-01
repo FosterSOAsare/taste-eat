@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import styles from "../../app.styles";
 import { useAdminContext } from "../../context/AdminContext";
-import { httpRequestPasswordReset, httpValidateAdmin } from "../../hooks/requests/request";
+import { httpRequestPasswordReset, httpLoginAdmin } from "../../hooks/requests/request";
 import { statusFunc } from "../../components/Snackbar/status.service";
 
 import PageDesc from "../../components/Header/PageDesc";
@@ -29,7 +29,7 @@ const PasswordProtectedPage = () => {
 				statusDispatchFunc({ type: "setError", payload: "Please enter your password " });
 				return;
 			}
-			let res = await httpValidateAdmin("password", password);
+			let res = await httpLoginAdmin(password);
 			if (res.error) {
 				statusDispatchFunc({ type: "setError", payload: res.error });
 				return;
@@ -37,7 +37,7 @@ const PasswordProtectedPage = () => {
 			statusDispatchFunc({ type: "setSuccess", payload: "Admin user authenticated successfully..." });
 			setTimeout(() => {
 				setIsAdmin(true);
-				localStorage.setItem("admin-session", res._id);
+				localStorage.setItem("admin-token", res.token);
 			}, 1000);
 		} catch (error) {
 			statusDispatchFunc({ type: "setError", payload: error.message });
@@ -52,7 +52,8 @@ const PasswordProtectedPage = () => {
 		if (response.error) {
 			return;
 		}
-
+		let time = new Date().getTime();
+		localStorage.setItem("forgot-password", time);
 		navigate("/forgotpassword");
 	}
 	return (

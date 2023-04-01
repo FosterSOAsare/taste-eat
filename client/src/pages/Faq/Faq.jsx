@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Container, Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
@@ -9,6 +9,9 @@ import PageDesc from "../../components/Header/PageDesc";
 import Title from "../../components/Title/Title";
 
 const FaqPage = () => {
+	useEffect(() => {
+		document.title = "Restaurante - Frequently Asked Questions";
+	}, []);
 	return (
 		<>
 			<PageDesc content="FAQ" />

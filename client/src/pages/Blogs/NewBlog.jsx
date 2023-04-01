@@ -41,6 +41,7 @@ const NewBlogPage = () => {
 	});
 
 	useEffect(() => {
+		document.title = "Restaurante - Create New Blog";
 		blogId &&
 			(async function () {
 				let res = await httpFetchABlog(blogId);
@@ -50,6 +51,7 @@ const NewBlogPage = () => {
 					return;
 				}
 				setBlogData(res);
+				document.title = "Restaurante - Edit blog : " + res.title;
 			})();
 	}, []);
 
