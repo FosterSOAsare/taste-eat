@@ -33,7 +33,7 @@ const Testimonials = () => {
 								<Typography variant="p" sx={{ ...styles.title, textAlign: "center", width: "80%", color: theme.palette.white.main, marginBottom: "15px" }}>
 									{testimonial.comment}
 								</Typography>
-								<img src={testimonial.image} alt="" className="w-[50px] h-[50px]" />
+								<img src={testimonial.image} alt="" className="w-[50px] h-[50px]" crossOrigin="true" />
 
 								<Typography variant="p" sx={{ ...styles.desc, color: theme.palette.white.main, marginTop: "10px" }}>
 									{testimonial.name}

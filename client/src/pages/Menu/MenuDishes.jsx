@@ -16,7 +16,7 @@ const MenuDishes = ({ type, image, order }) => {
 	return (
 		<Box sx={{ marginBlock: { xxs: "30px", sm: "100px" } }}>
 			<Container maxWidth="lg" sx={{ ...styles.dishes__container }}>
-				{!isSmallScreen && <img src={image} alt="" style={{ order }} className="sm:block sm:w-[50%]  sm:h-[600px]" />}
+				{!isSmallScreen && <img src={image} alt="" style={{ order }} className="sm:block sm:w-[50%]  sm:h-[600px]" crossOrigin="true" />}
 				<Box sx={{ order: order === 1 ? 2 : 1, width: { xxs: "100%", sm: "50%" } }}>{type && <Dishes type={type} next={true} limit={4} />}</Box>
 			</Container>
 		</Box>

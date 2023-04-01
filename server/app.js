@@ -15,11 +15,15 @@ const app = express();
 
 app.use(morgan("combined"));
 app.use(
+	helmet({
+		crossOriginEmbedderPolicy: false,
+	})
+);
+app.use(
 	cors({
 		origin: "*",
 	})
 );
-app.use(helmet());
 
 app.use(express.json());
 app.use("/api", dishesRouter);
@@ -31,7 +35,7 @@ app.use("/api", reservationRouter);
 
 // For  images
 
-app.use("/photos", express.static("uploads"));
+app.use("/photos", express.static(path.join(__dirname, "uploads")));
 
 app.use("/", express.static(path.join(__dirname, "public")));
 

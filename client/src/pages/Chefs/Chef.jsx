@@ -81,7 +81,7 @@ const Chef = () => {
 						<Container maxWidth="lg" sx={styles.chef__info__container}>
 							<>
 								<Box sx={{ width: { xxs: "100%", sm: "40%" }, height: "450px" }}>
-									<img src={chefData.image} alt="" className="w-[100%] h-[100%]" />
+									<img src={chefData.image} alt="" className="w-[100%] h-[100%]" crossOrigin="true" />
 								</Box>
 
 								<Box className="story__text" sx={styles.homepage__story__text}>

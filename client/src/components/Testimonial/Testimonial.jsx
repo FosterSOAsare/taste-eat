@@ -8,7 +8,7 @@ const Testimonial = ({ name, image, location, comment }) => {
 	return (
 		<Box sx={{ ...styles.testimonial, backgroundColor: theme.palette.background3.main }}>
 			<Box sx={{ ...styles.testimonial__top }}>
-				<img src={image} alt="" className="w-[50px] mr-[10px]" />
+				<img src={image} alt="" className="w-[50px] mr-[10px]" crossOrigin="true" />
 				<Box>
 					<Typography variant="h3" sx={{ ...styles.title, fontSize: "18px", margin: "0" }}>
 						{name}

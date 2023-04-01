@@ -38,7 +38,7 @@ const Dishes = ({ type, limit, next = false }) => {
 						{data.dishes &&
 							data.dishes.map((dish, index) => (
 								<Box key={index} sx={{ width: "100%", display: "flex", alignItems: "flex-end", marginBottom: "20px" }}>
-									<img src={dish.imageUrl} alt="" className="block mr-[10px] w-[50px] h-[50px]" />
+									<img src={dish.imageUrl} alt="" className="block mr-[10px] w-[50px] h-[50px]" crossOrigin="true" />
 									<Box sx={{ width: { xxs: "84%", sm: "70%" }, paddingRight: "10px" }}>
 										<Typography variant="p" sx={{ ...styles.title, fontWeight: "bold", fontSize: "18px" }}>
 											{dish.name}

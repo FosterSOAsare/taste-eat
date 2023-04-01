@@ -16,7 +16,7 @@ const ImageInput = ({ name = "image", label, handleChange, sx, image }) => {
 			<label htmlFor={name} className="flex items-center justify-start gap-[10px]">
 				<Box sx={{ width: "120px", height: "70px", backgroundColor: theme.palette.desc.main, display: "flex", alignItems: "center", justifyContent: "center" }}>
 					{!imageData && <AddIcon sx={{ fontSize: "28px" }} color="secondary" />}
-					{imageData && <img src={imageData} alt="Uploaded lead" className="w-full h-full" />}
+					{imageData && <img src={imageData} alt="Uploaded lead" className="w-full h-full" crossOrigin="true" />}
 				</Box>
 				{imageData ? "Change " : "Add "}
 				{label}

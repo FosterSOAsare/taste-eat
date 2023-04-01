@@ -19,7 +19,7 @@ const Feature = ({ img, title, desc, link, order }) => {
 				</Button>
 			</Box>
 			<Box sx={{ width: { sm: "50%", xxs: "100%" }, height: { sm: "100%", xxs: "250px" }, order: { xxs: 1, sm: order } }}>
-				<img src={img} alt="" className="w-full h-full" />
+				<img src={img} alt="" className="w-full h-full" crossOrigin="true" />
 			</Box>
 		</Box>
 	);

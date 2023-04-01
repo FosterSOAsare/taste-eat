@@ -45,7 +45,7 @@ const DishesPage = () => {
 									<Grid item key={e._id} md={3} xs={6} xxs={12} sx={{ marginBottom: { xxs: "20px", xs: 0 } }}>
 										<a href={`/dish/${e._id}`}>
 											<Card variant="outlined" sx={{ height: "100%", padding: "20px" }}>
-												<img src={e.imageUrl} alt="" className="max-h-[80px]" />
+												<img src={e.imageUrl} alt="" className="max-h-[80px]" crossOrigin="true" />
 												<CardContent sx={{ padding: 0, marginTop: "20px" }}>
 													<Typography variant="h3" sx={{ ...styles.title, fontSize: "20px" }}>
 														{e?.name}

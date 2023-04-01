@@ -31,7 +31,7 @@ const BlogPreview = ({ title, imageUrl, summary, tag, content, date, image }) =>
 			<Typography variant="p" sx={{ ...styles.desc, width: { sm: "60%", xxs: "100%" }, textAlign: { md: "center" } }}>
 				{summary}
 			</Typography>
-			{imageData && <img alt="name" src={imageData} className="w-full md:h-[500px] my-[20px]" image={imageUrl} />}
+			{imageData && <img alt="name" src={imageData} className="w-full md:h-[500px] my-[20px]" image={imageUrl} crossOrigin="true" />}
 			{!imageData && (
 				<Box sx={{ width: "100%", height: "200px", display: "flex", alignItems: "center", justifyContent: "center", border: "1px dashed grey", marginBlock: "30px" }}>
 					<Typography variant="h4">No Lead Image Yet...</Typography>

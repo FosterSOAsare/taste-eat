@@ -74,13 +74,13 @@ const SingleDishPage = () => {
 											justifyContent: "center",
 										}}>
 										{/* Needs a larger image */}
-										<img src={dishData.imageUrl} alt="Dish image" className="w-[100px] h-[100px]" />
+										<img src={dishData.imageUrl} alt="Dish image" className="w-[100px] h-[100px]" crossOrigin="true" />
 									</Box>
 									<Box sx={{ width: { xxs: "100%", sm: "50%" }, height: "auto" }}>
 										<Typography variant="h3" sx={{ ...styles.title, fontSize: "32px" }}>
 											{dishData.name}
 										</Typography>
-										<img src={DishRatingImage} alt="" className="my-[10px]" />
+										<img src={DishRatingImage} alt="" className="my-[10px]" crossOrigin="true" />
 										<Typography variant="h3" sx={{ fontSize: "20px", ...styles.title }}>
 											{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(dishData?.price)}
 										</Typography>

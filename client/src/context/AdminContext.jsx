@@ -15,7 +15,12 @@ const AdminProvider = ({ children }) => {
 			}
 			// setIsAdmin(true);
 			let admin = await httpValidateAdmin("_id", session);
-			if (admin.error) return;
+
+			if (admin.error) {
+				setLoading(false);
+				localStorage.removeItem("admin-session");
+				return;
+			}
 			setLoading(false);
 			setIsAdmin(true);
 		})();
