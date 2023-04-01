@@ -200,12 +200,25 @@ export async function httpDeleteChef(chefId) {
 	}
 }
 
-export async function httpValidateAdmin(type, value) {
+// For validating the token stored if any
+export async function httpValidateAdminToken(token) {
 	try {
 		let res = await axios({
 			method: "get",
 			url: `${baseUrl}/users`,
-			params: { type, value },
+			headers: { Authorization: "Bearer " + token },
+		});
+		return res.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
+export async function httpLoginAdmin(password) {
+	try {
+		let res = await axios({
+			method: "post",
+			url: `${baseUrl}/users`,
+			data: { password },
 		});
 		return res.data;
 	} catch (e) {

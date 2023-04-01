@@ -1,8 +1,9 @@
 const express = require("express");
-const { controllerValidateAdmin, controllerRequestPasswordReset, controllerValidatePassword, controllerUpdatePassword } = require("./Users.controller");
+const admin = require("../../middlewares/admin.middleware");
+const { controllerValidateAdmin, controllerRequestPasswordReset, controllerLogInAdmin, controllerValidatePassword, controllerUpdatePassword } = require("./Users.controller");
 
 const usersRouter = express.Router();
-usersRouter.get("/users", controllerValidateAdmin);
+usersRouter.route("/users").get(admin, controllerValidateAdmin).post(controllerLogInAdmin);
 usersRouter.route("/users/reset").get(controllerRequestPasswordReset).post(controllerValidatePassword).put(controllerUpdatePassword);
 
 module.exports = usersRouter;

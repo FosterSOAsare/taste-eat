@@ -5,24 +5,33 @@ const bcrypt = require("bcrypt");
 
 async function controllerValidateAdmin(req, res) {
 	try {
-		let { type, value } = req.query;
-		if (!type || !value) {
-			res.status(400).json({ error: "Please provide valid credentials" });
-			return;
+		if (req.isAdmin) {
+			res.status(200).json({ success: true });
 		}
-
-		let response = await fetchAdmin(true);
-		let valid = await bcrypt.compare(value, response.password);
-
-		if (!valid) {
-			res.status(404).json({ error: "Invalid admin credentials" });
-			return;
-		}
-		delete response.password;
-		res.status(200).json({ _id: response.id });
 	} catch (err) {
+		console.log(err);
 		res.status(404).json({ error: err.message });
 	}
+}
+
+async function controllerLogInAdmin(req, res) {
+	let { password } = req.body;
+	if (!password) {
+		res.status(400).json({ error: "Please provide a password" });
+		return;
+	}
+
+	// Fetch admin
+	let admin = await fetchAdmin(true);
+
+	let valid = await bcrypt.compare(password, admin.password);
+	if (!valid) {
+		res.status(400).json({ error: "Invalid admin password" });
+		return;
+	}
+
+	let token = await jwt.sign({ _id: admin.id }, process.env.JWT_SECRET, { expiresIn: "30d" });
+	res.status(200).json({ token });
 }
 async function controllerRequestPasswordReset(req, res) {
 	try {
@@ -116,4 +125,5 @@ module.exports = {
 	controllerValidatePassword,
 	controllerRequestPasswordReset,
 	controllerUpdatePassword,
+	controllerLogInAdmin,
 };

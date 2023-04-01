@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { httpValidateAdmin } from "../hooks/requests/request";
+import { httpValidateAdminToken } from "../hooks/requests/request";
 const AdminContext = createContext();
 const AdminProvider = ({ children }) => {
 	const [loading, setLoading] = useState(true);
@@ -7,22 +7,27 @@ const AdminProvider = ({ children }) => {
 
 	useEffect(() => {
 		(async function () {
-			let session = localStorage.getItem("admin-session");
-			if (!session) {
-				setLoading(false);
-				setIsAdmin(false);
-				return;
-			}
-			// setIsAdmin(true);
-			let admin = await httpValidateAdmin("_id", session);
+			try {
+				let token = localStorage.getItem("admin-token");
+				if (!token) {
+					setLoading(false);
+					setIsAdmin(false);
+					return;
+				}
 
-			if (admin.error) {
+				let admin = await httpValidateAdminToken(token);
+
+				if (admin.error) {
+					setLoading(false);
+					localStorage.removeItem("admin-token");
+					return;
+				}
 				setLoading(false);
-				localStorage.removeItem("admin-session");
-				return;
+				setIsAdmin(true);
+			} catch (e) {
+				setLoading(false);
+				localStorage.removeItem("admin-token");
 			}
-			setLoading(false);
-			setIsAdmin(true);
 		})();
 	}, []);
 
