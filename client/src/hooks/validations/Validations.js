@@ -14,6 +14,9 @@ class Validations {
 	validateUrl(url) {
 		return /^(?:(?:https?|ftp):\/\/)?(?:www\.)?[^\s/$?]+\.[^\s]+$/i.test(url);
 	}
+	validatePassword(password) {
+		return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(password);
+	}
 }
 
 export default Validations;

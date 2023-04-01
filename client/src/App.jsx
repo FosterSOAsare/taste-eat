@@ -28,6 +28,7 @@ import PasswordProtectedPage from "./pages/PasswordProtected/PasswordProtected";
 import FaqPage from "./pages/Faq/Faq";
 import ContactUsPage from "./pages/Contact/Contact";
 import SingleDishPage from "./pages/Dishes/SingleDish";
+import ForgotPasswordPage from "./pages/ForgotPassword/ForgotPassword";
 
 function CheckAdmin({ children }) {
 	const { loading, isAdmin } = useAdminContext();
@@ -71,6 +72,7 @@ function App() {
 					<Route path="licenses" element={<LicensesPage />}></Route>
 					<Route path="about" element={<AboutPage />}></Route>
 					<Route path="contact" element={<ContactUsPage />}></Route>
+					<Route path="forgotpassword" element={<ForgotPasswordPage />}></Route>
 					<Route>
 						<Route path="chefs" element={<ChefsPage />}></Route>
 						<Route

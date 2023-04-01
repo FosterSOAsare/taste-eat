@@ -238,3 +238,44 @@ export async function httpSendReservation(data) {
 		return e.response.data;
 	}
 }
+
+export async function httpRequestPasswordReset() {
+	try {
+		let res = await axios({
+			method: "get",
+			url: `${baseUrl}/users/reset`,
+		});
+		return res?.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
+
+export async function httpValidatePasswordResetCode(code) {
+	try {
+		let res = await axios({
+			method: "post",
+			url: `${baseUrl}/users/reset`,
+			data: { user: "admin", code },
+		});
+		return res?.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
+
+export async function httpSetNewPassword(password, token) {
+	try {
+		let res = await axios({
+			method: "put",
+			url: `${baseUrl}/users/reset`,
+			data: { user: "admin", password },
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		});
+		return res?.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
