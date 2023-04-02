@@ -252,11 +252,11 @@ export async function httpSendReservation(data) {
 	}
 }
 
-export async function httpRequestPasswordReset() {
+export async function httpRequestPasswordReset(phone) {
 	try {
 		let res = await axiosInstance({
 			method: "get",
-			url: `/users/reset`,
+			url: `/users/reset?number=${phone}`,
 		});
 		return res?.data;
 	} catch (e) {

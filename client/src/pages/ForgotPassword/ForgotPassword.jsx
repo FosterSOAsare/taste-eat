@@ -27,6 +27,7 @@ const ForgotPasswordPage = () => {
 	const [token, setToken] = useState(null);
 
 	let [code, setCode] = useState("");
+	let [adminNumber, setAdminNumber] = useState("233");
 	let [password, setPassword] = useState({});
 
 	async function verifyCode() {
@@ -80,15 +81,47 @@ const ForgotPasswordPage = () => {
 	async function sendSMS() {
 		try {
 			statusDispatchFunc({ type: "setWaiting" });
+			if (!adminNumber) {
+				statusDispatchFunc({ type: "setError", payload: "Enter admin's phone number" });
+				return;
+			}
+
+			// Trim number and remove starting '+' if any
+			let newNumber = adminNumber.replace(/ /gi, "");
+			let arr = newNumber.split("+");
+			newNumber = arr[arr.length - 1];
+
+			if (!validations.validatePhoneNumber(newNumber)) {
+				statusDispatchFunc({ type: "setError", payload: "Enter a valid phone number. Format expected : 233XXXXXXXXX" });
+				return;
+			}
 			// Send a request to send a code to the admin's phone number
-			let response = await httpRequestPasswordReset();
+			let response = await httpRequestPasswordReset(adminNumber);
 			if (response.error) {
+				statusDispatchFunc({ type: "setError", payload: response.error });
 				return;
 			}
 			setStep(2);
 			statusDispatchFunc({ type: "clearStatus" });
 		} catch (e) {
 			console.log(e);
+		}
+	}
+
+	async function resendCode() {
+		try {
+			statusDispatchFunc({ type: "setWaiting" });
+			let response = await httpRequestPasswordReset(adminNumber);
+			if (response.error) {
+				statusDispatchFunc({ type: "setError", payload: response.error });
+				return;
+			}
+			statusDispatchFunc({ type: "setSuccess", payload: "Code successfully sent" });
+			setTimeout(() => {
+				statusDispatchFunc({ type: "clearStatus" });
+			}, 600000);
+		} catch (e) {
+			statusDispatchFunc({ type: "setError", payload: "Code resend failed" });
 		}
 	}
 
@@ -111,8 +144,26 @@ const ForgotPasswordPage = () => {
 									Send Reset Code
 								</Typography>
 								<Typography variant="p" sx={{ ...styles.desc, width: { xxs: "100%", sm: "55%" }, textAlign: "center", fontSize: "14px" }}>
-									A code will be sent to the admin's phone. Click the button below to continue
+									Enter admin's phone number to continue. <br /> Format : 233XXXXXXXXX
 								</Typography>
+								<Box
+									sx={{
+										width: { xxs: "100%", sm: "60%" },
+										marginBlock: "20px",
+										"& .MuiInputBase-input": {
+											fontSize: { xxs: "16px", sm: "18px" },
+										},
+									}}>
+									<TextField
+										id=""
+										value={adminNumber}
+										onChange={(e) => setAdminNumber(e.target.value)}
+										placeholder="Enter admin's number"
+										sx={{ width: "100%" }}
+										type="text"
+										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
+									/>
+								</Box>
 								<Button
 									variant="contained"
 									color="secondary"
@@ -121,6 +172,7 @@ const ForgotPasswordPage = () => {
 									disabled={status.waiting ? true : false}>
 									{status.waiting ? "Waiting..." : "Send Code"}
 								</Button>
+								{status.error && <Error text={status.error} sx={{ textAlign: "center", marginTop: "10px" }} />}
 							</Container>
 						)}
 						{step === 2 && (
@@ -161,9 +213,11 @@ const ForgotPasswordPage = () => {
 									disabled={status.waiting ? true : false}>
 									{status.waiting ? "Waiting..." : "Submit"}
 								</Button>
-								<Button variant="text" sx={{ ...styles.button, textAlign: "center", fontSize: "14px", opacity: 0.6 }}>
-									Resend Code
-								</Button>
+								{!status.waiting && !status.success && (
+									<Button variant="text" sx={{ ...styles.button, textAlign: "center", fontSize: "14px", opacity: 0.6 }} onClick={resendCode}>
+										Resend Code
+									</Button>
+								)}
 								{status.error && <Error text={status.error} sx={{ textAlign: "center", marginTop: "10px" }} />}
 								{status.success && <Snackbar text={status.success} close={() => statusDispatchFunc({ type: "clearStatus" })} />}
 							</Container>

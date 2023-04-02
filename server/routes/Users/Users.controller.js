@@ -35,6 +35,17 @@ async function controllerLogInAdmin(req, res) {
 }
 async function controllerRequestPasswordReset(req, res) {
 	try {
+		// Check phone number
+		let { number } = req.query;
+		if (!number) {
+			res.status(400).json({ error: "Please provide a phone number" });
+			return;
+		}
+
+		if (process.env.ADMIN_PHONE !== number) {
+			res.status(400).json({ error: "Invalid admin number" });
+			return;
+		}
 		// Generate sms code
 		let nums = "1234567890";
 		let code = "";
