@@ -6,7 +6,7 @@ import styles from "../../app.styles";
 import Title from "../../components/Title/Title";
 import PageDesc from "../../components/Header/PageDesc";
 import Reservation from "../../components/Reservation/Reservation";
-import Chef from "./Chef";
+import Chef from "../About/Chef";
 import Testimonials from "../../components/Testimonials/Testimonials";
 import Loading from "../../components/Loading/Loading";
 
