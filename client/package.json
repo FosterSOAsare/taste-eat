@@ -5,7 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"start": "env-cmd -f .env vite",
-		"build": "env-cmd -f .env vite build --emptyOutDir",
+		"build": "env-cmd -f .env vite build",
+		"prstart": "vite",
+		"prbuild": "vite build",
 		"preview": "vite preview",
 		"styles": "tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css -w"
 	},
