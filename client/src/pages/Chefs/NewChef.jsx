@@ -23,18 +23,18 @@ const NewChefPage = () => {
 	const { chefId } = useParams();
 	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 	const [chefData, setChefData] = useState({
-		name: "Asare Foster",
-		position: "Senior chef",
-		email: "evanmattew@mail.com",
-		experience: "10",
-		contact: "+1 (800)-234-5675",
-		location: "Riverside 25, San Francisco, California",
-		summary:
-			"Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divid with additional clickthroughs from Nanotechnology immersion along the information highway will close the loop on focusing solely the bottom line.",
-		facebook: "http://facebook.com",
-		twitter: "http://twitter.com",
-		instagram: "http://instagram.com",
-		pinterest: "http://pinterest.com",
+		// name: "Asare Foster",
+		// position: "Senior chef",
+		// email: "evanmattew@mail.com",
+		// experience: "10",
+		// contact: "+1 (800)-234-5675",
+		// location: "Riverside 25, San Francisco, California",
+		// summary:
+		// 	"Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divid with additional clickthroughs from Nanotechnology immersion along the information highway will close the loop on focusing solely the bottom line.",
+		// facebook: "http://facebook.com",
+		// twitter: "http://twitter.com",
+		// instagram: "http://instagram.com",
+		// pinterest: "http://pinterest.com",
 	});
 	const [notFound, setNotFound] = useState(false);
 	const [loading, setLoading] = useState(chefId ? true : false);

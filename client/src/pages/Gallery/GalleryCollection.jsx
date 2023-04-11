@@ -27,7 +27,7 @@ const GalleryCollection = () => {
 
 			<Box className="gallery" sx={{ marginBlock: "120px", height: "auto" }}>
 				<Container maxWidth="lg" sx={{ width: "100%", height: "auto", display: "flex", flexDirection: "column" }}>
-					<div container style={{ gap: "20px", justifyContent: "space-between", display: "grid" }} className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+					<div style={{ gap: "20px", justifyContent: "space-between", display: "grid" }} className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
 						<img src={GalleryImage1} alt="" style={styles.gallery__item} className="gallery-span1"></img>
 						<img src={GalleryImage2} alt="" style={styles.gallery__item} className=""></img>
 						<img src={GalleryImage3} alt="" style={styles.gallery__item} className=""></img>
