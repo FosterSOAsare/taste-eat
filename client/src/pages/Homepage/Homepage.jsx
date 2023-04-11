@@ -14,7 +14,6 @@ import Loading from "../../components/Loading/Loading";
 
 import testimonials from "../../data/testimonials";
 import popularDishes from "../../data/popularDishes";
-import blogs from "../../data/blogData";
 import { httpFetchDishes, httpFetchBlogs } from "../../hooks/requests/request";
 
 import HeroImage from "../../assets/hero-image.png";

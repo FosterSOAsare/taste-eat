@@ -1,7 +1,7 @@
-import AvrokoImage from "../assets/avroko.png";
-import EvanImage from "../assets/evan.png";
-import DianeImage from "../assets/diane.png";
-import DanImage from "../assets/dan.png";
+import AvrokoImage from "../assets/avroko_chef.png";
+import EvanImage from "../assets/evan_chef.png";
+import DianeImage from "../assets/diane_chef.png";
+import DanImage from "../assets/dan_chef.png";
 
 const countsData = [
 	{

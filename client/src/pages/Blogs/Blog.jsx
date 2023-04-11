@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
-import blogs from "../../data/blogData";
 import styles from "../../app.styles";
 import { httpDeleteABlog, httpFetchABlog } from "../../hooks/requests/request";
 import { useAdminContext } from "../../context/AdminContext";

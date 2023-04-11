@@ -10,17 +10,15 @@ import Chef from "./Chef";
 import Testimonials from "../../components/Testimonials/Testimonials";
 import Loading from "../../components/Loading/Loading";
 
-// import chefsData from "../../data/chefsData";
 import { httpFetchChefs } from "../../hooks/requests/request";
-import countsData from "../../data/countsData";
 
-import AboutHeroImage from "../../assets/about-hero.png";
+import AboutHeroImage from "../../assets/about_hero.png";
 import Signature from "../../assets/signature.png";
-import GalleryImage1 from "../../assets/GalleryImage1.png";
-import GalleryImage2 from "../../assets/GalleryImage2.png";
-import GalleryImage3 from "../../assets/GalleryImage3.png";
-import GalleryImage4 from "../../assets/GalleryImage4.png";
-import GalleryImage5 from "../../assets/GalleryImage5.png";
+import GalleryImage1 from "../../assets/gallery_image1.png";
+import GalleryImage2 from "../../assets/gallery_image2.png";
+import GalleryImage3 from "../../assets/gallery_image3.png";
+import GalleryImage4 from "../../assets/gallery_image4.png";
+import GalleryImage5 from "../../assets/gallery_image5.png";
 import JosefineImage from "../../assets/Josefine.png";
 import StarImage from "../../assets/star.png";
 import { useMediaQuery } from "@mui/material";
@@ -113,7 +111,7 @@ const AboutPage = () => {
 			<Box className="counts" sx={styles.about__counts}>
 				<Container maxWidth="lg" sx={styles.about__counts__container}>
 					<Grid container>
-						{countsData.map((count, index) => (
+						{chefsData.map((count, index) => (
 							<Grid
 								item
 								xxs={6}
@@ -121,7 +119,7 @@ const AboutPage = () => {
 								key={index}
 								sx={{
 									...styles.about__count,
-									borderRight: { xxs: (index + 1) % 2 !== 0 ? "2px solid #d5d5d5" : "", md: index !== countsData.length - 1 ? "2px solid #d5d5d5" : "" },
+									borderRight: { xxs: (index + 1) % 2 !== 0 ? "2px solid #d5d5d5" : "", md: index !== chefsData.length - 1 ? "2px solid #d5d5d5" : "" },
 									borderBottom: { xxs: index + 1 <= 2 ? "2px solid #d5d5d5" : "", md: "none" },
 								}}>
 								<img src={GalleryImage1} alt="" className="w-[50px] h-[50px] block " />
@@ -170,7 +168,7 @@ const AboutPage = () => {
 
 					<Box className="gallery__container" sx={styles.gallery__container}>
 						<img src={GalleryImage1} alt="" className="w-full h-[200px]" />
-						<img src={GalleryImage2} alt="" className="big-image w-full h-[250px] sm:h-[100%] " />
+						<img src={GalleryImage2} alt="" className="big-image w-full h-[200px] sm:h-[100%] " />
 						<img src={GalleryImage4} alt="" className="w-full h-[200px]" />
 						<img src={GalleryImage3} alt="" className="w-full h-[200px]" />
 						<img src={GalleryImage5} alt="" className="w-full h-[200px]" />

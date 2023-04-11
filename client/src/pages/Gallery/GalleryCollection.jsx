@@ -9,12 +9,12 @@ import Title from "../../components/Title/Title";
 
 import FeatureImage1 from "../../assets/feature-image1.png";
 import FeatureImage2 from "../../assets/feature-image2.png";
-import GalleryImage1 from "../../assets/gallery-image1.png";
-import GalleryImage2 from "../../assets/gallery-image2.png";
-import GalleryImage3 from "../../assets/gallery-image3.png";
-import GalleryImage4 from "../../assets/gallery-image4.png";
-import GalleryImage5 from "../../assets/gallery-image5.png";
-import GalleryImage6 from "../../assets/gallery-image6.png";
+import GalleryImage1 from "../../assets/gallery_image1.png";
+import GalleryImage2 from "../../assets/gallery_image2.png";
+import GalleryImage3 from "../../assets/gallery_image3.png";
+import GalleryImage4 from "../../assets/gallery_image4.png";
+import GalleryImage5 from "../../assets/gallery_image5.png";
+import GalleryImage6 from "../../assets/gallery_image6.png";
 
 const GalleryCollection = () => {
 	const theme = useTheme();

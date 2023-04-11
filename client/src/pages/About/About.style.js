@@ -23,6 +23,7 @@ const aboutPageStyles = {
 		gridTemplateColumns: { xxs: "1fr 1fr", sm: "1fr 2fr 1fr" },
 		gap: "10px",
 		marginTop: "20px",
+		justifyContent: "center",
 	},
 	row__span: {
 		gridColumn: { xxs: "2/3" },
