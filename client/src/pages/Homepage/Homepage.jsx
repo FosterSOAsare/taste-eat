@@ -21,6 +21,7 @@ import HeroImage from "../../assets/hero-image.png";
 import LocationImage from "../../assets/Location.svg";
 import ReserveImage from "../../assets/Reserve.svg";
 import OpenImage from "../../assets/Open.svg";
+// Spelling was wrong
 import StoryImage from "../../assets/story-image.png";
 import Signature from "../../assets/signature.png";
 import SpecialFoodImage from "../../assets/special-food.png";
