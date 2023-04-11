@@ -54,7 +54,7 @@ const ReservationPage = () => {
 			reservationType: data.reservation,
 			time,
 		};
-		let res = await sendReservation(data);
+		let res = await httpSendReservation(data);
 
 		if (res.error) {
 			statusDispatchFunc({ type: "setError", payload: "Message sending failed. Please try again later" });

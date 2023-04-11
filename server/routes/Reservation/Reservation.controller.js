@@ -1,4 +1,7 @@
 let SmsClient = require("../../lib/twilioSms");
+const sendEmail = require("../../lib/nodemailer");
+const fs = require("fs");
+const path = require("path");
 async function receiveNewReservation(req, res) {
 	try {
 		let { time, name, email, reservationType } = req.body;
@@ -21,10 +24,15 @@ async function receiveNewReservation(req, res) {
 
 		// console.log(message);
 
-		let sms = new SmsClient(message);
-		await sms.sendMessage();
+		// let sms = new SmsClient(message);
+		// await sms.sendMessage();
 
-		res.send({ success: true });
+		let rt = await fs.readFileSync(path.join(__dirname, "..", "..", "newsletter.html"), "utf-8");
+
+		let emailSent = await sendEmail("New Reservation request", rt);
+		console.log(emailSent);
+
+		// res.send({ success: true });
 	} catch (e) {
 		res.status(400).json({ error: e.message });
 	}
