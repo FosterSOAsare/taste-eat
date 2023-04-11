@@ -21,7 +21,7 @@ import GalleryImage2 from "../../assets/GalleryImage2.png";
 import GalleryImage3 from "../../assets/GalleryImage3.png";
 import GalleryImage4 from "../../assets/GalleryImage4.png";
 import GalleryImage5 from "../../assets/GalleryImage5.png";
-import JosefineImage from "../../assets/josefine.png";
+import JosefineImage from "../../assets/Josefine.png";
 import StarImage from "../../assets/star.png";
 import { useMediaQuery } from "@mui/material";
 
