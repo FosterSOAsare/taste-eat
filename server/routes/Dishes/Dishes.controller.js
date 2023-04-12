@@ -1,4 +1,5 @@
 const { getDishes, getADish, deleteADish, updateADish, postADish } = require("../../models/Dishes/Dishes.model");
+const getServerBaseUrl = require("../../utils/getserverurl");
 
 async function controllerGetDishes(req, res) {
 	let { type, limit, skip } = req.query;
@@ -50,7 +51,8 @@ async function controllerSaveDish(req, res) {
 		return;
 	}
 	// Setting Image Url
-	let imageUrl = `http://localhost:8000/photos/dishes/${req.files[0].filename}`;
+	let baseUrl = getServerBaseUrl(req);
+	let imageUrl = `${baseUrl}/photos/dishes/${req.files[0].filename}`;
 	data.imageUrl = imageUrl;
 	data.price = parseFloat(data.price);
 
@@ -78,7 +80,8 @@ async function controllerUpdateADish(req, res) {
 			return;
 		}
 		if (req.files?.length) {
-			data.imageUrl = `http://localhost:8000/photos/dishes/${req.files[0].filename}`;
+			let baseUrl = getServerBaseUrl(req);
+			data.imageUrl = `${baseUrl}/photos/dishes/${req.files[0].filename}`;
 		}
 
 		// Updating data in database

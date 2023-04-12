@@ -1,6 +1,6 @@
 const express = require("express");
 const { controllerGetBlogs, controllerGetABlog, controllerDeleteABlog, controllerSaveBlog, controllerUpdateABlog } = require("./Blogs.controller");
-const createUpload = require("../../multer");
+const createUpload = require("../../lib/multer");
 const admin = require("../../middlewares/admin.middleware");
 
 const blogsUpload = createUpload("blogs");

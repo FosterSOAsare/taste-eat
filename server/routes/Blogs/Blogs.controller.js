@@ -1,4 +1,5 @@
 const { getBlogs, getABlog, deleteABlog, updateABlog, postABlog } = require("../../models/Blogs/Blogs.model");
+const getServerBaseUrl = require("../../utils/getserverurl");
 
 async function controllerGetBlogs(req, res) {
 	let { limit, skip, order } = req.query;
@@ -43,7 +44,8 @@ async function controllerSaveBlog(req, res) {
 		return;
 	}
 	// Setting Image Url
-	let imageUrl = `http://localhost:8000/photos/blogs/${req.files[0].filename}`;
+	let baseUrl = getServerBaseUrl(req);
+	let imageUrl = `${baseUrl}/photos/blogs/${req.files[0].filename}`;
 	data.imageUrl = imageUrl;
 
 	// Storing data in database
@@ -70,7 +72,8 @@ async function controllerUpdateABlog(req, res) {
 			return;
 		}
 		if (req.files?.length) {
-			data.imageUrl = `http://localhost:8000/photos/blogs/${req.files[0].filename}`;
+			let baseUrl = getServerBaseUrl(req);
+			data.imageUrl = `${baseUrl}/photos/blogs/${req.files[0].filename}`;
 		}
 		let response = await updateABlog(req.params.blogId, data);
 

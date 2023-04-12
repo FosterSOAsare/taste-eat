@@ -7,7 +7,7 @@ function formatImageName(name) {
 
 function createUpload(folder) {
 	const storage = multer.diskStorage({
-		destination: path.join(__dirname, "uploads", folder),
+		destination: path.join(__dirname, "..", "uploads", folder),
 		filename: (req, file, callback) => {
 			callback(null, Date.now() + formatImageName(file.originalname));
 		},

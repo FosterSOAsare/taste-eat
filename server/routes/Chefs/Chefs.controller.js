@@ -1,4 +1,5 @@
 const { getChefs, getAChef, deleteAChef, updateAChef, postAChef } = require("../../models/Chefs/Chefs.model");
+const getServerBaseUrl = require("../../utils/getserverurl");
 
 async function controllerGetChefs(req, res) {
 	const { limit } = req.query;
@@ -51,7 +52,8 @@ async function controllerSaveChef(req, res) {
 		return;
 	}
 
-	let image = `http://localhost:8000/photos/chefs/${req.files[0].filename}`;
+	let baseUrl = getServerBaseUrl(req);
+	let image = `${baseUrl}/photos/chefs/${req.files[0].filename}`;
 	data = { ...data, experience: parseInt(data.experience), image };
 	// Storing data in database
 
@@ -80,7 +82,8 @@ async function controllerUpdateAChef(req, res) {
 	}
 
 	if (req.files?.length) {
-		data.image = `http://localhost:8000/photos/chefs/${req.files[0].filename}`;
+		let baseUrl = getServerBaseUrl(req);
+		data.image = `${baseUrl}/photos/chefs/${req.files[0].filename}`;
 	}
 	// Updating data in database
 	try {
