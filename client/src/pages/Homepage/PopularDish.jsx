@@ -7,7 +7,7 @@ const PopularDish = ({ image, name, price, desc }) => {
 	const theme = useTheme();
 	return (
 		<Box sx={styles.popular__dish}>
-			<img src={image} alt="" crossOrigin="true" />
+			<img src={image} alt="" crossOrigin="true" className="h-[200px] w-full" />
 			<Box sx={{ ...styles.popular__dish__top, paddingInline: { xxs: "10px", sm: 0 } }}>
 				<Typography variant="p" sx={{ ...styles.title }}>
 					{name}

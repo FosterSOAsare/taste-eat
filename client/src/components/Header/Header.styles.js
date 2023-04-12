@@ -3,7 +3,6 @@ const headerStyles = {
 	header: {
 		height: "auto",
 		width: "100%",
-		background: "green",
 	},
 	logo__section: {
 		width: "100%",

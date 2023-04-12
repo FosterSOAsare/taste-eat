@@ -25,15 +25,15 @@ const GalleryCollection = () => {
 		<>
 			<PageDesc content="Gallery" />
 
-			<Box className="gallery" sx={{ marginBlock: "120px", height: "auto" }}>
+			<Box className="gallery" sx={{ marginBlock: { xxs: "30px 70px", md: "120px" }, height: "auto" }}>
 				<Container maxWidth="lg" sx={{ width: "100%", height: "auto", display: "flex", flexDirection: "column" }}>
 					<div style={{ gap: "20px", justifyContent: "space-between", display: "grid" }} className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
-						<img src={GalleryImage1} alt="" style={styles.gallery__item} className="gallery-span1"></img>
-						<img src={GalleryImage2} alt="" style={styles.gallery__item} className=""></img>
-						<img src={GalleryImage3} alt="" style={styles.gallery__item} className=""></img>
-						<img src={GalleryImage4} alt="" style={styles.gallery__item} className=""></img>
-						<img src={GalleryImage5} alt="" style={styles.gallery__item} className=""></img>
-						<img src={GalleryImage6} alt="" style={styles.gallery__item} className="gallery-span2 "></img>
+						<img src={GalleryImage1} alt="" className="gallery-span1 md:h-[300px] h-[180px] w-full"></img>
+						<img src={GalleryImage3} alt="" className=" h-[180px] md:h-[300px] w-full"></img>
+						<img src={GalleryImage2} alt="" className=" h-[180px] md:h-[300px] w-full"></img>
+						<img src={GalleryImage4} alt="" className=" h-[180px] md:h-[300px] w-full"></img>
+						<img src={GalleryImage5} alt="" className=" h-[180px] md:h-[300px] w-full"></img>
+						<img src={GalleryImage6} alt="" className="gallery-span2 md:h-[300px]  h-[180px] w-full"></img>
 					</div>
 
 					<Button variant="outlined" sx={{ ...styles.button, marginTop: "50px", marginInline: "auto", display: "inline-block" }} color="secondary" href="/dishes">

@@ -138,12 +138,14 @@ const homepageStyles = {
 		gap: "20px",
 		marginTop: "20px",
 		flexDirection: { xxs: "column", sm: "row" },
+		width: "100%",
 	},
 	popular__dish: {
 		width: { xxs: "100%", sm: "25%" },
 		height: "100%",
 		border: { xxs: "1px solid #C4C4C4", sm: "none" },
 		paddingBottom: "20px",
+		maxWidth: { xxs: "300px", sm: "none" },
 	},
 	popular__dish__top: {
 		...flex("space-between", "center"),

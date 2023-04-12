@@ -1,7 +1,9 @@
 let SmsClient = require("../../lib/twilioSms");
-const sendEmail = require("../../lib/nodemailer");
+const { sendRequestNotice } = require("../../lib/nodemailer");
 const fs = require("fs");
 const path = require("path");
+const resolvekeys = require("../../utils/replacekeys");
+
 async function receiveNewReservation(req, res) {
 	try {
 		let { time, name, email, reservationType } = req.body;
@@ -22,17 +24,26 @@ async function receiveNewReservation(req, res) {
 			message += key + "\n\n";
 		});
 
-		// console.log(message);
+		let sms = new SmsClient(message);
+		await sms.sendMessage();
 
-		// let sms = new SmsClient(message);
-		// await sms.sendMessage();
+		let file = fs.readFileSync(path.join(__dirname, "..", "..", "newsletter", "reservation.html"), "utf-8");
 
-		let rt = await fs.readFileSync(path.join(__dirname, "..", "..", "newsletter.html"), "utf-8");
+		let data = [
+			{ key: "{{name}}", value: name },
+			{ key: "{{email}}", value: email },
+			{ key: "{{phone}}", value: req.body?.phone || "" },
+			{ key: "{{time}}", value: time },
+			{ key: "{{reservationType}}", value: reservationType },
+		];
+		let emailMessage = resolvekeys(data, file);
 
-		let emailSent = await sendEmail("New Reservation request", rt);
-		console.log(emailSent);
-
-		// res.send({ success: true });
+		let emailStatus = await sendRequestNotice("New Reservation request", emailMessage);
+		if (emailStatus.error) {
+			res.status(400).json({ error: emailStatus.error });
+			return;
+		}
+		res.status(200).send({ success: true });
 	} catch (e) {
 		res.status(400).json({ error: e.message });
 	}

@@ -20,7 +20,7 @@ const aboutPageStyles = {
 		width: "100%",
 		height: "auto",
 		display: "grid",
-		gridTemplateColumns: { xxs: "1fr 1fr", sm: "1fr 2fr 1fr" },
+		gridTemplateColumns: { xxs: "1fr 1fr", md: "1fr 2fr 1fr" },
 		gap: "10px",
 		marginTop: "20px",
 		justifyContent: "center",
@@ -36,6 +36,7 @@ const aboutPageStyles = {
 		gridTemplateColumns: { xxs: "repeat(2 , 1fr)", sm: "repeat(4 , 1fr)" },
 		gap: "10px",
 		marginTop: "20px",
+		width: "100%",
 	},
 	chef: {
 		width: "100%",
@@ -61,6 +62,8 @@ const aboutPageStyles = {
 		width: "90%",
 		height: "200px",
 		...flex("center", "center", "column"),
+		padding: "15px 0",
+		height: "auto",
 	},
 	about__counts__text: {
 		textAlign: "center",

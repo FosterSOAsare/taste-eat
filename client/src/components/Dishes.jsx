@@ -28,7 +28,7 @@ const Dishes = ({ type, limit, next = false }) => {
 		});
 	}
 	return (
-		<Box sx={{ width: "100%", marginBottom: "20px" }}>
+		<Box sx={{ width: "100%", marginBottom: "20px", height: "auto" }}>
 			<Typography variant="h3" sx={{ fontSize: "24px", marginBottom: "20px", fontFamily: "'Cormorant Infant', serif !important", fontWeight: "bold", textTransform: "capitalize" }}>
 				{type}
 			</Typography>

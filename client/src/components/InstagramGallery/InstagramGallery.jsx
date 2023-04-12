@@ -17,7 +17,7 @@ const InstagramGallery = () => {
 
 				<Grid container sx={{ width: "100%", height: "auto", gap: "20px", justifyContent: "space-between", marginTop: "20px", alignItems: "center" }}>
 					{gallery.map((item, index) => (
-						<Grid item md={1.8} key={index}>
+						<Grid item md={1.8} key={index} sx={{ background: "red" }}>
 							<img src={`${item}?w=161&fit=crop&auto=format`} srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`} alt="" loading="lazy" />
 						</Grid>
 					))}
