@@ -86,7 +86,7 @@ const ChefsPage = () => {
 					<Box
 						sx={{
 							width: { xxs: "100%", sm: "300px", md: "400px" },
-							height: { xxs: "100%", md: "100%", sm: "450px" },
+							height: { xxs: "250px", md: "100%", sm: "450px" },
 							marginTop: "auto",
 							marginRight: { sm: "50px" },
 							order: { xxs: 1, sm: 2 },
