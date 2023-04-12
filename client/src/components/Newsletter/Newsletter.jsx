@@ -50,7 +50,7 @@ const Newsletter = ({ setSnackbar }) => {
 					type="text"
 					aria-label="Email address"
 					placeholder="Email"
-					className="h-full w-[70%] bg-transparent border-white border-[1px] px-[10px] focus:outline-none text-white"
+					className="h-full w-[70%] bg-transparent border-white border-[1px] px-[10px] focus:outline-none text-white rounded-[0px]"
 					value={email}
 					onChange={(e) => {
 						setEmail(e.target.value);

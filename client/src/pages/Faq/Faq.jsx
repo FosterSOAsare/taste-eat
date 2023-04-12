@@ -18,10 +18,10 @@ const FaqPage = () => {
 			<Box sx={{ marginBlock: "70px" }}>
 				<Container maxWidth="lg" sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
 					<Title text="Questions" />
-					<Typography variant="h3" sx={{ ...styles.title, fontSize: "32px", marginTop: "20px" }}>
+					<Typography variant="h3" sx={{ ...styles.title, fontSize: "32px", marginTop: "20px", textAlign: "center" }}>
 						Frequently Asked Questions
 					</Typography>
-					<Box sx={{ marginTop: "30px", width: "70%" }}>
+					<Box sx={{ marginTop: "30px", width: { xxs: "100%", md: "70%" } }}>
 						{faqData.map((e, index) => (
 							<Accordion key={index} sx={{ marginBottom: "20px", borderRadius: "0" }}>
 								<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">

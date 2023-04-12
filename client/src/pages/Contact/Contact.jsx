@@ -60,7 +60,7 @@ const ContactUsPage = () => {
 							width: { xxs: "100%", sm: "42%" },
 							height: { sm: "500px", md: "100%" },
 							background: "#FFF8F5",
-							padding: { xxs: "40px", xs: "40px 20px", md: "40px" },
+							padding: { xxs: "40px 20px", md: "40px" },
 						}}>
 						<Typography variant="h3" sx={{ ...styles.title, fontSize: "28px", marginBottom: "10px" }}>
 							Contact Information
@@ -275,7 +275,7 @@ const ContactUsPage = () => {
 										</Typography>
 									</Box>
 								</Box>
-								<Box sx={{ width: { xxs: "100%", sx: "50%" }, height: { xxs: "400px", xs: "100%" }, order: { xxs: 1, xs: 2 } }}>
+								<Box sx={{ width: { xxs: "100%", sx: "50%" }, height: { xxs: "250px", xs: "100%" }, order: { xxs: 1, xs: 2 } }}>
 									<img src={e.image} alt="" className="w-full h-full" />
 								</Box>
 							</Grid>

@@ -117,6 +117,7 @@ const ForgotPasswordPage = () => {
 				return;
 			}
 			statusDispatchFunc({ type: "setSuccess", payload: "Code successfully sent" });
+			// This is to prevent the resendSms button from appearing immediately after the message has been sent
 			setTimeout(() => {
 				statusDispatchFunc({ type: "clearStatus" });
 			}, 600000);
