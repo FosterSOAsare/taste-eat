@@ -17,7 +17,7 @@ const testimonialStyles = {
 		fontSize: "16px",
 		marginTop: "10px",
 		lineHeight: "30px",
-		height: { xxs: "100px", sm: "150px", md: "130px", lg: "100px" },
+		height: { xxs: "auto", sm: "150px", md: "130px", lg: "100px" },
 	},
 	testimonial_slider_dots: {
 		position: "absolute",

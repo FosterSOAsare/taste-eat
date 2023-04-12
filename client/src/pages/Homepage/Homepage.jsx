@@ -79,7 +79,7 @@ const Homepage = () => {
 					</Box>
 
 					<Box sx={styles.homepage__story}>
-						<img src={StoryImage} alt="" className="w-full xs:w-[45%] md:w-[calc(50% - 30px)] h-[400px] sm:h-[300px]" />
+						<img src={StoryImage} alt="" className="w-full xs:w-[45%] md:w-[calc(50% - 30px)] h-[300px] sm:h-[300px]" />
 						<Box className="line" sx={{ width: "1px", height: "300px", background: "#B29A90", display: { xxs: "none", md: "block" } }}></Box>
 						<Box className="story__text" sx={styles.homepage__story__text}>
 							<Typography variant="h3" sx={styles.homepage__story__title}>
@@ -176,7 +176,7 @@ const Homepage = () => {
 					</Box>
 				</Box>
 			</Box>
-			<img src={TestimonialImage} alt="" className="w-[100%] h-[300px]" />
+			<img src={TestimonialImage} alt="" className="w-[100%] h-[150px] sm:h-[300px]" />
 			<Box className="offers" sx={{ marginTop: { xxs: "30px", sm: "100px" } }}>
 				<Container maxWidth="lg" sx={{ ...styles.offer__container }}>
 					<Title text="offer" />
@@ -188,8 +188,8 @@ const Homepage = () => {
 					</Typography>
 
 					<Box sx={styles.offers__images__container}>
-						<img src={ChickenBurgerImage} alt="" className="h-[100%] sm:w-[49%]" />
-						<img src={ChickenPizzaImage} alt="" className="h-[100%] sm:w-[49%]" />
+						<img src={ChickenBurgerImage} alt="" className="h-[200px] w-full sm:h-[100%] sm:w-[49%]" />
+						<img src={ChickenPizzaImage} alt="" className="h-[200px] w-full sm:h-[100%] sm:w-[49%]" />
 					</Box>
 				</Container>
 			</Box>
@@ -239,19 +239,19 @@ const Homepage = () => {
 						}}>
 						<Box sx={{ ...styles.offer__box, borderColor: theme.palette.background3.main }}>
 							<img src={Opened247} alt="" className="w-[30px] block mx-[auto]" />
-							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "5px" }}>
+							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "7px", textAlign: "center", width: "90%" }}>
 								Opened 24/7
 							</Typography>
 						</Box>
 						<Box sx={{ ...styles.offer__box, borderColor: theme.palette.background3.main }}>
 							<img src={Opened247} alt="" className="w-[30px] block mx-[auto]" />
-							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "5px" }}>
+							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "7px", textAlign: "center", width: "90%" }}>
 								Special Menus
 							</Typography>
 						</Box>
 						<Box sx={{ ...styles.offer__box, borderColor: theme.palette.background3.main }}>
 							<img src={Opened247} alt="" className="w-[30px] block mx-[auto]" />
-							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "5px" }}>
+							<Typography variant="p" sx={{ ...styles.title, color: theme.palette.white.main, fontSize: "16px", marginTop: "7px", textAlign: "center", width: "90%" }}>
 								Home Delivery
 							</Typography>
 						</Box>

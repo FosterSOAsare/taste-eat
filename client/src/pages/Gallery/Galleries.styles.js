@@ -20,6 +20,5 @@ const galleriesPageStyles = {
 		height: "100%",
 		...flex("space-between", "center"),
 	},
-	gallery__item: { width: "100%", height: "350px" },
 };
 export default galleriesPageStyles;

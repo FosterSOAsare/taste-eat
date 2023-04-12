@@ -3,14 +3,15 @@ import { useTheme } from "@mui/material/styles";
 import { Box, Container, Typography, Grid, Button } from "@mui/material";
 
 import styles from "../../app.styles";
+import { httpFetchChefs } from "../../hooks/requests/request";
+import countsData from "../../data/countsData";
+
 import Title from "../../components/Title/Title";
 import PageDesc from "../../components/Header/PageDesc";
 import Reservation from "../../components/Reservation/Reservation";
 import Chef from "./Chef";
 import Testimonials from "../../components/Testimonials/Testimonials";
 import Loading from "../../components/Loading/Loading";
-
-import { httpFetchChefs } from "../../hooks/requests/request";
 
 import AboutHeroImage from "../../assets/about_hero.png";
 import Signature from "../../assets/signature.png";
@@ -111,7 +112,7 @@ const AboutPage = () => {
 			<Box className="counts" sx={styles.about__counts}>
 				<Container maxWidth="lg" sx={styles.about__counts__container}>
 					<Grid container>
-						{chefsData.map((count, index) => (
+						{countsData.map((count, index) => (
 							<Grid
 								item
 								xxs={6}
@@ -122,13 +123,17 @@ const AboutPage = () => {
 									borderRight: { xxs: (index + 1) % 2 !== 0 ? "2px solid #d5d5d5" : "", md: index !== chefsData.length - 1 ? "2px solid #d5d5d5" : "" },
 									borderBottom: { xxs: index + 1 <= 2 ? "2px solid #d5d5d5" : "", md: "none" },
 								}}>
-								<img src={GalleryImage1} alt="" className="w-[50px] h-[50px] block " />
+								<img src={count.img} alt="" className="w-[50px] h-[50px]" />
 								<Typography variant="h6" component="h2" sx={{ ...styles.about__counts__title, ...styles.title, color: theme.palette.white.main }}>
 									{count.title}
 								</Typography>
 								<Typography variant="body1" component="p" sx={{ ...styles.about__counts__text, ...styles.desc, color: theme.palette.white.main }}>
 									{count.desc}
 								</Typography>
+
+								<Button variant="text" color="secondary" sx={{ textTransform: "none" }} href={count.link}>
+									See more
+								</Button>
 							</Grid>
 						))}
 					</Grid>
@@ -168,10 +173,10 @@ const AboutPage = () => {
 
 					<Box className="gallery__container" sx={styles.gallery__container}>
 						<img src={GalleryImage1} alt="" className="w-full h-[200px]" />
-						<img src={GalleryImage2} alt="" className="big-image w-full h-[200px] sm:h-[100%] " />
+						<img src={GalleryImage2} alt="" className="big-image w-full h-[200px] md:h-[410px] " />
 						<img src={GalleryImage4} alt="" className="w-full h-[200px]" />
 						<img src={GalleryImage3} alt="" className="w-full h-[200px]" />
-						<img src={GalleryImage5} alt="" className="w-full h-[200px]" />
+						<img src={GalleryImage5} alt="" className="last-image w-full " />
 					</Box>
 				</Container>
 			</Box>

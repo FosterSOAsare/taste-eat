@@ -89,7 +89,7 @@ const ReservationPage = () => {
 								{[{ text: "Name" }, { text: "Email" }, { text: "Phone" }, { text: "Date" }, { text: "Time" }, { text: "Person" }].map((e, index) => {
 									if (e.text !== "Person") {
 										return (
-											<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px" }}>
+											<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px" }} className="reservation_input">
 												<input
 													style={{ ...styles.choose__us__reason }}
 													className="focus:outline-none reservation__white"
@@ -132,7 +132,7 @@ const ReservationPage = () => {
 						</form>
 					</Box>
 
-					<Box sx={{ width: { md: "40%", xxs: "100%" }, height: { md: "450px", xxs: "350px" }, order: { xxs: 1, md: 2 } }}>
+					<Box sx={{ width: { md: "40%", xxs: "100%" }, height: { md: "450px", xxs: "300px" }, order: { xxs: 1, md: 2 } }}>
 						<img src={ReservedImage} alt="" className="w-[100%] h-[100%]" />
 					</Box>
 				</Container>
@@ -140,7 +140,7 @@ const ReservationPage = () => {
 
 			<Box sx={{ marginBlock: { xxs: "30px", md: "100px" } }}>
 				<Container maxWidth="lg" sx={{ ...styles.reservation__page__container, alignItems: "center" }}>
-					<Box sx={{ width: { xxs: "100%", md: "40%" }, height: { md: "450px", xxs: "350px" } }}>
+					<Box sx={{ width: { xxs: "100%", md: "40%" }, height: { md: "450px", xxs: "250px" } }}>
 						<img src={WhyChooseUsImage} alt="" className="w-[100%] h-[100%]" />
 					</Box>
 

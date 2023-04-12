@@ -1,32 +1,32 @@
-import AvrokoImage from "../assets/avroko_chef.png";
-import EvanImage from "../assets/evan_chef.png";
-import DianeImage from "../assets/diane_chef.png";
-import DanImage from "../assets/dan_chef.png";
+import FreshImage from "../assets/fresh-product.svg";
+import SkilledImage from "../assets/skilled-chefs.svg";
+import DrinksImage from "../assets/drinks-juices.svg";
+import VeganImage from "../assets/vegan-cuisine.svg";
 
 const countsData = [
 	{
-		img: AvrokoImage,
+		img: FreshImage,
 		title: "Fresh Product",
 		desc: "Professional consider everyone probls small niche friendly.",
-		link: "",
+		link: "/dishes",
 	},
 	{
-		img: EvanImage,
+		img: SkilledImage,
 		title: "Skilled Chefs",
 		desc: "Professional consider everyone probls small niche friendly.",
-		link: "",
+		link: "/ches",
 	},
 	{
-		img: DianeImage,
+		img: DrinksImage,
 		title: "Drinks & Juices",
 		desc: "Professional consider everyone probls small niche friendly.",
-		link: "",
+		link: "/menu",
 	},
 	{
-		img: DanImage,
+		img: VeganImage,
 		title: "Vegan Cuisine",
 		desc: "AssProfessional consider everyone probls small niche friendly.",
-		link: "",
+		link: "/menu",
 	},
 ];
 

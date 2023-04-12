@@ -6,6 +6,9 @@
 	.big-image {
 		@apply md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-3;
 	}
+	.last-image {
+		@apply col-start-1 col-end-3 row-start-3 row-end-4 md:col-start-3 md:col-end-4 md:row-start-2 md:row-end-3 sm:h-[400px] h-[350px] md:h-[200px];
+	}
 	.gallery-span1 {
 		@apply md:col-start-1 md:col-end-3 md:row-start-1 md:row-end-2;
 	}
