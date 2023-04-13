@@ -1,5 +1,5 @@
 const { getDishes, getADish, deleteADish, updateADish, postADish } = require("../../models/Dishes/Dishes.model");
-const getServerBaseUrl = require("../../utils/getserverurl");
+const getSecuredUrl = require("../../lib/cloudinary");
 
 async function controllerGetDishes(req, res) {
 	let { type, limit, skip } = req.query;
@@ -46,13 +46,12 @@ async function controllerSaveDish(req, res) {
 		res.status(400).json({ error: "Please provide data for all fields" });
 		return;
 	}
-	if (!req.files || !req.files[0]) {
+	if (!req.file) {
 		res.status(400).json({ error: "No file was uploaded" });
 		return;
 	}
 	// Setting Image Url
-	let baseUrl = getServerBaseUrl(req);
-	let imageUrl = `${baseUrl}/photos/dishes/${req.files[0].filename}`;
+	const imageUrl = await getSecuredUrl(req.file, "dishes");
 	data.imageUrl = imageUrl;
 	data.price = parseFloat(data.price);
 
@@ -75,13 +74,13 @@ async function controllerUpdateADish(req, res) {
 			res.status(400).json({ error: "Please provide data for all fields" });
 			return;
 		}
-		if (!req.files && !imageUrl) {
+		if (!req.file && !imageUrl) {
 			res.status(400).json({ error: "No file was uploaded" });
 			return;
 		}
-		if (req.files?.length) {
-			let baseUrl = getServerBaseUrl(req);
-			data.imageUrl = `${baseUrl}/photos/dishes/${req.files[0].filename}`;
+		if (req.file) {
+			const imageUrl = await getSecuredUrl(req.file, "dishes");
+			data.imageUrl = imageUrl;
 		}
 
 		// Updating data in database

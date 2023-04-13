@@ -16,10 +16,12 @@ function createUpload(folder) {
 	return upload;
 }
 
-function createCloudinaryUpload(folder) {
+function createCloudinaryUpload() {
 	const storage = multer.memoryStorage({});
 	let upload = multer({ storage: storage });
 	return upload;
 }
 
-module.exports = { createUpload, createCloudinaryUpload };
+const uploadToCloudinary = createCloudinaryUpload();
+
+module.exports = { createUpload, uploadToCloudinary };
