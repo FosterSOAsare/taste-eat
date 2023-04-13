@@ -17,12 +17,7 @@ function createUpload(folder) {
 }
 
 function createCloudinaryUpload(folder) {
-	const storage = multer.memoryStorage({
-		destination: path.join(__dirname, "..", "uploads", folder),
-		filename: (req, file, callback) => {
-			callback(null, Date.now() + formatImageName(file.originalname));
-		},
-	});
+	const storage = multer.memoryStorage({});
 	let upload = multer({ storage: storage });
 	return upload;
 }

@@ -13,9 +13,10 @@ cloudinary.v2.config({
 });
 
 async function getSecuredUrl(file, folder) {
+	let public_id = path.parse(file.originalname).name;
 	const extName = path.extname(file.originalname).toString();
 	const file64 = parser.format(extName, file.buffer);
-	let res = await cloudinary.v2.uploader.upload(file64.content, { folder: folder, use_filename: true });
+	let res = await cloudinary.v2.uploader.upload(file64.content, { folder: folder, use_filename: true, public_id });
 	return res.secure_url;
 }
 
