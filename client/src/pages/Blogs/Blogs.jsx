@@ -60,6 +60,14 @@ const BlogsPage = () => {
 	async function saveReservation(data) {
 		statusDispatchFunc({ type: "setWaiting" });
 		const time = `${data.date} ${data.timing}`;
+		// Check to see if time is in the future
+		let specified = new Date(time).getTime();
+		let now = new Date().getTime();
+		if (specified - now <= 0) {
+			statusDispatchFunc({ type: "setError", payload: "Make sure date and time is in the future" });
+			return;
+		}
+
 		data = {
 			name: data.name,
 			email: data.email,
@@ -67,14 +75,14 @@ const BlogsPage = () => {
 			time,
 		};
 
-		const response = await sendReservation(data);
+		// Send data as email or store it on the DB
+		const response = await httpSendReservation(data);
 
 		if (response.error) {
 			statusDispatchFunc({ type: "setError", payload: "Message sending failed. Please try again later" });
 			return;
 		}
 		statusDispatchFunc({ type: "setSuccess", payload: "Reservation was successfully sent" });
-		// Send data as email or store it on the DB
 		reset();
 	}
 
