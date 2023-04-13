@@ -1,5 +1,5 @@
 const { getChefs, getAChef, deleteAChef, updateAChef, postAChef } = require("../../models/Chefs/Chefs.model");
-const getServerBaseUrl = require("../../utils/getserverurl");
+const getSecuredUrl = require("../../lib/cloudinary");
 
 async function controllerGetChefs(req, res) {
 	const { limit } = req.query;
@@ -47,13 +47,12 @@ async function controllerSaveChef(req, res) {
 		return;
 	}
 
-	if (!req.files || !req.files[0]) {
+	if (!req.file) {
 		res.status(400).json({ error: "No file was uploaded" });
 		return;
 	}
 
-	let baseUrl = getServerBaseUrl(req);
-	let image = `${baseUrl}/photos/chefs/${req.files[0].filename}`;
+	const image = await getSecuredUrl(req.file, "chefs");
 	data = { ...data, experience: parseInt(data.experience), image };
 	// Storing data in database
 
@@ -76,14 +75,15 @@ async function controllerUpdateAChef(req, res) {
 		res.status(400).json({ error: "Please provide data for all fields" });
 		return;
 	}
-	if (!req.files && !data.image) {
+
+	if (!req.file && !data.image) {
 		res.status(400).json({ error: "No file was uploaded" });
 		return;
 	}
 
-	if (req.files?.length) {
-		let baseUrl = getServerBaseUrl(req);
-		data.image = `${baseUrl}/photos/chefs/${req.files[0].filename}`;
+	if (req.file) {
+		const image = await getSecuredUrl(req.file, "chefs");
+		data.image = image;
 	}
 	// Updating data in database
 	try {
