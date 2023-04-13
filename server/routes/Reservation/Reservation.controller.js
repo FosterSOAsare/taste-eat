@@ -27,7 +27,7 @@ async function receiveNewReservation(req, res) {
 		let sms = new SmsClient(message);
 		await sms.sendMessage();
 
-		let file = fs.readFileSync(path.join(__dirname, "..", "..", "newsletter", "reservation.html"), "utf-8");
+		let file = fs.readFileSync(path.join(__dirname, "..", "..", "emails", "reservation.html"), "utf-8");
 
 		let data = [
 			{ key: "{{name}}", value: name },

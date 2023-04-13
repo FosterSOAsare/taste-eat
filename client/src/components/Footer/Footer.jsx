@@ -42,17 +42,17 @@ const Footer = () => {
 						</Grid>
 						<Grid item sm={3} xxs={6} sx={{ display: "flex", alignItems: "flex-start", flexDirection: "column", order: 1 }}>
 							<Title text="Contact" sx={{ color: theme.palette.white.main }} />
-							<Typography variant="p" sx={{ display: "block", color: theme.palette.white.main, marginTop: "20px" }}>
+							<Typography variant="p" sx={{ display: "block", color: theme.palette.white.main, marginTop: "20px", fontSize: { xxs: "13px", md: "16px" } }}>
 								5 Rue Dalou, 75015 Paris
 							</Typography>
-							<Typography variant="p" sx={{ color: theme.palette.secondary.main, display: "inline" }}>
+							<Typography variant="p" sx={{ color: theme.palette.secondary.main, display: "inline", fontSize: { xxs: "13px", md: "16px" } }}>
 								Call{" "}
-								<Typography variant="p" sx={{ color: theme.palette.white.main }}>
+								<Typography variant="p" sx={{ color: theme.palette.white.main, fontSize: { xxs: "13px", md: "16px" } }}>
 									- +233 55 052 9015
 								</Typography>
 							</Typography>
-							<Typography variant="p" sx={{ display: "block", color: theme.palette.secondary.main }}>
-								benoit@mail.com
+							<Typography variant="p" sx={{ display: "block", color: theme.palette.secondary.main, fontSize: { xxs: "13px", md: "16px" } }}>
+								fostersoasare@gmail.com
 							</Typography>
 						</Grid>
 						<Grid item sm={6} xxs={12} sx={{ ...styles.footer__newsletter, order: { xxs: 2, sm: 1 }, marginTop: { xxs: "20px", sm: "0" } }}>

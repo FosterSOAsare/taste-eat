@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { contactSchema } from "../../hooks/validations/react-hook-form";
+import { httpSendContact } from "../../hooks/requests/request";
 import styles from "../../app.styles";
 import { useAuthContext } from "../../context/AuthContext";
 import { statusFunc } from "../../components/Snackbar/status.service";
@@ -44,11 +45,17 @@ const ContactUsPage = () => {
 		document.title = "Restaurante - Contact Us";
 	}, []);
 
-	function saveReservation(data) {
+	async function sendContact(data) {
 		statusDispatchFunc({ type: "setWaiting" });
-		console.log(data);
+
 		// Send data as email or store it on the DB
-		statusDispatchFunc({ type: "clearStatus" });
+		let res = await httpSendContact(data);
+		if (res?.error) {
+			statusDispatchFunc({ type: "setError", payload: res.error });
+			return;
+		}
+		statusDispatchFunc({ type: "setSuccess", payload: "Contact message sent successfully" });
+		reset();
 	}
 	return (
 		<>
@@ -164,7 +171,7 @@ const ContactUsPage = () => {
 						<Typography variant="h3" sx={{ ...styles.title, marginBlock: "20px", fontSize: "24px" }}>
 							Have a Question?
 						</Typography>
-						<form action="" onSubmit={handleSubmit(saveReservation)}>
+						<form action="" onSubmit={handleSubmit(sendContact)}>
 							<Grid container>
 								{[{ text: "Name" }, { text: "Email" }, { text: "Subject" }, { text: "Phone" }].map((e, index) => {
 									return (
@@ -283,7 +290,14 @@ const ContactUsPage = () => {
 					</Grid>
 				</Container>
 			</Box>
-			{status.success && <Snackbar text={status.success} />}
+			{status.success && (
+				<Snackbar
+					text={status.success}
+					close={() => {
+						statusDispatchFunc({ type: "clearStatus" });
+					}}
+				/>
+			)}
 		</>
 	);
 };

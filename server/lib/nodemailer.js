@@ -32,4 +32,12 @@ async function sendRequestNotice(subject, message) {
 	return await sendEmail(subject, message, "asare4ster@gmail.com");
 }
 
-module.exports = { sendRequestNotice };
+async function sendContactMessage(subject, message, name, email) {
+	return await sendEmail(subject, message, "asare4ster@gmail.com");
+}
+
+async function sendNewsletterSubscriptonNotice(message, email) {
+	return await sendEmail("Newsletter subscription was successful", message, email);
+}
+
+module.exports = { sendRequestNotice, sendContactMessage, sendNewsletterSubscriptonNotice };

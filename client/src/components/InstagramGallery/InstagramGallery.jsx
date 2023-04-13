@@ -15,12 +15,31 @@ const InstagramGallery = () => {
 					Instagram Gallery
 				</Typography>
 
-				<Grid container sx={{ width: "100%", height: "auto", gap: "20px", justifyContent: "space-between", marginTop: "20px", alignItems: "center" }}>
-					{gallery.map((item, index) => (
-						<Grid item md={1.8} key={index} sx={{ background: "red" }}>
-							<img src={`${item}?w=161&fit=crop&auto=format`} srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`} alt="" loading="lazy" />
-						</Grid>
-					))}
+				<Grid container sx={{ width: "100%", height: "auto", justifyContent: "space-between", marginTop: "20px", alignItems: "center" }}>
+					{gallery.map((item, index) => {
+						return (
+							<Grid
+								item
+								xxs={12}
+								md={2}
+								sm={6}
+								key={index}
+								sx={{
+									height: {
+										xxs: "200px",
+										md: index % 2 === 0 ? "130px" : "200px",
+									},
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									marginBottom: { xxs: "40px", md: 0 },
+								}}>
+								<Box sx={{ height: "100%", width: "90%" }}>
+									<img src={item} srcSet={item} alt="" loading="lazy" className="w-full h-full block" />
+								</Box>
+							</Grid>
+						);
+					})}
 				</Grid>
 			</Container>
 		</Box>

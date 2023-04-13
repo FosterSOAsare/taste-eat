@@ -12,9 +12,6 @@ import { statusFunc } from "../../components/Snackbar/status.service";
 
 const Newsletter = ({ setSnackbar }) => {
 	const [email, setEmail] = useState("");
-	const [success, setSuccess] = useState(false);
-	const [error, setError] = useState(null);
-	const [waiting, setWaiting] = useState(false);
 	const { validations } = useAuthContext();
 	const [status, statusDispatchFunc] = useReducer(statusFunc, { error: null, success: null, waiting: null });
 
@@ -35,8 +32,7 @@ const Newsletter = ({ setSnackbar }) => {
 			statusDispatchFunc({ type: "setError", payload: res.error });
 			return;
 		}
-		// setSuccess(true);
-		statusDispatchFunc({ type: "setSuccess", payload: res.success });
+		statusDispatchFunc({ type: "setSuccess", payload: "Newletter subscription was successful" });
 		setEmail("");
 	}
 	const theme = useTheme();
@@ -57,8 +53,8 @@ const Newsletter = ({ setSnackbar }) => {
 					}}
 					onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 				/>
-				<Button color="white" sx={{ ...styles.button, width: "30%" }} variant="contained" onClick={registerNewsletter} disabled={waiting}>
-					{waiting ? "Waiting..." : "Subscribe"}
+				<Button color="white" sx={{ ...styles.button, width: "30%" }} variant="contained" onClick={registerNewsletter} disabled={status.waiting}>
+					{status.waiting ? "Waiting..." : "Subscribe"}
 				</Button>
 			</Box>
 			{status.error && <Error text={status.error} />}

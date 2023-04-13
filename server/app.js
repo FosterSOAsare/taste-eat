@@ -10,6 +10,7 @@ const chefsRouter = require("./routes/Chefs/Chefs.route");
 const usersRouter = require("./routes/Users/Users.route");
 const newsletterRouter = require("./routes/Newsletter/Newsletter.route");
 const reservationRouter = require("./routes/Reservation/Reservation.route");
+const contactsRouter = require("./routes/Contacts/Contacts.route");
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use("/api", chefsRouter);
 app.use("/api", usersRouter);
 app.use("/api", newsletterRouter);
 app.use("/api", reservationRouter);
+app.use("/api", contactsRouter);
 
 // For  images
 
