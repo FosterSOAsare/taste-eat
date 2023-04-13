@@ -1,7 +1,7 @@
 const express = require("express");
 const { controllerGetDishes, controllerGetADish, controllerDeleteADish, controllerSaveDish, controllerUpdateADish } = require("./Dishes.controller");
 const admin = require("../../middlewares/admin.middleware");
-const createUpload = require("../../lib/multer");
+const { createUpload } = require("../../lib/multer");
 const dishesUpload = createUpload("dishes");
 
 const dishesRouter = express.Router();

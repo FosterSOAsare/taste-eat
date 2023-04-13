@@ -12,10 +12,19 @@ function createUpload(folder) {
 			callback(null, Date.now() + formatImageName(file.originalname));
 		},
 	});
-	const upload = multer({
-		storage: storage,
-	});
+	const upload = multer({ storage: storage });
 	return upload;
 }
 
-module.exports = createUpload;
+function createCloudinaryUpload(folder) {
+	const storage = multer.memoryStorage({
+		destination: path.join(__dirname, "..", "uploads", folder),
+		filename: (req, file, callback) => {
+			callback(null, Date.now() + formatImageName(file.originalname));
+		},
+	});
+	let upload = multer({ storage: storage });
+	return upload;
+}
+
+module.exports = { createUpload, createCloudinaryUpload };

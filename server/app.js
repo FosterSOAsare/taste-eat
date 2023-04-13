@@ -13,7 +13,7 @@ const reservationRouter = require("./routes/Reservation/Reservation.route");
 
 const app = express();
 
-app.use(morgan("combined"));
+// app.use(morgan("combined"));
 app.use(
 	helmet({
 		crossOriginEmbedderPolicy: false,

@@ -1,6 +1,6 @@
 const express = require("express");
 const { controllerGetChefs, controllerGetAChef, controllerDeleteAChef, controllerSaveChef, controllerUpdateAChef } = require("./Chefs.controller");
-const createUpload = require("../../lib/multer");
+const { createUpload, createCloudinaryUpload } = require("../../lib/multer");
 const admin = require("../../middlewares/admin.middleware");
 
 const chefUpload = createUpload("chefs");

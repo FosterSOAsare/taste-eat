@@ -76,24 +76,26 @@ async function controllerUpdateAChef(req, res) {
 		res.status(400).json({ error: "Please provide data for all fields" });
 		return;
 	}
-	if (!req.files && !data.image) {
-		res.status(400).json({ error: "No file was uploaded" });
-		return;
-	}
 
-	if (req.files?.length) {
-		let baseUrl = getServerBaseUrl(req);
-		data.image = `${baseUrl}/photos/chefs/${req.files[0].filename}`;
-	}
-	// Updating data in database
-	try {
-		await updateAChef(req.params.chefId, data);
-		res.status(201).json(data);
-	} catch (e) {
-		res.status(404).json({
-			error: e.message,
-		});
-	}
+	console.log(req.files);
+	// if (!req.files && !data.image) {
+	// 	res.status(400).json({ error: "No file was uploaded" });
+	// 	return;
+	// }
+
+	// if (req.files?.length) {
+	// 	let baseUrl = getServerBaseUrl(req);
+	// 	data.image = `${baseUrl}/photos/chefs/${req.files[0].filename}`;
+	// }
+	// // Updating data in database
+	// try {
+	// 	await updateAChef(req.params.chefId, data);
+	// 	res.status(201).json(data);
+	// } catch (e) {
+	// 	res.status(404).json({
+	// 		error: e.message,
+	// 	});
+	// }
 }
 
 module.exports = {
