@@ -1,5 +1,5 @@
 const { getBlogs, getABlog, deleteABlog, updateABlog, postABlog } = require("../../models/Blogs/Blogs.model");
-const getServerBaseUrl = require("../../utils/getserverurl");
+const getSecuredUrl = require("../../lib/cloudinary");
 
 async function controllerGetBlogs(req, res) {
 	let { limit, skip, order } = req.query;
@@ -39,13 +39,12 @@ async function controllerSaveBlog(req, res) {
 		return;
 	}
 
-	if (!req.files || !req.files[0]) {
+	if (!req.file) {
 		res.status(400).json({ error: "No file was uploaded" });
 		return;
 	}
 	// Setting Image Url
-	let baseUrl = getServerBaseUrl(req);
-	let imageUrl = `${baseUrl}/photos/blogs/${req.files[0].filename}`;
+	const imageUrl = await getSecuredUrl(req.file, "blogs");
 	data.imageUrl = imageUrl;
 
 	// Storing data in database
@@ -67,19 +66,20 @@ async function controllerUpdateABlog(req, res) {
 			res.status(400).json({ error: "Please provide data for all fields" });
 			return;
 		}
-		if (!req.files && !data.imageUrl) {
+
+		if (!req.file && !data.imageUrl) {
 			res.status(400).json({ error: "No file was uploaded" });
 			return;
 		}
-		if (req.files?.length) {
-			let baseUrl = getServerBaseUrl(req);
-			data.imageUrl = `${baseUrl}/photos/blogs/${req.files[0].filename}`;
+		if (req.file) {
+			const imageUrl = await getSecuredUrl(req.file, "blogs");
+			data.imageUrl = imageUrl;
 		}
 		let response = await updateABlog(req.params.blogId, data);
-
 		res.status(201).json(response);
 	} catch (e) {
-		res.status(404).json({ error: e.message });
+		console.log(e);
+		res.status(404).json({ error: "An error occurred" });
 	}
 }
 

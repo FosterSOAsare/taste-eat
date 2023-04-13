@@ -14,7 +14,7 @@ const contactsRouter = require("./routes/Contacts/Contacts.route");
 
 const app = express();
 
-app.use(morgan("combined"));
+// app.use(morgan("combined"));
 app.use(
 	helmet({
 		crossOriginEmbedderPolicy: false,

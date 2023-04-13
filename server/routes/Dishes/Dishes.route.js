@@ -1,13 +1,12 @@
 const express = require("express");
 const { controllerGetDishes, controllerGetADish, controllerDeleteADish, controllerSaveDish, controllerUpdateADish } = require("./Dishes.controller");
 const admin = require("../../middlewares/admin.middleware");
-const createUpload = require("../../lib/multer");
-const dishesUpload = createUpload("dishes");
+const { uploadToCloudinary } = require("../../lib/multer");
 
 const dishesRouter = express.Router();
 dishesRouter.get("/dishes", controllerGetDishes);
-dishesRouter.post("/dishes", admin, dishesUpload.array("image"), controllerSaveDish);
-dishesRouter.put("/dish/:dishId", admin, dishesUpload.array("image"), controllerUpdateADish);
+dishesRouter.post("/dishes", admin, uploadToCloudinary.single("image"), controllerSaveDish);
+dishesRouter.put("/dish/:dishId", admin, uploadToCloudinary.single("image"), controllerUpdateADish);
 dishesRouter.get("/dish/:dishId", controllerGetADish);
 dishesRouter.delete("/dish/:dishId", admin, controllerDeleteADish);
 module.exports = dishesRouter;

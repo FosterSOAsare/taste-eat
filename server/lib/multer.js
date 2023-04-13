@@ -12,10 +12,16 @@ function createUpload(folder) {
 			callback(null, Date.now() + formatImageName(file.originalname));
 		},
 	});
-	const upload = multer({
-		storage: storage,
-	});
+	const upload = multer({ storage: storage });
 	return upload;
 }
 
-module.exports = createUpload;
+function createCloudinaryUpload() {
+	const storage = multer.memoryStorage({});
+	let upload = multer({ storage: storage });
+	return upload;
+}
+
+const uploadToCloudinary = createCloudinaryUpload();
+
+module.exports = { createUpload, uploadToCloudinary };

@@ -89,7 +89,6 @@ const NewBlogPage = () => {
 			// Call the needed callback and set success as well as  snackbar
 
 			let res = blogId ? await httpUpdateBlog(blogId, formData) : await httpStoreBlog(formData);
-			console.log(res);
 			if (res?.error) {
 				statusDispatchFunc({ type: "setError", payload: res.error });
 				return;
