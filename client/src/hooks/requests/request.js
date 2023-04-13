@@ -251,6 +251,18 @@ export async function httpSendReservation(data) {
 		return e.response.data;
 	}
 }
+export async function httpSendContact(data) {
+	try {
+		let res = await axiosInstance({
+			method: "post",
+			url: `/contacts`,
+			data,
+		});
+		return res?.data;
+	} catch (e) {
+		return e.response.data;
+	}
+}
 
 export async function httpRequestPasswordReset(phone) {
 	try {

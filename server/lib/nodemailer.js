@@ -32,4 +32,8 @@ async function sendRequestNotice(subject, message) {
 	return await sendEmail(subject, message, "asare4ster@gmail.com");
 }
 
-module.exports = { sendRequestNotice };
+async function sendContactMessage(subject, message, name, email) {
+	return await sendEmail(subject, message, "asare4ster@gmail.com");
+}
+
+module.exports = { sendRequestNotice, sendContactMessage };
