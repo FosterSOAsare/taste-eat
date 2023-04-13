@@ -1,4 +1,8 @@
 const { insertSubscription, getSubscriptions } = require("../../models/Newsletter/Newsletter.model");
+const fs = require("fs");
+const path = require("path");
+const resolvekeys = require("../../utils/replacekeys");
+const { sendNewsletterSubscriptonNotice } = require("../../lib/nodemailer");
 
 async function controllerInsertSubscription(req, res) {
 	let { email } = req.body;
@@ -10,8 +14,16 @@ async function controllerInsertSubscription(req, res) {
 
 		await insertSubscription(email);
 		// Send email  notification to user for subscription
-		res.status(201).json({ success: "Newsletter subscription successful" });
+		let emailMessage = fs.readFileSync(path.join(__dirname, "..", "..", "emails", "newsletter.html"), "utf-8");
+
+		let emailStatus = await sendNewsletterSubscriptonNotice(emailMessage, email);
+		if (emailStatus.error) {
+			res.status(400).json({ error: emailStatus.error });
+			return;
+		}
+		res.status(200).send({ success: "Newsletter subscription successful" });
 	} catch (e) {
+		console.log(e);
 		res.status(404).json({ error: e.message });
 	}
 }
