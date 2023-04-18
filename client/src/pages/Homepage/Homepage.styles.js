@@ -115,6 +115,7 @@ const homepageStyles = {
 		height: "80%",
 		display: "flex",
 		justifyContent: "space-around",
+		transition: "all 0.5s ease-in-out",
 	},
 	testimonials__slider__controls: {
 		width: "100px",
@@ -129,6 +130,11 @@ const homepageStyles = {
 		width: "10px",
 		height: "10px",
 		borderRadius: "50%",
+		"&:hover": {
+			cursor: "pointer",
+			scale: "1.1",
+			outline: "1px solid #E1B168",
+		},
 	},
 	testimonials__slide: {
 		width: "100%",

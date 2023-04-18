@@ -36,7 +36,7 @@ const Homepage = () => {
 	const theme = useTheme();
 	const [blogsData, setBlogsData] = useState();
 	const [testimonialSlide, setTestimonialSlide] = useState(0);
-	const isMobileScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+	// const isMobileScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 
 	useEffect(() => {
 		(async function () {
@@ -167,7 +167,7 @@ const Homepage = () => {
 					</Typography>
 
 					<Box sx={styles.testimonials__slider}>
-						<Box sx={styles.testimonials__slider__content}>
+						<Box sx={{ ...styles.testimonials__slider__content, marginLeft: testimonialSlide === 1 ? "-100%" : 0 }}>
 							<Box sx={{ ...styles.testimonials__slide }}>
 								{testimonials.map((testimonial, index) => {
 									if (index < 3) {
@@ -185,8 +185,8 @@ const Homepage = () => {
 						</Box>
 					</Box>
 					<Box sx={{ width: "100%", height: "auto", display: "flex", alignItems: "center", justifyContent: "center", marginTop: "20px", gap: "10px" }}>
-						<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette.white.main }}></Box>
-						<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette.desc.main }}></Box>
+						<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette[testimonialSlide === 0 ? "white" : "desc"].main }} onClick={() => setTestimonialSlide(0)}></Box>
+						<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette[testimonialSlide === 0 ? "desc" : "white"].main }} onClick={() => setTestimonialSlide(1)}></Box>
 					</Box>
 				</Box>
 			</Box>
