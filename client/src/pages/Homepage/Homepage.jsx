@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../../app.styles";
 import { Box, Typography, Button, Container, Grid, TextField } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
 
 import Contact from "./Contact";
 import Dishes from "../../components/Dishes";
@@ -34,6 +35,8 @@ import Opened247 from "../../assets/opened.svg";
 const Homepage = () => {
 	const theme = useTheme();
 	const [blogsData, setBlogsData] = useState();
+	const [testimonialSlide, setTestimonialSlide] = useState(0);
+	// const isMobileScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 
 	useEffect(() => {
 		(async function () {
@@ -164,15 +167,26 @@ const Homepage = () => {
 					</Typography>
 
 					<Box sx={styles.testimonials__slider}>
-						<Box sx={styles.testimonials__slider__content}>
-							{testimonials.map((testimonial, index) => (
-								<Testimonial key={index} {...testimonial} />
-							))}
+						<Box sx={{ ...styles.testimonials__slider__content, marginLeft: testimonialSlide === 1 ? "-100%" : 0 }}>
+							<Box sx={{ ...styles.testimonials__slide }}>
+								{testimonials.map((testimonial, index) => {
+									if (index < 3) {
+										return <Testimonial key={index} {...testimonial} />;
+									}
+								})}
+							</Box>
+							<Box sx={{ ...styles.testimonials__slide }}>
+								{testimonials.map((testimonial, index) => {
+									if (index >= 3) {
+										return <Testimonial key={index} {...testimonial} />;
+									}
+								})}
+							</Box>
 						</Box>
-						<Box sx={styles.testimonials__slider__controls}>
-							<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette.white.main }}></Box>
-							<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette.desc.main }}></Box>
-						</Box>
+					</Box>
+					<Box sx={{ width: "100%", height: "auto", display: "flex", alignItems: "center", justifyContent: "center", marginTop: "20px", gap: "10px" }}>
+						<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette[testimonialSlide === 0 ? "white" : "desc"].main }} onClick={() => setTestimonialSlide(0)}></Box>
+						<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette[testimonialSlide === 0 ? "desc" : "white"].main }} onClick={() => setTestimonialSlide(1)}></Box>
 					</Box>
 				</Box>
 			</Box>

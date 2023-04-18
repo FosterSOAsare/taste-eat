@@ -19,7 +19,8 @@ export async function httpStoreBlog(data) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpFetchABlog(blogId) {
@@ -30,7 +31,8 @@ export async function httpFetchABlog(blogId) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpUpdateBlog(blogId, newData) {
@@ -42,7 +44,8 @@ export async function httpUpdateBlog(blogId, newData) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpDeleteABlog(blogId) {
@@ -54,7 +57,8 @@ export async function httpDeleteABlog(blogId) {
 
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 
@@ -71,7 +75,8 @@ export async function httpFetchDishes(type, limit = 6, skip = 0) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 
@@ -87,7 +92,8 @@ export async function httpFetchAllDishes(limit = 20, skip = 0) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpFetchADish(dishId) {
@@ -98,7 +104,8 @@ export async function httpFetchADish(dishId) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpStoreDish(data) {
@@ -110,7 +117,8 @@ export async function httpStoreDish(data) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpUpdateDish(dishId, newData) {
@@ -122,7 +130,8 @@ export async function httpUpdateDish(dishId, newData) {
 		});
 		return res?.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpDeleteADish(dishId) {
@@ -134,7 +143,8 @@ export async function httpDeleteADish(dishId) {
 
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpStoreChef(data) {
@@ -146,7 +156,8 @@ export async function httpStoreChef(data) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 
@@ -161,7 +172,8 @@ export async function httpFetchChefs(limit = "all") {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpFetchAChef(chefId) {
@@ -172,7 +184,8 @@ export async function httpFetchAChef(chefId) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpUpdateChef(chefId, newData) {
@@ -184,7 +197,8 @@ export async function httpUpdateChef(chefId, newData) {
 		});
 		return res?.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpDeleteChef(chefId) {
@@ -196,7 +210,8 @@ export async function httpDeleteChef(chefId) {
 
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 
@@ -210,7 +225,8 @@ export async function httpValidateAdminToken(token) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpLoginAdmin(password) {
@@ -222,7 +238,8 @@ export async function httpLoginAdmin(password) {
 		});
 		return res.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 
@@ -235,7 +252,8 @@ export async function insertSubscription(email) {
 		});
 		return res?.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 
@@ -248,7 +266,8 @@ export async function httpSendReservation(data) {
 		});
 		return res?.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 export async function httpSendContact(data) {
@@ -260,7 +279,8 @@ export async function httpSendContact(data) {
 		});
 		return res?.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 
@@ -272,7 +292,8 @@ export async function httpRequestPasswordReset(phone) {
 		});
 		return res?.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 
@@ -285,7 +306,8 @@ export async function httpValidatePasswordResetCode(code) {
 		});
 		return res?.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }
 
@@ -301,6 +323,7 @@ export async function httpSetNewPassword(password, token) {
 		});
 		return res?.data;
 	} catch (e) {
-		return e.response.data;
+		if (e?.response?.data) return e?.response?.data;
+		return { error: e.message.toLowerCase() };
 	}
 }

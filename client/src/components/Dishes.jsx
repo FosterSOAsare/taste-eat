@@ -4,20 +4,35 @@ import styles from "../app.styles";
 
 import LineImage from "../assets/Line.png";
 import Loading from "./Loading/Loading";
+import Reload from "./Reload/Reload";
 
 import { httpFetchDishes } from "../hooks/requests/request";
 
 const Dishes = ({ type, limit, next = false }) => {
 	const [data, setData] = useState({});
 	const [loading, setLoading] = useState({});
+	const [refetches, setRefetches] = useState(0);
 
 	useEffect(() => {
+		setLoading(true);
 		(async function () {
 			let res = await httpFetchDishes(type, limit);
-			setData(res);
 			setLoading(false);
+			if (res.error) {
+				if (res.error === "network error") {
+					setData((prev) => {
+						return { ...prev, error: res.error };
+					});
+					// Display reload
+				}
+				return;
+			}
+			setData(res);
 		})();
-	}, []);
+	}, [refetches]);
+	function reloadFunc() {
+		setRefetches((prev) => ++prev);
+	}
 
 	async function fetchMore() {
 		let skip = data.dishes.length;
@@ -33,7 +48,12 @@ const Dishes = ({ type, limit, next = false }) => {
 				{type}
 			</Typography>
 			<Box sx={{ width: "100%" }}>
-				{!loading && (
+				{!loading && !data.dishes && (
+					<Box sx={{ height: "300px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+						<Reload reloadFunc={reloadFunc} error={data?.error} />
+					</Box>
+				)}
+				{!loading && data.dishes && (
 					<>
 						{data.dishes &&
 							data.dishes.map((dish, index) => (

@@ -108,13 +108,14 @@ const homepageStyles = {
 		width: "100%",
 		height: "auto",
 		marginTop: "20px",
+		overflowX: "hidden",
 	},
 	testimonials__slider__content: {
-		width: "100%",
+		width: "200%",
 		height: "80%",
-		...flex("space-between", "center"),
-		flexDirection: { xxs: "column", sm: "row" },
-		gap: "20px",
+		display: "flex",
+		justifyContent: "space-around",
+		transition: "all 0.5s ease-in-out",
 	},
 	testimonials__slider__controls: {
 		width: "100px",
@@ -129,6 +130,19 @@ const homepageStyles = {
 		width: "10px",
 		height: "10px",
 		borderRadius: "50%",
+		"&:hover": {
+			cursor: "pointer",
+			scale: "1.1",
+			outline: "1px solid #E1B168",
+		},
+	},
+	testimonials__slide: {
+		width: "100%",
+		height: "100%",
+		// backgroundColor: "red",
+		...flex("space-between", "center"),
+		flexDirection: { xxs: "column", sm: "row" },
+		gap: "20px",
 	},
 	offer__container: {
 		...flex("center", "center", "column"),
