@@ -27,7 +27,7 @@ const Testimonials = () => {
 					What Our Clients Say
 				</Typography>
 				<div style={styles.about__slider}>
-					<Box style={{ ...styles.slider__container, width: `${testimonials.length * 100}%`, marginLeft: `${left}%`, transition: "all 0.5s ease" }}>
+					<Box sx={{ ...styles.slider__container, width: `${testimonials.length * 100}%`, marginLeft: `${left}%`, transition: "all 0.5s ease" }}>
 						{testimonials.map((testimonial, index) => (
 							<Box key={index} sx={{ ...styles.about__testimonial, width: `${100 / testimonials.length}%` }}>
 								<Typography variant="p" sx={{ ...styles.title, textAlign: "center", width: "80%", color: theme.palette.white.main, marginBottom: "15px" }}>

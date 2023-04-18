@@ -24,6 +24,27 @@ const testimonials = [
 		position: "Designer",
 		comment: "It is professional, considers everyone's time, can think about the  There are many variations of passages.",
 	},
+	{
+		image: DaniyalSppra,
+		name: "Asare Foster",
+		location: "Accra -Tema",
+		position: "Designer",
+		comment: "It is professional, considers everyone's time, can think about the  There are many variations of passages whole probls small niche, friendly.",
+	},
+	{
+		image: NatashaD,
+		name: "Dead Alnix",
+		location: "Kintampo",
+		position: "Frontend Developer",
+		comment: "It is professional, considers everyone's time, can think about the  There are many variations of passages.",
+	},
+	{
+		image: JackSparrow,
+		name: "Ty Scyre",
+		location: "Rhode Island",
+		position: "Fullstack Developer",
+		comment: "It is professional, considers everyone's time, can think about the  There are many variations of passages.",
+	},
 ];
 
 export default testimonials;

@@ -165,9 +165,11 @@ const Homepage = () => {
 
 					<Box sx={styles.testimonials__slider}>
 						<Box sx={styles.testimonials__slider__content}>
-							{testimonials.map((testimonial, index) => (
-								<Testimonial key={index} {...testimonial} />
-							))}
+							{testimonials.map((testimonial, index) => {
+								if (index < 3) {
+									return <Testimonial key={index} {...testimonial} />;
+								}
+							})}
 						</Box>
 						<Box sx={styles.testimonials__slider__controls}>
 							<Box sx={{ ...styles.testimonials__slider__dot, backgroundColor: theme.palette.white.main }}></Box>
