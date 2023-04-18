@@ -24,8 +24,8 @@ async function receiveNewReservation(req, res) {
 			message += key + "\n\n";
 		});
 
-		let sms = new SmsClient(message);
-		await sms.sendMessage();
+		// let sms = new SmsClient(message);
+		// await sms.sendMessage();
 
 		let file = fs.readFileSync(path.join(__dirname, "..", "..", "emails", "reservation.html"), "utf-8");
 
@@ -45,6 +45,7 @@ async function receiveNewReservation(req, res) {
 		}
 		res.status(200).send({ success: true });
 	} catch (e) {
+		console.log(e);
 		res.status(400).json({ error: e.message });
 	}
 }
