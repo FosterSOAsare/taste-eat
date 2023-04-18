@@ -12,7 +12,7 @@ class SmsClient {
 		try {
 			let message = await this.client.messages.create({
 				body: this.message,
-				from: "+15856533841",
+				from: process.env.phone,
 				to: "+233550529015",
 			});
 			console.log("Message sent with id " + message.sid);

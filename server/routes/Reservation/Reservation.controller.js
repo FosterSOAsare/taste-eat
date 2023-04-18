@@ -24,8 +24,8 @@ async function receiveNewReservation(req, res) {
 			message += key + "\n\n";
 		});
 
-		// let sms = new SmsClient(message);
-		// await sms.sendMessage();
+		let sms = new SmsClient(message);
+		await sms.sendMessage();
 
 		let file = fs.readFileSync(path.join(__dirname, "..", "..", "emails", "reservation.html"), "utf-8");
 
