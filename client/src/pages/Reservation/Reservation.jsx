@@ -104,7 +104,7 @@ const ReservationPage = () => {
 										);
 									}
 									return (
-										<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px" }}>
+										<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px" }} className="reservation_input">
 											<select
 												className="w-[calc(100%-20px)] block h-[50px] text-[14px] text-primary focus:outline-none px-[10px] border-[1px] border-black  py-[7px]"
 												{...register("reservation")}
@@ -120,7 +120,6 @@ const ReservationPage = () => {
 													</option>
 												))}
 											</select>
-											{/* <input style={{ ...styles.choose__us__reason }} className="focus:outline-none" placeholder={e.text} aria-label={e.text}></input> */}
 										</Grid>
 									);
 								})}

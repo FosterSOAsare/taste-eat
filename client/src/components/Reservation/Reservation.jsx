@@ -71,7 +71,7 @@ const Reservation = () => {
 						Book your table now
 					</Typography>
 					<form action="" style={{ width: "100%" }} onSubmit={handleSubmit(saveReservation)}>
-						<Grid container sx={{ width: "80%", height: "auto", marginBlock: "20px", justifyContent: "space-between", marginInline: "auto" }}>
+						<Grid container className="reservation__container" sx={{ width: "80%", height: "auto", marginBlock: "20px", justifyContent: "space-between", marginInline: "auto" }}>
 							{[{ name: "Name" }, { name: "Email" }].map((e, index) => (
 								<Grid item xs={5.9} sx={{ width: "100%", marginBottom: "20px", display: "flex", justifyContent: (index + 1) % 2 === 0 ? "flex-end" : "flex-start" }} key={index}>
 									<input
@@ -88,11 +88,11 @@ const Reservation = () => {
 							{[{ name: "Reservation" }, { name: "Timing" }, { name: "Date" }].map((e, index) => {
 								let lowercase = e.name.toLowerCase();
 								return (
-									<Grid item xs={3.8} sx={{ width: "100%", marginBottom: "10px" }} key={index}>
+									<Grid item xs={3.8} sx={{ width: "100%", marginBottom: "10px" }} key={index} className="reservation__container">
 										{e.name !== "Reservation" && (
 											<input
 												type={lowercase === "date" ? "date" : lowercase === "timing" ? "time" : "text"}
-												className="w-[100%] block bg-transparent hover : outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px]"
+												className="w-[100%] block bg-transparent hover:outline-none px-[10px] border-[1px] border-white border-solid text-[10px] text-white py-[7px] "
 												aria-label={e.name}
 												placeholder={e.name}
 												name={e.name.toLowerCase()}
