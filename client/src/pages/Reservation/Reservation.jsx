@@ -104,7 +104,7 @@ const ReservationPage = () => {
 										);
 									}
 									return (
-										<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px" }} className="reservation_input">
+										<Grid item key={index} xxs={12} xs={6} sx={{ height: "auto", marginBottom: "20px" }}>
 											<select
 												className="w-[calc(100%-20px)] block h-[50px] text-[14px] text-primary focus:outline-none px-[10px] border-[1px] border-black  py-[7px]"
 												{...register("reservation")}
