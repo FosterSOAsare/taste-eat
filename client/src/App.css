@@ -93,6 +93,9 @@ option {
 	filter: invert(1);
 }
 
+.reservation__white {
+	width: 100% !important;
+}
 .reservation__white::-webkit-calendar-picker-indicator {
 	filter: invert(0);
 }
@@ -100,14 +103,14 @@ option {
 input {
 	width: 100%;
 }
+
 .reservation_input input {
 	width: calc(100% - 20px) !important;
-}
-.reservation_input input {
-	width: calc(100% - 20px) !important;
+	text-align: left !important;
 }
 
 .reservation__container input,
 .reservation__container select {
 	min-height: 40px;
+	text-align: left !important;
 }
