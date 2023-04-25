@@ -6,6 +6,7 @@
 	"scripts": {
 		"start": "env-cmd -f .env vite",
 		"build": "env-cmd -f .env vite build",
+		"host": "env-cmd -f .env vite --host",
 		"prstart": "vite",
 		"prbuild": "vite build",
 		"preview": "vite preview",

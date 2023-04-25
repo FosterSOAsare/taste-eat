@@ -14,7 +14,7 @@ const contactsRouter = require("./routes/Contacts/Contacts.route");
 
 const app = express();
 
-// app.use(morgan("combined"));
+app.use(morgan("combined"));
 app.use(
 	helmet({
 		crossOriginEmbedderPolicy: false,
@@ -42,5 +42,9 @@ app.use("/photos", express.static(path.join(__dirname, "uploads")));
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use("/*", express.static(path.join(__dirname, "public", "index.html")));
+
+app.use((req, res) => {
+	console.log(req);
+});
 
 module.exports = app;
