@@ -16,7 +16,7 @@ async function sendEmail(subject, message, to) {
 			},
 		});
 		await transporter.sendMail({
-			from: "fostersoasare@outlook.com",
+			from: process.env.email_address,
 			to: to,
 			subject: subject,
 			html: message,
