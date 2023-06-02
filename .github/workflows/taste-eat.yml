@@ -27,6 +27,3 @@ jobs:
     - run: npm ci --prefix client 
     - run: npm ci --prefix server
     - run: npm run prbuild --prefix client
-    - run: sudo systemctl restart nginx
-    - run: sudo systemctl restart server
-    - run: sudo systemctl restart client
