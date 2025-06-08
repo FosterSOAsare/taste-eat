@@ -1,0 +1,50 @@
+name: Taste-eat CI/CD 
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    build:
+        runs-on: self-hosted
+
+        strategy:
+            matrix:
+                node-version: [18.x]
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+            - name: Clean previous deployment
+              run: |
+                rm -rf /var/www/taste-eat/server/*
+
+            - name: Copy server code to specified folders (excluding node_modules)
+              run: |
+                  rsync -av --progress ./server /var/www/taste-eat/ --exclude=node_modules
+
+            - name: Delete client code
+              run: |
+                rm -rf /var/www/taste-eat/client/*
+
+            - name: Copy .env file to server
+              run: |
+                  cp /var/www/transguard/keys/api.env /var/www/transguard/server/.env
+
+            - name: Set Up Node.js for Server
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: npm
+                  cache-dependency-path: server/package-lock.json
+            
+            - name: Install dependencies 
+              run: |
+                  cd /var/www/transguard/server
+                  npm ci  # ✅ Faster for CI/CD
+
+            - name : Restart server and client
+              run : |
+                    sudo systemctl restart taste-eat
+            
