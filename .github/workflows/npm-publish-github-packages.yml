@@ -30,7 +30,7 @@ jobs:
 
             - name: Copy .env file to server
               run: |
-                  cp /var/www/transguard/keys/api.env /var/www/transguard/server/.env
+                  cp /var/www/transguard/keys/api.env /var/www/taste-eat/server/.env
 
             - name: Set Up Node.js for Server
               uses: actions/setup-node@v3
@@ -44,7 +44,7 @@ jobs:
                   cd /var/www/transguard/server
                   npm ci  # ✅ Faster for CI/CD
 
-            - name : Restart server and client
-              run : |
-                    sudo systemctl restart taste-eat
+            # - name : Restart server and client
+            #   run : |
+            #         sudo systemctl restart taste-eat
             
