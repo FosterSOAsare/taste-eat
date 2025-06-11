@@ -20,11 +20,11 @@ app.use(
 		crossOriginEmbedderPolicy: false,
 	})
 );
-app.use(
-	cors({
-		origin: "*",
-	})
-);
+// app.use(
+// 	cors({
+// 		origin: "*",
+// 	})
+// );
 
 app.use(express.json());
 app.use("/api", dishesRouter);
