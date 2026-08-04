@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Box, Container, Typography, useTheme, TextField, Button } from "@mui/material";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -19,6 +19,26 @@ import Snackbar from "../../components/Snackbar/Snackbar";
 import BlogPreview from "./BlogPreview";
 import readImage from "../../hooks/readImage";
 import NotFound from "../../components/NotFound/NotFound";
+
+// Mirrors the toolbar the old CKEditor classic build shipped with, so existing
+// blog HTML round-trips through the editor unchanged.
+const editorModules = {
+	toolbar: [
+		[{ header: [2, 3, 4, false] }],
+		["bold", "italic", "link"],
+		[{ list: "ordered" }, { list: "bullet" }],
+		["blockquote", "image"],
+		["clean"],
+	],
+};
+
+const editorFormats = ["header", "bold", "italic", "link", "list", "bullet", "blockquote", "image"];
+
+// Quill leaves `<p><br></p>` behind when the editor is cleared, which is truthy
+// and would sail past a plain `!content` check.
+function isBlankHtml(html) {
+	return !html || !html.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
+}
 
 const NewBlogPage = () => {
 	const theme = useTheme();
@@ -58,7 +78,7 @@ const NewBlogPage = () => {
 	async function validateBlogData() {
 		return new Promise(function (resolve, reject) {
 			let { content, summary, title, image, tag, imageUrl } = blogData;
-			if (!content || !summary || !title || (!image && !imageUrl) || !tag) {
+			if (isBlankHtml(content) || !summary || !title || (!image && !imageUrl) || !tag) {
 				reject("Please fill in all fields");
 				return;
 			}
@@ -129,17 +149,15 @@ const NewBlogPage = () => {
 										value={blogData.title || ""}
 										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
 									/>
-									<CKEditor
-										editor={ClassicEditor}
-										data={blogData.content || ""}
-										onChange={(event, editor) => {
-											const data = editor.getData();
-											handleChange("content", data);
-										}}
+									<ReactQuill
+										theme="snow"
+										className="ck-content"
+										placeholder="Enter detailed blog content here"
+										value={blogData.content || ""}
+										onChange={(value) => handleChange("content", value)}
 										onFocus={() => statusDispatchFunc({ type: "clearStatus" })}
-										config={{
-											placeholder: "Enter detailed blog content here",
-										}}
+										modules={editorModules}
+										formats={editorFormats}
 									/>
 
 									<Box sx={styles.blog__summary__container}>

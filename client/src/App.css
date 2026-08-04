@@ -15,27 +15,34 @@
 	color: #e1b168 !important;
 }
 
-.ck-content > p {
+/* The rendered blog (BlogPreview) puts content directly under .ck-content, while
+   react-quill nests it under .ql-editor — both need the same typography. */
+.ck-content > p,
+.ql-editor > p {
 	font-size: 16px;
 	font-weight: 400;
 }
-.ck-content > h2 {
+.ck-content > h2,
+.ql-editor > h2 {
 	font-size: 38px;
 	font-family: "Cormorant Infant", serif !important;
 	font-weight: bold;
 }
-.ck-content > h3 {
+.ck-content > h3,
+.ql-editor > h3 {
 	font-size: 28px;
 	font-family: "Cormorant Infant", serif !important;
 	font-weight: bold;
 }
-.ck-content > h4 {
+.ck-content > h4,
+.ql-editor > h4 {
 	font-size: 24px;
 	font-family: "Cormorant Infant", serif !important;
 	font-weight: bold;
 }
 
-.ck-content {
+.ck-content,
+.ql-editor {
 	min-height: 400px;
 }
 
